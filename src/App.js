@@ -8,6 +8,10 @@ import { useState } from "react";
 import { Formik } from "formik";
 import MasterSelect from "./main/common/base-component/master-select";
 import * as Yup from "yup";
+import akijCement from "./assets/image/authentication/akijCement.png";
+import afbl from "./assets/image/authentication/afbl.png";
+import akijShipingLine from "./assets/image/authentication/akijShipingLine.png";
+import akijPolyFibre from "./assets/image/authentication/akijPolyFibre.png";
 
 function App() {
   // http.de('https://jsonplaceholder.typicode.com/todos/1')
@@ -43,9 +47,14 @@ function App() {
       label: Yup.string().required("Country is required"),
     }),
   });
-
+  const authenticationPageImage = [
+    { id: 1, image: akijCement },
+    { id: 2, image: afbl },
+    { id: 3, image: akijShipingLine },
+    { id: 4, image: akijPolyFibre },
+  ];
   return (
-    <div>
+    <>
       <Formik
         enableReinitialize={true}
         initialValues={initialValues}
@@ -119,7 +128,21 @@ function App() {
           </>
         )}
       </Formik>
-    </div>
+      {/* <div className="row">
+        {authenticationPageImage?.map((item, index) => (
+          <div
+            style={{
+              background: "red",
+              margin: "10px 6px",
+              borderRadius: "10px",
+            }}
+          >
+            <img className="img-responsive" src={item?.image} alt="" />
+          </div>
+        ))}
+      </div> */}
+      <h3>THis is home page</h3>
+    </>
   );
 }
 
