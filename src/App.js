@@ -1,23 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import http from './main/services/http/http-client'
+import ls from './main/services/local-storage'
+// import {TOKEN,TOKEN1} from './main/constant/local-storage.contant'
+import MasterInput from './main/common/base-component/master-input'
+import { useState } from 'react';
 
 function App() {
+  // http.de('https://jsonplaceholder.typicode.com/todos/1')
+  // .then(res=>{
+  //   console.log(res)
+  // })
+  // ls.setData(TOKEN,'aziz')
+  const [name,setName] = useState("")
+  function onChange (e) {
+    setName(e.target.value)
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <MasterInput
+        label="First Name"
+        name="firstName"
+        placeHolder="Enter your name"
+        type="text"
+        value={name}
+        onChange = {onChange}
+      />
     </div>
   );
 }
