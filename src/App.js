@@ -1,17 +1,16 @@
-import logo from "./logo.svg";
 import "./App.css";
-import http from "./main/services/http/http-client";
-import ls from "./main/services/local-storage";
+// import http from "./main/services/http/http-client";
+// import ls from "./main/services/local-storage";
 // import {TOKEN,TOKEN1} from './main/constant/local-storage.contant'
-import MasterInput from "./main/common/base-component/master-input";
+import LoginInput from "./main/common/base-component/login-input";
 import { useState } from "react";
-import { Formik } from "formik";
-import MasterSelect from "./main/common/base-component/master-select";
 import * as Yup from "yup";
 import akijCement from "./assets/image/authentication/akijCement.png";
 import afbl from "./assets/image/authentication/afbl.png";
 import akijShipingLine from "./assets/image/authentication/akijShipingLine.png";
 import akijPolyFibre from "./assets/image/authentication/akijPolyFibre.png";
+import { useFormik } from "formik";
+import MasterErrorText from "./main/common/base-component/master-errortext";
 
 function App() {
   // http.de('https://jsonplaceholder.typicode.com/todos/1')
@@ -19,10 +18,10 @@ function App() {
   //   console.log(res)
   // })
   // ls.setData(TOKEN,'aziz')
-  const [name, setName] = useState("");
-  function onChange(e) {
-    setName(e.target.value);
-  }
+  // const [name, setName] = useState("");
+  // function onChange(e) {
+  //   setName(e.target.value);
+  // }
 
   //azizul code;
   const countryDDL = [
@@ -30,17 +29,20 @@ function App() {
     { value: 2, label: "India" },
     { value: 3, label: "China" },
   ];
-  //initial values;
+
+  //initialValues;
   const initialValues = {
     name: "",
     email: "",
     workSpace: "",
-    country: "",
+    country: { label: "", value: "" },
   };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Name is required"),
-    email: Yup.string().email().required("Email is required"),
+    email: Yup.string()
+      .email("Provide valid email")
+      .required("Email is required"),
     workSpace: Yup.string().required("Workspace is required"),
     country: Yup.object().shape({
       value: Yup.string().required("Country is required"),
@@ -53,86 +55,91 @@ function App() {
     { id: 3, image: akijShipingLine },
     { id: 4, image: akijPolyFibre },
   ];
+
+  ////////////////////////
+
+  //submit
+  function onSubmit(values) {
+    console.log(values);
+  }
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    validationSchema,
+  });
+
   return (
-    <>
-      <Formik
-        enableReinitialize={true}
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {}}
-      >
-        {({
-          handleSubmit,
-          resetForm,
-          values,
-          errors,
-          touched,
-          setFieldValue,
-          isValid,
-          dirty,
-        }) => (
-          <>
-            <form onSubmit={handleSubmit}>
-              {console.log(values)}
-              <div className="form-card">
-                <div className="form-card-content">
-                  <div className="row">
-                    <div className="col-lg-3">
-                      <MasterInput
-                        label="Name"
-                        name="name"
-                        type="text"
-                        value={name}
-                        onChange={onChange}
-                        // onChange={(value) => {
-                        //   setFieldValue("name", value);
-                        // }}
-                      />
-                      <MasterInput
-                        label="Email"
-                        name="email"
-                        type="email"
-                        value={values?.email}
-                        // onChange={onChange}
-                        onChange={(value) => {
-                          setFieldValue("email", value);
-                        }}
-                      />
-                      <MasterInput
-                        label="Workspace"
-                        name="workSpace"
-                        type="text"
-                        value={values?.workSpace}
-                        // onChange={onChange}
-                        onChange={(value) => {
-                          setFieldValue("workSpace", value);
-                        }}
-                      />
-                      <MasterSelect
-                        label="Country"
-                        name="country"
-                        options={countryDDL || []}
-                        id="country"
-                        // type="text"
-                        value={values?.country}
-                        // onChange={onChange}
-                        onChange={(value) => {
-                          setFieldValue("country", value);
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
+    <div
+    // style={{ overflow: "hidden", background: "black" }}
+    >
+      <div>
+        <h1 className="text-center">Create Account</h1>
+        <div className="container">
+          <form onSubmit={formik.handleSubmit}>
+            <div className="row">
+              <div className="col-12">
+                <LoginInput
+                  name="name"
+                  label="Name"
+                  type="text"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.name}
+                  // disabled={true}
+                />
+                {formik.errors.name && formik.touched.name ? (
+                  <MasterErrorText message={formik.errors.name} />
+                ) : null}
               </div>
-            </form>
-          </>
-        )}
-      </Formik>
-      {/* <div className="row">
+              <div className="col-12">
+                <LoginInput
+                  name="email"
+                  label="Email"
+                  type="email"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  value={formik.values.email}
+                  disabled={false}
+                />
+                {formik.errors.email && formik.touched.email ? (
+                  <MasterErrorText message={formik.errors.email} />
+                ) : null}
+              </div>
+              <div className="col-12">
+                <LoginInput
+                  name="workSpace"
+                  label="workSpace"
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  // value={formik.values.workSpace}
+                  // disabled={true}
+                />
+                {formik.errors.workSpace && formik.touched.workSpace ? (
+                  <MasterErrorText message={formik.errors.workSpace} />
+                ) : null}
+              </div>
+            </div>
+            <div>
+              <button
+                className="btn btn-primary mt-3"
+                type="submit"
+                // disabled={!formik.isValid || !formik.dirty}
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div className="row p-4">
+        {/* <div className="col-md-6"> */}
         {authenticationPageImage?.map((item, index) => (
           <div
+            key={index}
             style={{
-              background: "red",
+              background: "#FFFFFF",
               margin: "10px 6px",
               borderRadius: "10px",
             }}
@@ -140,9 +147,9 @@ function App() {
             <img className="img-responsive" src={item?.image} alt="" />
           </div>
         ))}
-      </div> */}
-      <h3>THis is home page</h3>
-    </>
+        {/* </div> */}
+      </div>
+    </div>
   );
 }
 
