@@ -17,7 +17,13 @@ function LoginInput(props) {
           disabled={props.disabled}
           readOnly={props.readOnly}
         />
-        <i className={props.icon}></i>
+        {/* <i className={props.icon}></i> */}
+        <img
+          src={props.icon}
+          alt=""
+          className="img-responsive"
+          style={{ width: "22px" }}
+        />
       </div>
     </div>
   );

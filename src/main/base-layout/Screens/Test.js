@@ -13,8 +13,9 @@ import userIcon from "../../../assets/image/icons/userIcon.png";
 import messageIcon from "../../../assets/image/icons/messageIcon.png";
 import workSpaceIcon from "../../../assets/image/icons/workSpaceIcon.png";
 import locationIcon from "../../../assets/image/icons/locationIcon.png";
+import logo from "../../../assets/image/erp-logo.png";
 
-function SignUp() {
+function Test() {
   const countryDDL = [
     { value: 1, label: "Bangladesh" },
     { value: 2, label: "India" },
@@ -56,13 +57,16 @@ function SignUp() {
   });
 
   return (
-    <div className="sign_up_page">
-      <section className="sign_up_from">
-        <h3 style={{ color: "#222B45" }} className="text-center pt-5 ">
+    <div className="sign-up-page d-flex flex-wrap">
+      <section className="logo">
+        <img src={logo} alt="" />
+      </section>
+      <section className="sign-up-form align-self-center">
+        <h3 style={{ color: "#222B45" }} className="text-center">
           Create Account
         </h3>
         <div className="horizontarRow"></div>
-        <div className="container pb-5">
+        <div className="container">
           <form onSubmit={formik.handleSubmit}>
             <div className="row">
               <div className="col-12">
@@ -127,14 +131,19 @@ function SignUp() {
               </div>
             </div>
             <div
-              style={{ textAlign: "center", marginTop: "30px", width: "auto" }}
+              style={{
+                textAlign: "center",
+                marginTop: "30px",
+                marginBottom: "30px",
+                width: "auto",
+              }}
             >
-              <button className="btn sign_up_button mt-4" type="submit">
+              <button className="btn sign_up_button" type="submit">
                 Sign Up
               </button>
             </div>
           </form>
-          <div className="text-center mt-2">
+          <div className="text-center">
             <a style={{ color: "#46455F" }} href="#">
               Already have an account?Sign In
             </a>
@@ -142,22 +151,24 @@ function SignUp() {
         </div>
       </section>
 
-      <div className="brandImg d-flex p-4">
-        {brandImage?.map((item, index) => (
-          <div
-            key={index}
-            style={{
-              background: "#FFFFFF",
-              margin: "0 6px",
-              borderRadius: "10px",
-            }}
-          >
-            <img className="img-responsive" src={item?.image} alt="" />
-          </div>
-        ))}
+      <div className="align-self-end">
+        <div className="brandImg d-flex">
+          {brandImage?.map((item, index) => (
+            <div
+              key={index}
+              style={{
+                background: "#FFFFFF",
+                margin: "0 6px",
+                borderRadius: "10px",
+              }}
+            >
+              <img className="img-responsive" src={item?.image} alt="" />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-export default SignUp;
+export default Test;
