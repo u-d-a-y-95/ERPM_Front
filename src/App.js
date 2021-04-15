@@ -21,13 +21,26 @@ function App() {
     <div>
       <SignUp />
     </div>
+    // <div class="row">
+    //   <div className="col-md-3 mx-5">
+    //    <LoginInput 
+    //       name="email"
+    //       label="Email"
+    //       type="text"
+    //       value=""
+    //       onChange=""
+    //       placeHolder=""
+    //       icon="fa fa-envelope"
+    //    />
+    //   </div>
+    // </div>
   );
   // const [name, setName] = useState("")
 
   // function onChange(e) {
   //   setName(e.target.value);
   // }
-  return null;
+  // return null;
 }
 
 export default App;
