@@ -8,11 +8,11 @@ function MasterSelect(props) {
       <MasterLabel {...props} />
       <Select
         {...props}
-        onChange={props.onChange}
-        options={props.data || []}
-        value={props.value}
-        id={props.name}
         name={props.name}
+        options={props.data || []}
+        id={props.name}
+        value={props.value}
+        onChange={props.onChange}
         isDisabled={props.disabled}
       />
 
