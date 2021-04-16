@@ -2,7 +2,7 @@ import React from "react";
 
 function LoginInput(props) {
   return (
-    <div className="login-form-field px-2">
+    <div className="login-form-field px-2 pb-1">
       <label>{props.label}</label>
       <div className="d-flex align-items-center">
         <input
@@ -18,6 +18,12 @@ function LoginInput(props) {
           readOnly={props.readOnly}
         />
         <i className={props.icon}></i>
+        {/* <img
+          src={props.icon}
+          alt=""
+          className="img-responsive"
+          style={{ width: "22px" }}
+        /> */}
       </div>
     </div>
   );
