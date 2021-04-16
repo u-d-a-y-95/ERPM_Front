@@ -1,0 +1,43 @@
+.header {
+    background-color: #FFFFFF;
+    display: flex;
+    color: #222b45;
+    box-shadow: 0 0.5rem 1rem 0 rgb(44 51 73 / 10%);
+    height: 3.7rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    border-bottom: 2px solid #3498db;
+    border-top-left-radius: 40px;
+}
+.hamburger{
+  cursor: pointer;
+}
+.header-left-app{
+  font-size: 1.2rem;
+}
+
+.avater img{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid grey;
+}
+
+.header-right {
+  cursor: pointer;
+
+}
+.header-right-overley {
+  box-sizing: border-box;
+  background-color:white;
+  height: auto;
+  width: 100%;
+  margin-top: 5px;
+  border-radius: 5px;
+  border:1px solid grey;
+  display: none;
+  /* position: absolute; */
+}
+

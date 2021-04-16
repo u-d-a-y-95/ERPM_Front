@@ -1,13 +1,9 @@
 import React from 'react'
-import {Switch,Route} from 'react-router-dom'
-import ConfigurationModule from '../module/configuration/configuration.module'
 
+import '../../assets/css/holder.css'
 function Holder (){
     return (
-        <div className="holder">
-             <Switch>
-              <Route  path="/configuration" component={ConfigurationModule} />
-            </Switch>
+        <div className="holder h-100">
         </div>
     )
 }
