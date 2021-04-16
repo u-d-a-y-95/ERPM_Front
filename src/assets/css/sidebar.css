@@ -1,0 +1,56 @@
+.sidebar {
+    background-color: #121E43;
+    color:white;
+    height:100vh;
+    padding: 15px;
+    transition: width .1s ease-out ;
+    /* position:fixed */
+}
+
+.company-logo {
+
+}
+
+.branchSelect {
+    width: 100%;
+}
+
+
+.menu{
+    /* background-color: #121E43;
+    color:white;
+    width: 250px;
+    height:100vh; */
+}
+
+.menu-li{
+    /* margin: 0 7px; */
+    border-radius: 10px;
+    
+    
+}
+.menu-li-link{
+    padding: 7px 15px;
+    width: 100%;
+    cursor: pointer;
+    overflow:hidden;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    
+}
+.menu-li:hover{
+    background: #33AEE3;
+
+
+}
+
+.menu-sub {
+    background: #CBEBF9;
+    border-radius: 10px;
+    display: none;
+}
+.menu-sub-li {
+    padding: 0 15px;
+    color: black;
+}

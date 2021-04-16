@@ -1,15 +1,22 @@
-import React from 'react'
+import React , { useState } from 'react'
 import Header from './header'
 import Sidebar from './sidebar'
 import Holder from './holder'
 
 function MainLayout() {
+    const [isExpandSidebar,setExpendSidebarState] = useState(true)
+    function hamburgerBtnPressed () {
+        setExpendSidebarState(prevState=>!prevState)
+    }
     return (
         <>
-            <Header />
-            <div className="d-flex main-holder">
-                <Sidebar/>
-                <Holder />
+            <div className="d-flex">
+                <Sidebar isExpandSidebar={isExpandSidebar}/>
+                <div className="main-container">
+                    <Header hamburgerBtnPressed={hamburgerBtnPressed} />
+                    <Holder />
+                </div>
+
             </div>
         </>
     )
