@@ -2,18 +2,26 @@ import React from 'react'
 import Link from './link'
 
 function NavLink({ className, items }) {
-
-    return (
-        <ul className={className || ''}> {items.map(item => {
-            return (
-                <li>
-                    <Link className={item?.children?.length > 0 ? "fa fa-caret-down right" : ""} {...item} />
-                    {item?.children?.length > 0 && <NavLink className="sub-menu" items={item.children} />}
-                </li>
-            )
-        })
+    function onClickHandler(e) {
+        if (e.target.nextElementSibling) {
+          e.target.nextElementSibling.style.display = e.target.nextElementSibling.style.display ? "" : "block"
         }
-        </ul>
+      }
+    return (
+        <div className="menu-sub">
+            {
+                items.map((item, index) => {
+                    return (<div className="menu-sub-li">
+                        <span className="menu-li-link" onClick={onClickHandler}>
+                            <i className={`${item.icon} mr-2`}></i>
+                            {item.label}</span>
+                        {
+                            item.children && <NavLink items={item.children} />
+                        }
+                    </div>)
+                })
+            }
+        </div>
     );
 }
 

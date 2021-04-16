@@ -1,14 +1,11 @@
 import React from "react";
 
 function MasterButton(props) {
-    function onClickHandler(e) {
-        props.click(e);
-    }
     return (
         <button 
-            onClick={onClickHandler} 
+            onClick={props.onClick} 
             className={props.className} 
-            style={{ cursor: 'pointer' }} 
+            style={props.style} 
             disabled={props.disable}
             type={props.type}
             >
