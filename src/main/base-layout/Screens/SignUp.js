@@ -5,14 +5,14 @@ import MasterSelect from "../../common/base-component/master-select";
 import MasterErrorText from "../../common/base-component/master-errortext";
 import LoginInput from "../../common/base-component/login-input";
 import logo from "../../../assets/image/erp-logo.png";
-import "../../../assets/css/sign-up-page.css"
+import "../../../assets/css/sign-up-page.css";
+import MasterInput from "../../common/base-component/master-input";
 function SignUp() {
   const countryDDL = [
     { value: 1, label: "Bangladesh" },
     { value: 2, label: "India" },
     { value: 3, label: "China" },
   ];
- 
 
   //initialValues;
   const initialValues = {
@@ -45,25 +45,25 @@ function SignUp() {
 
   return (
     <>
-      <div className="iboslogo">
-        <img src={logo} alt="" />
+      <div className='iboslogo'>
+        <img src={logo} alt='' />
       </div>
-      <div className="sign-up-page d-flex flex-wrap">
-        <section className="w-100 align-self-center">
-          <div className="sign-up-form">
-            <h3 style={{ color: "#222B45" }} className="text-center">
+      <div className='sign-up-page d-flex flex-wrap'>
+        <section className='w-100 align-self-center'>
+          <div className='sign-up-form'>
+            <h3 style={{ color: "#222B45" }} className='text-center'>
               Create Account
-          </h3>
-            <div className="horizontarRow"></div>
-            <div className="container">
+            </h3>
+            <div className='horizontarRow'></div>
+            <div className='container'>
               <form onSubmit={formik.handleSubmit}>
-                <div className="row">
-                  <div className="col-12">
+                <div className='row'>
+                  <div className='col-12'>
                     <LoginInput
-                      name="name"
-                      label="Name"
-                      type="text"
-                      icon="fa fa-user"
+                      name='name'
+                      label='Name'
+                      type='text'
+                      icon='fa fa-user'
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik?.values?.name}
@@ -72,12 +72,12 @@ function SignUp() {
                       <MasterErrorText message={formik.errors.name} />
                     ) : null}
                   </div>
-                  <div className="col-12">
+                  <div className='col-12'>
                     <LoginInput
-                      name="email"
-                      label="Email"
-                      type="email"
-                      icon="fa fa-envelope"
+                      name='email'
+                      label='Email'
+                      type='email'
+                      icon='fa fa-envelope'
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik?.values?.email}
@@ -87,11 +87,11 @@ function SignUp() {
                       <MasterErrorText message={formik.errors.email} />
                     ) : null}
                   </div>
-                  <div className="col-12">
+                  <div className='col-12'>
                     <LoginInput
-                      name="workSpace"
-                      label="Workspace"
-                      icon="fa fa-medkit"
+                      name='workSpace'
+                      label='Workspace'
+                      icon='fa fa-medkit'
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       value={formik?.values?.workSpace}
@@ -100,10 +100,10 @@ function SignUp() {
                       <MasterErrorText message={formik.errors.workSpace} />
                     ) : null}
                   </div>
-                  <div className="col-12 mt-3">
+                  <div className='col-12 mt-3'>
                     <MasterSelect
-                      label="Country"
-                      name="country"
+                      label='Country'
+                      name='country'
                       data={countryDDL}
                       // icon="fa fa-map-marker-alt"
                       value={formik.values.country}
@@ -113,8 +113,10 @@ function SignUp() {
                       onBlur={formik.handleBlur}
                     />
                     {formik?.errors?.country?.label &&
-                      formik?.touched?.country?.label ? (
-                      <MasterErrorText message={formik?.errors?.country?.label} />
+                    formik?.touched?.country?.label ? (
+                      <MasterErrorText
+                        message={formik?.errors?.country?.label}
+                      />
                     ) : null}
                   </div>
                 </div>
@@ -126,22 +128,25 @@ function SignUp() {
                     width: "auto",
                   }}
                 >
-                  <button className="btn sign_up_button" type="submit">
+                  <button className='btn sign_up_button' type='submit'>
                     Sign Up
-                </button>
+                  </button>
                 </div>
               </form>
-              <div className="text-center">
-                <a className="navigate-link" style={{ color: "#46455F" }} href="#">
+              <div className='text-center'>
+                <a
+                  className='navigate-link'
+                  style={{ color: "#46455F" }}
+                  href='#'
+                >
                   Already have an account?Sign In
-              </a>
+                </a>
               </div>
             </div>
           </div>
         </section>
       </div>
     </>
-
   );
 }
 
