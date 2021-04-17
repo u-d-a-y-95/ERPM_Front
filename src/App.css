@@ -47,6 +47,7 @@ background-color: #121E43;;
   border-top-left-radius: 40px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 body{

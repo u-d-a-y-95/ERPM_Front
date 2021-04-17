@@ -1,43 +1,25 @@
-import React, { useState, useRef } from "react";
+import React, { useState,useEffect, useRef } from "react";
 import "../../../assets/css/simple-master-list.css"
 import MasterButton from "../base-component/master-button";
 
 
 function SimpleMasterList(props) {
+    
     const dataStore = props?.config?.data;
     const [actionModalStateList, setActionModalStateList] = useState(new Array(50))
     const searchKey = useRef(props.config.headers.filter(item => item['canSearch']).map(item => item['key']));
-    const [sortedKey, setSortedKey] = useState(props.config.headers.filter(item => item['canSort']).map(item => ({ key: item['key'], order: 'asc' })))
-    const [dataSet, SetDataSet] = useState(props.config.data)
+    const [dataSet, SetDataSet] = useState([])
     const [searchValue, setSearchValue] = useState('')
+
+    useEffect( ()=>{
+        SetDataSet(props.config.data)
+    },[props.config.data])
+
     function clicked(row, actionItem) {
         actionItem["event"](row, actionItem);
     }
     function columClicked(row, header) {
         props.config.columnEvent(row, header);
-    }
-    function sortCol(key) {
-        const sortedObj = sortedKey.find(item => item['key'] === key);
-        const data = JSON.parse(JSON.stringify(dataSet));
-        const sortedDataList = getSorted(data, sortedObj['order'], key);
-        sortedObj.order = sortedObj['order'] === 'asc' ? 'desc' : 'asc';
-        setSortedKey(sortedKey)
-        SetDataSet(sortedDataList)
-    }
-    function getSorted(data, order, key) {
-        if (typeof (data[0][key]) === 'number') {
-            data.sort((a, b) => {
-                return order === 'asc' ? b[key] - a[key] : a[key] - b[key];
-            })
-            return data;
-        }
-        data.sort((a, b) => {
-            if (order === 'asc') {
-                return b[key].toLowerCase() > a[key].toLowerCase() ? -1 : 1;
-            }
-            return b[key].toLowerCase() > a[key].toLowerCase() ? 1 : -1;
-        })
-        return data;
     }
 
     function onSearch() {
@@ -132,18 +114,12 @@ function SimpleMasterList(props) {
                     : null
             }
 
-            <div className="">
+            <div className="master-list">
                 <table className="table table-borderless simple-master-table">
                     <thead>
                         <tr key={'_index'} >
                             {props.config?.headers?.map((item, index) => {
-                                if (item['canSort']) {
-                                    return (
-                                        <th key={index} style={item['hColStyle'] || item['style']} className={item['hColClass'] || item['class']} onClick={sortCol.bind(this, item['key'])}>{item["label"]}{
-                                            <span className={'fa fa-arrow-up'}></span>
-                                        }</th>
-                                    )
-                                }
+
                                 return (
                                     <th key={index} style={item['hColStyle'] || item['style']} className={item['hColClass'] || item['class']}>{item["label"]}</th>
                                 )
