@@ -66,8 +66,7 @@
   .logIn-button {
     width: 11rem;
   }
-<<<<<<< HEAD
-  
+
   .horizontarRow {
     width: 8rem;
     height: 3px;
@@ -77,10 +76,10 @@
   }
   .iboslogo {
     position: fixed;
-    top:50px;
-    left:30px;
+    top: 50px;
+    left: 30px;
   }
-  
+
   /* Media queries */
   @media (max-width: 576px) {
     .sign-up-page {
@@ -100,6 +99,4 @@
       width: 11rem;
     }
   }
-=======
 }
->>>>>>> f53ff5a (login page)
