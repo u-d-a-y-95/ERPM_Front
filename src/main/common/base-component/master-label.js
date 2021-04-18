@@ -16,6 +16,9 @@ function MasterLabel(props) {
         }}
       >
         {props.label}
+        {
+          props.required && <span className="text-danger">*</span>
+        }
       </label>
     </>
   );

@@ -1,19 +1,19 @@
-import React, { useState,useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../../../assets/css/simple-master-list.css"
 import MasterButton from "../base-component/master-button";
 
 
 function SimpleMasterList(props) {
-    
+
     const dataStore = props?.config?.data;
     const [actionModalStateList, setActionModalStateList] = useState(new Array(50))
     const searchKey = useRef(props.config.headers.filter(item => item['canSearch']).map(item => item['key']));
     const [dataSet, SetDataSet] = useState([])
     const [searchValue, setSearchValue] = useState('')
 
-    useEffect( ()=>{
+    useEffect(() => {
         SetDataSet(props.config.data)
-    },[props.config.data])
+    }, [props.config.data])
 
     function clicked(row, actionItem) {
         actionItem["event"](row, actionItem);
@@ -56,7 +56,7 @@ function SimpleMasterList(props) {
         setSearchValue(e.target.value)
     }
     function searchEnterBtnPressed(e) {
-        if(e.key==='Enter'){
+        if (e.key === 'Enter') {
             onSearch();
         }
         // setSearchValue(e.target.value)
@@ -85,26 +85,26 @@ function SimpleMasterList(props) {
                     <div>
                         <div className="row d-flex justify-content-between mb-1">
                             <div className="col-md-4 col-lg-3 col-12 d-flex">
-                                <input 
-                                    className="form-control" 
-                                    placeholder={`অনুসন্ধান করুন`} 
-                                    value={searchValue} 
-                                    onChange={searchChangeHandler} 
+                                <input
+                                    className="form-control"
+                                    placeholder={`অনুসন্ধান করুন`}
+                                    value={searchValue}
+                                    onChange={searchChangeHandler}
                                     onKeyPress={searchEnterBtnPressed}
                                     style={{
-                                        borderTopRightRadius:"0",
-                                        borderBottomRightRadius:"0"
+                                        borderTopRightRadius: "0",
+                                        borderBottomRightRadius: "0"
                                     }}
-                                    />
+                                />
                                 <MasterButton
                                     type="button"
                                     icon="fa fa-search"
                                     className="btn text-white"
                                     style={{
-                                        backgroundColor:"#4965BB",
-                                        width:"80px",
-                                        borderTopLeftRadius:"0",
-                                        borderBottomLeftRadius:"0"
+                                        backgroundColor: "#4965BB",
+                                        width: "80px",
+                                        borderTopLeftRadius: "0",
+                                        borderBottomLeftRadius: "0"
                                     }}
                                     onClick={onSearch}
                                 />
@@ -155,7 +155,7 @@ function SimpleMasterList(props) {
                                                                 onClick={clicked.bind(this, listItem, item)}
                                                                 label={item["label"]}
                                                                 icon={item["icon"]}
-                                                                className={item["class"]}
+                                                                className={item["className"]}
                                                                 iconClass={item["iconClass"]}
                                                             />
                                                         ))}

@@ -1,0 +1,1 @@
+export const succesMessage = " Data is successfully added"
