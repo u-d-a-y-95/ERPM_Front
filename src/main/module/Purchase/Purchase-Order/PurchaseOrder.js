@@ -20,6 +20,9 @@ function PurchaseOrder() {
     }
     return (
         <>
+            <h1 className="">
+                Purchase Order
+            </h1>
             <PurchaseOrderForm
                 populateTable={populateTable}
                 upDate={upDate}

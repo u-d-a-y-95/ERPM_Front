@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
 import MasterInput from '../../../common/base-component/master-input'
-import MasterButton from '../../../common/base-component/master-button'
 import MasterErrorText from '../../../common/base-component/master-errortext'
+import FormikResetButton from '../../../common/composite-component/formik-reset-button'
+import FormikSaveButton from '../../../common/composite-component/formik-save-button'
 
 import { useFormik } from 'formik'
 import { formsInitialValues, formsValidationSchema, purchaseObject } from "./util"
@@ -25,7 +26,7 @@ function PurchaseOrderForm(props) {
     return (
         <>
             <div className="row">
-                <div className="col-md-3">
+                <div className="col-md-4 col-lg-3">
                     <MasterInput
                         label="Id"
                         name="id"
@@ -41,7 +42,7 @@ function PurchaseOrderForm(props) {
                         <MasterErrorText message={formik.errors.id} />
                     }
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-4 col-lg-3">
                     <MasterInput
                         label="Title"
                         name="title"
@@ -57,7 +58,7 @@ function PurchaseOrderForm(props) {
                         <MasterErrorText message={formik.errors.title} />
                     }
                 </div>
-                <div className="col-md-3">
+                <div className="col-md-4 col-lg-3">
                     <MasterInput
                         label="Description"
                         name="description"
@@ -68,19 +69,14 @@ function PurchaseOrderForm(props) {
                     />
                 </div>
                 <div className="col-md-12 mt-3 text-left">
-                    <MasterButton
-                        label="Create"
-                        className="btn btn-primary btn-sm"
-                        onClick={formik.submitForm}
-                        disabled={!formik.isValid || !formik.dirty}
+                    <FormikSaveButton
+                        className=""
+                        formik={formik}
                     />
-                    <MasterButton
-                        label="Reset"
-                        className="btn btn-warning btn-sm ml-2"
-                        onClick={() => {
-                            props.setUpData(null)
-                            formik.resetForm()
-                        }}
+                    <FormikResetButton
+                        className="ml-2"
+                        formik={formik}
+                        formikData={props.setUpData}
                     />
                 </div>
             </div>
