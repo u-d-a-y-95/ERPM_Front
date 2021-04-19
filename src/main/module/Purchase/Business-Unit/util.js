@@ -19,15 +19,15 @@ export const tableConfig = {
       label: "SL",
     },
     {
-      key: "strBusinessUnitName",
+      key: "businessUnitName",
       label: "Business Unit",
     },
     {
-      key: "strBusinessUnitCode",
+      key: "businessUnitCode",
       label: "Code",
     },
     {
-      key: "strBusinessUnitAddress",
+      key: "businessUnitAddress",
       label: "Address",
     },
   ],

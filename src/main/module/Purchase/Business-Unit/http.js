@@ -47,11 +47,11 @@ export const updateBusinessUnit = (values, formik, populateTable) => {
 //create payload change
 const createPayloadChange = (values) => {
   const payload = {
-    intAccountId: +1,
-    strBusinessUnitCode: values?.businessUnitCode || "",
-    strBusinessUnitName: values?.businessUnitName || "",
-    strBusinessUnitAddress: values?.businessUnitAddress || "",
-    intActionBy: +1234,
+    accountId: +1,
+    businessUnitCode: values?.businessUnitCode || "",
+    businessUnitName: values?.businessUnitName || "",
+    businessUnitAddress: values?.businessUnitAddress || "",
+    actionBy: +1234,
   };
   return payload;
 };
@@ -59,10 +59,10 @@ const createPayloadChange = (values) => {
 //update payload change
 const updatePayloadChange = (values) => {
   const payload = {
-    intBusinessUnitId: +values?.intBusinessUnitId || 0,
-    strBusinessUnitCode: values?.businessUnitCode || "",
-    strBusinessUnitName: values?.businessUnitName || "",
-    strBusinessUnitAddress: values?.businessUnitAddress || "",
+    businessUnitId: +values?.businessUnitId || 0,
+    businessUnitCode: values?.businessUnitCode || "",
+    businessUnitName: values?.businessUnitName || "",
+    businessUnitAddress: values?.businessUnitAddress || "",
   };
   return payload;
 };
