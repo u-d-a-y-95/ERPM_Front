@@ -8,15 +8,16 @@ import { useFormik } from "formik";
 import {
   formsInitialValues,
   formsValidationSchema,
-  // purchaseObject,
+  purchaseObject,
 } from "./util";
 
-import { createItemCategory, getItemTypeDropdownListAction } from "./http";
+import { createItemCategory } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
 function ItemCategoryForm(props) {
     const [businessUnitDDL, setBusinessUnitDDL] = useState([]);
     const [itemTypeDropdownList, setItemTypeDropdownList] = useState([]);
+    const [itemTypeDDL, setitemTypeDDL] = useState([]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -40,6 +41,11 @@ function ItemCategoryForm(props) {
     
   }, []);
 
+      const obj = purchaseObject(values);
+      createItemCategory(obj, formik, props.populateTable);
+    },
+  });
+
   return (
     <>
       <div className="row">
@@ -50,6 +56,7 @@ function ItemCategoryForm(props) {
             name="businessUnit"
             // data={businessUnitDDL}
             data={testDDL}
+            data={businessUnitDDL}
             value={formik.values.businessUnit}
             onChange={(value) => {
               formik.setFieldValue("businessUnit", value);
@@ -78,6 +85,7 @@ function ItemCategoryForm(props) {
             name="itemType"
             // data={itemTypeDDL}
             data={itemTypeDropdownList}
+            data={itemTypeDDL}
             value={formik.values.itemType}
             onChange={(value) => {
               formik.setFieldValue("itemType", value);
@@ -87,6 +95,7 @@ function ItemCategoryForm(props) {
         </div>
         <div className="col-md-12 mt-3 text-left">
           <FormikSaveButton formik={formik} />
+          <FormikSaveButton className="" formik={formik} />
           <FormikResetButton
             className="ml-2"
             formik={formik}
