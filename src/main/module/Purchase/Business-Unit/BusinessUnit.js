@@ -10,6 +10,7 @@ const BusinessUnit = () => {
   const [upDate, setUpData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
+  const [isDisabled, setIsDisabled] = useState(false);
   useEffect(() => {
     populateTable();
   }, []);
@@ -17,11 +18,15 @@ const BusinessUnit = () => {
     getList(accId, pageNo, pageSize, setTableData);
   };
 
-  const deleteFromTable = (id) => {
-    businessUnitDeleteData(id, populateTable);
-  };
+  // const deleteFromTable = (id) => {
+  //   businessUnitDeleteData(id, populateTable);
+  // };
   const updateToTable = (row) => {
     setUpData(row);
+  };
+  const viewData = (row) => {
+    setUpData(row);
+    setIsDisabled(true);
   };
   return (
     <>
@@ -30,11 +35,13 @@ const BusinessUnit = () => {
         populateTable={populateTable}
         upDate={upDate}
         setUpData={setUpData}
+        isDisabled={isDisabled}
       />
       <BusinessUnitTable
         data={tableData}
-        deleteFromTable={deleteFromTable}
+        // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
+        viewData={viewData}
       />
     </>
   );

@@ -13,7 +13,7 @@ const BusinessUnitForm = (props) => {
     initialValues: props.upDate || initialValues,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      if (props.upDate) {
+      if (props.upDate?.intBusinessUnitId) {
         updateBusinessUnit(values, formik, props.populateTable);
       }
       createBusinessUnit(values, formik, props.populateTable);
@@ -33,6 +33,7 @@ const BusinessUnitForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
+            disabled={props.isDisabled}
           />
           {formik.errors?.businessUnitName &&
             formik.touched?.businessUnitName && (
@@ -49,6 +50,7 @@ const BusinessUnitForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
+            disabled={props.isDisabled}
           />
           {formik.errors?.businessUnitCode &&
             formik.touched?.businessUnitCode && (
@@ -65,6 +67,7 @@ const BusinessUnitForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
+            disabled={props.isDisabled}
           />
           {formik.errors?.businessUnitAddress &&
             formik.touched?.businessUnitAddress && (

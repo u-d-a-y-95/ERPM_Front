@@ -10,7 +10,7 @@ const BusinessUnitTable = (props) => {
       icon: "fa fa-trash",
       className: "btn btn-sm btn-warning text-white",
       event: (row) => {
-        props.deleteFromTable(row.id);
+        // props.deleteFromTable(row.id);
       },
     },
     {
@@ -18,6 +18,13 @@ const BusinessUnitTable = (props) => {
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
         props.updateToTable(row);
+      },
+    },
+    {
+      icon: "fa fa-eye",
+      className: "btn btn-sm btn-primary text-white",
+      event: (row) => {
+        props.viewData(row);
       },
     },
   ];
