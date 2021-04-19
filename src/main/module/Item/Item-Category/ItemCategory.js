@@ -40,10 +40,10 @@ function ItemCategory() {
         businessUnitId={businessUnitId}
       />
       <h3 className="text-center my-2">Item Category</h3>
-      {/* <ItemCategoryTable
+       <ItemCategoryTable
         data={tableData}
         updateToTable={updateToTable}
-        viewData={viewData}
+        viewData={viewData} 
       />
     </>
   );
