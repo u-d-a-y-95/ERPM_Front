@@ -4,7 +4,7 @@ import httpClient from "../../../services/http/http-client";
 export const createBusinessUnit = (values, formik, populateTable) => {
   const obj = createPayloadChange(values);
   httpClient
-    .postData("https://localhost:44339/domain/BusinessUnit/Create", obj)
+    .postData("https://demoerpm.ibos.io/domain/BusinessUnit/Create", obj)
     .then((res) => {
       formik.resetForm();
       populateTable();
@@ -15,7 +15,7 @@ export const createBusinessUnit = (values, formik, populateTable) => {
 export const getList = (accId, pageNo, pageSize, setData) => {
   httpClient
     .getData(
-      `https://localhost:44339/domain/BusinessUnit/GetLandingPasignation?searchTerm=dem&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
+      `https://demoerpm.ibos.io/domain/BusinessUnit/GetLandingPasignation?searchTerm=dem&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
       setData(res?.data);
@@ -26,7 +26,7 @@ export const getList = (accId, pageNo, pageSize, setData) => {
 export const businessUnitDeleteData = (id, populateTable) => {
   httpClient
     .deleteData(
-      `https://localhost:44339/domain/BusinessUnit/GetById?businessUnitId=${id}`
+      `https://demoerpm.ibos.io/domain/BusinessUnit/GetById?businessUnitId=${id}`
     )
     .then((res) => {
       populateTable();
@@ -37,7 +37,7 @@ export const businessUnitDeleteData = (id, populateTable) => {
 export const updateBusinessUnit = (values, formik, populateTable) => {
   const obj = updatePayloadChange(values);
   httpClient
-    .putData("https://localhost:44339/domain/BusinessUnit/Update", obj)
+    .putData("https://demoerpm.ibos.io/domain/BusinessUnit/Update", obj)
     .then((res) => {
       formik.resetForm();
       populateTable();
@@ -47,7 +47,7 @@ export const updateBusinessUnit = (values, formik, populateTable) => {
 //create payload change
 const createPayloadChange = (values) => {
   const payload = {
-    intAccountId: 1,
+    intAccountId: +1,
     strBusinessUnitCode: values?.businessUnitCode || "",
     strBusinessUnitName: values?.businessUnitName || "",
     strBusinessUnitAddress: values?.businessUnitAddress || "",

@@ -17,9 +17,9 @@ const BusinessUnit = () => {
     getList(accId, pageNo, pageSize, setTableData);
   };
 
-  const deleteFromTable = (id) => {
-    businessUnitDeleteData(id, populateTable);
-  };
+  // const deleteFromTable = (id) => {
+  //   businessUnitDeleteData(id, populateTable);
+  // };
   const updateToTable = (row) => {
     setUpData(row);
   };
@@ -33,7 +33,7 @@ const BusinessUnit = () => {
       />
       <BusinessUnitTable
         data={tableData}
-        deleteFromTable={deleteFromTable}
+        // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
       />
     </>
