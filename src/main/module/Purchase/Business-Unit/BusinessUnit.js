@@ -1,38 +1,43 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import PurchaseOrderForm from "./Form";
-import PurchaseOrderTable from "./Table";
-import { getList, purchaseOrderDeleteData } from "./http";
-function PurchaseOrder() {
+import BusinessUnitForm from "./From";
+import BusinessUnitTable from "./Table";
+import { businessUnitDeleteData, getList } from "./http";
+
+const BusinessUnit = () => {
+  const accId = 1;
   const [tableData, setTableData] = useState([]);
   const [upDate, setUpData] = useState({});
+  const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(50);
   useEffect(() => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(setTableData);
+    getList(accId, pageNo, pageSize, setTableData);
   };
+
   const deleteFromTable = (id) => {
-    purchaseOrderDeleteData(id, populateTable);
+    businessUnitDeleteData(id, populateTable);
   };
   const updateToTable = (row) => {
-    row["description"] = row["body"];
     setUpData(row);
   };
   return (
     <>
-      <h1 className=''>Purchase Order</h1>
-      <PurchaseOrderForm
+      <h1 className=''>Business Unit</h1>
+      <BusinessUnitForm
         populateTable={populateTable}
         upDate={upDate}
         setUpData={setUpData}
       />
-      <PurchaseOrderTable
+      <BusinessUnitTable
         data={tableData}
         deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
       />
     </>
   );
-}
+};
 
-export default PurchaseOrder;
+export default BusinessUnit;
