@@ -10,6 +10,7 @@ const BusinessUnit = () => {
   const [upDate, setUpData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
+  const [isDisabled, setIsDisabled] = useState(false);
   useEffect(() => {
     populateTable();
   }, []);
@@ -23,6 +24,10 @@ const BusinessUnit = () => {
   const updateToTable = (row) => {
     setUpData(row);
   };
+  const viewData = (row) => {
+    setUpData(row);
+    setIsDisabled(true);
+  };
   return (
     <>
       <h1 className=''>Business Unit</h1>
@@ -30,11 +35,13 @@ const BusinessUnit = () => {
         populateTable={populateTable}
         upDate={upDate}
         setUpData={setUpData}
+        isDisabled={isDisabled}
       />
       <BusinessUnitTable
         data={tableData}
         // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
+        viewData={viewData}
       />
     </>
   );

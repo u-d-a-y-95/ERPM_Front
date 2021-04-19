@@ -23,15 +23,15 @@ export const getList = (accId, pageNo, pageSize, setData) => {
 };
 
 //get by id for delete api call
-export const businessUnitDeleteData = (id, populateTable) => {
-  httpClient
-    .deleteData(
-      `https://demoerpm.ibos.io/domain/BusinessUnit/GetById?businessUnitId=${id}`
-    )
-    .then((res) => {
-      populateTable();
-    });
-};
+// export const businessUnitDeleteData = (id, populateTable) => {
+//   httpClient
+//     .deleteData(
+//       `https://demoerpm.ibos.io/domain/BusinessUnit/GetById?businessUnitId=${id}`
+//     )
+//     .then((res) => {
+//       populateTable();
+//     });
+// };
 
 //update business unit
 export const updateBusinessUnit = (values, formik, populateTable) => {
@@ -59,7 +59,7 @@ const createPayloadChange = (values) => {
 //update payload change
 const updatePayloadChange = (values) => {
   const payload = {
-    intBusinessUnitId: +1,
+    intBusinessUnitId: +values?.intBusinessUnitId || 0,
     strBusinessUnitCode: values?.businessUnitCode || "",
     strBusinessUnitName: values?.businessUnitName || "",
     strBusinessUnitAddress: values?.businessUnitAddress || "",
