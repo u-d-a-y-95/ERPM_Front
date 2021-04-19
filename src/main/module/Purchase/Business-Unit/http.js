@@ -59,7 +59,6 @@ const createPayloadChange = (values) => {
 //update payload change
 const updatePayloadChange = (values) => {
   const payload = {
-    businessUnitId: +values?.businessUnitId || 0,
     businessUnitCode: values?.businessUnitCode || "",
     businessUnitName: values?.businessUnitName || "",
     businessUnitAddress: values?.businessUnitAddress || "",
