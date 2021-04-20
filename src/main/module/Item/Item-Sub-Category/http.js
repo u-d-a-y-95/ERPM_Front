@@ -1,7 +1,7 @@
 import httpClient from "../../../services/http/http-client"
 
-export const createItemSubCategory = (payload, formik, populateTable) => {
-    const obj = createPayloadChange(payload);
+export const createItemSubCategory = (values, formik, populateTable) => {
+    const obj = createPayloadChange(values);
     httpClient.postData('https://jsonplaceholder.typicode.com/user', obj)
         .then(res => {
 
@@ -18,6 +18,15 @@ export const getList = (setData) => {
 
 }
 
-const createPayloadChange = (payload) => {
-    return payload
-}
+//create payload change
+const createPayloadChange = (values) => {
+    const payload = {
+      accountId: 1,
+      businessUnit: values.businessUnit || "",
+      itemCategoryId: values.category || 0,
+      subCategoryId: values.subCategory || 0,
+      itemTypeId: values.itemType || 0,
+      actionBy: 1234,
+    };
+    return payload;
+  };

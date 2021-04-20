@@ -20,6 +20,13 @@ const BusinessUnitTable = (props) => {
         props.updateToTable(row);
       },
     },
+    {
+      icon: "fa fa-eye",
+      className: "btn btn-sm btn-primary text-white",
+      event: (row) => {
+        props.viewData(row);
+      },
+    },
   ];
   return (
     <>

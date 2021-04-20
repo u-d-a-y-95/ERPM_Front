@@ -8,7 +8,6 @@ import { useFormik } from "formik";
 import {
   formsInitialValues,
   formsValidationSchema,
-  purchaseObject,
 } from "./util";
 
 import { createItemSubCategory } from "./http";
@@ -24,10 +23,17 @@ function ItemSubCategoryForm(props) {
     initialValues: props.upDate || formsInitialValues,
     validationSchema: formsValidationSchema,
     onSubmit: (values) => {
-      const obj = purchaseObject(values);
-      createItemSubCategory(obj, formik, props.populateTable);
+      createItemSubCategory(values, formik, props.populateTable);
     },
   });
+
+  const testDDL = [
+    { value: 1, label: "Test" },
+    { value: 2, label: "Test2" },
+    { value: 3, label: "Test3" },
+    { value: 4, label: "Test4" },
+    { value: 5, label: "Test5" },
+  ]
 
   return (
     <>
@@ -37,7 +43,8 @@ function ItemSubCategoryForm(props) {
           <MasterSelect
             label="Business Unit"
             name="businessUnit"
-            data={businessUnitDDL}
+            // data={businessUnitDDL}
+            data={testDDL}
             value={formik.values.businessUnit}
             onChange={(value) => {
               formik.setFieldValue("businessUnit", value);
@@ -54,6 +61,7 @@ function ItemSubCategoryForm(props) {
             value={formik.values.subCategory}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            placeholder="Enter Sub Category"
           />
           {formik.errors?.subCategory && formik.touched.subCategory && (
             <MasterErrorText message={formik.errors.subCategory} />
@@ -63,7 +71,8 @@ function ItemSubCategoryForm(props) {
         <MasterSelect
             label="Item Type"
             name="itemType"
-            data={itemTypeDDL}
+            // data={itemTypeDDL}
+            data={testDDL}
             value={formik.values.itemType}
             onChange={(value) => {
               formik.setFieldValue("itemType", value);
@@ -75,7 +84,8 @@ function ItemSubCategoryForm(props) {
         <MasterSelect
             label="Category"
             name="category"
-            data={categoryDDL}
+            // data={categoryDDL}
+            data={testDDL}
             value={formik.values.category}
             onChange={(value) => {
               formik.setFieldValue("category", value);
@@ -84,7 +94,7 @@ function ItemSubCategoryForm(props) {
           />
         </div>
         <div className="col-md-12 mt-3 text-left">
-          <FormikSaveButton className="" formik={formik} />
+          <FormikSaveButton formik={formik} />
           <FormikResetButton
             className="ml-2"
             formik={formik}
