@@ -1,4 +1,4 @@
-import * as yup from "yup"
+import * as Yup from "yup"
 
 export const formsInitialValues = {
     businessUnit: "",
@@ -30,15 +30,15 @@ export const tableConfig = {
 }
 
 
-export const formsValidationSchema = yup.object().shape({
-    itemType: yup.string().required(),
-    category: yup.string().required(),
-    businessUnit: yup.string().required(),
-    subCategory: yup.string().required(),
-})
-
-
-export const purchaseObject = values => {
-    values['branchId'] = "1"
-    return values;
-}
+export const formsValidationSchema = Yup.object().shape({
+    subCategory: Yup.string().required("Sub Category is required"),
+    category: Yup.object().shape({
+        value: Yup.string().required("Category is required"),
+      }),
+    itemType: Yup.object().shape({
+      value: Yup.string().required("Item Type is required"),
+    }),
+    businessUnit: Yup.object().shape({
+      value: Yup.string().required("Business Uint is required"),
+    }),
+  });
