@@ -16,9 +16,9 @@ function Holder() {
       {/* <BusinessUnit /> */}
       {/* <Supplier /> */}
       {/* <Customer /> */}
-      {/* <ItemProfile /> */}
+      <ItemProfile />
       {/* <ItemCategory /> */}
-      <ItemSubCategory />
+      {/* <ItemSubCategory /> */}
     </div>
   );
 }

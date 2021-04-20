@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import {
   formsInitialValues,
   formsValidationSchema,
-  purchaseObject,
+  // purchaseObject,
 } from "./util";
 
 import { createItemCategory } from "./http";
@@ -23,10 +23,17 @@ function ItemCategoryForm(props) {
     initialValues: props.upDate || formsInitialValues,
     validationSchema: formsValidationSchema,
     onSubmit: (values) => {
-      const obj = purchaseObject(values);
-      createItemCategory(obj, formik, props.populateTable);
+      createItemCategory(values, formik, props.populateTable);
     },
   });
+
+  const testDDL = [
+    { value: 1, label: "Test" },
+    { value: 2, label: "Test2" },
+    { value: 3, label: "Test3" },
+    { value: 4, label: "Test4" },
+    { value: 5, label: "Test5" },
+  ]
 
   return (
     <>
@@ -36,7 +43,8 @@ function ItemCategoryForm(props) {
           <MasterSelect
             label="Business Unit"
             name="businessUnit"
-            data={businessUnitDDL}
+            // data={businessUnitDDL}
+            data={testDDL}
             value={formik.values.businessUnit}
             onChange={(value) => {
               formik.setFieldValue("businessUnit", value);
@@ -53,6 +61,7 @@ function ItemCategoryForm(props) {
             value={formik.values.category}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
+            placeholder="Enter Category Name"
           />
           {formik.errors?.category && formik.touched.category && (
             <MasterErrorText message={formik.errors.category} />
@@ -62,7 +71,8 @@ function ItemCategoryForm(props) {
         <MasterSelect
             label="Item Type"
             name="itemType"
-            data={itemTypeDDL}
+            // data={itemTypeDDL}
+            data={testDDL}
             value={formik.values.itemType}
             onChange={(value) => {
               formik.setFieldValue("itemType", value);
@@ -71,7 +81,7 @@ function ItemCategoryForm(props) {
           />
         </div>
         <div className="col-md-12 mt-3 text-left">
-          <FormikSaveButton className="" formik={formik} />
+          <FormikSaveButton formik={formik} />
           <FormikResetButton
             className="ml-2"
             formik={formik}

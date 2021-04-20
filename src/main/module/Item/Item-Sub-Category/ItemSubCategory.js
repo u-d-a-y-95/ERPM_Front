@@ -7,6 +7,8 @@ import ItemSubCategoryTable from './Table';
 function ItemSubCategory() {
     const [tableData, setTableData] = useState([])
     const [upDate, setUpData] = useState({})
+    const [pageNo, setPageNo] = useState(0);
+  const [pageSize, setPageSize] = useState(50);
     useEffect(() => {
         populateTable()
     }, [])
@@ -17,20 +19,19 @@ function ItemSubCategory() {
     //     purchaseOrderDeleteData(id, populateTable)
     // }
     const updateToTable = (row) => {
-        // console.log(row)
-        row['description'] = row['body']
         setUpData(row)
     }
     return (
         <>
             <h3 className="">
-                Item Sub Category
+                New Item Sub Category
             </h3>
             <ItemSubCategoryForm
                 populateTable={populateTable}
                 upDate={upDate}
                 setUpData={setUpData}
             />
+            <h3 className="my-2 text-center">Item Sub Category</h3>
             <ItemSubCategoryTable
                 data={tableData}
                 // deleteFromTable={deleteFromTable}
