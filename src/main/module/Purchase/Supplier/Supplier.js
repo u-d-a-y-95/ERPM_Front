@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import BusinessUnitForm from "./Form";
-import BusinessUnitTable from "./Table";
-import { businessUnitDeleteData, getList } from "./http";
+import SupplierForm from "./Form";
+import SupplierTable from "./Table";
+import { businessUnitDeleteData, getList, getRowById } from "./http";
 
-const BusinessUnit = () => {
+const Supplier = () => {
   const accId = 1;
   const [tableData, setTableData] = useState([]);
-  const [upDate, setUpData] = useState({});
+  const [updateFormData, setUpdateFormData] = useState({});
+  // const [currentRowId, setCurrentRowId] = useState("");
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -18,26 +19,24 @@ const BusinessUnit = () => {
     getList(accId, pageNo, pageSize, setTableData);
   };
 
-  // const deleteFromTable = (id) => {
-  //   businessUnitDeleteData(id, populateTable);
-  // };
   const updateToTable = (row) => {
-    setUpData(row);
+    // getRowById()
+    setUpdateFormData(row);
   };
   const viewData = (row) => {
-    setUpData(row);
+    setUpdateFormData(row);
     setIsDisabled(true);
   };
   return (
     <>
-      <h1 className=''>Business Unit</h1>
-      <BusinessUnitForm
+      <h1 className=''>Supplier</h1>
+      <SupplierForm
         populateTable={populateTable}
-        upDate={upDate}
-        setUpData={setUpData}
+        updateFormData={updateFormData}
+        setUpdateFormData={setUpdateFormData}
         isDisabled={isDisabled}
       />
-      <BusinessUnitTable
+      <SupplierTable
         data={tableData}
         // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
@@ -47,4 +46,4 @@ const BusinessUnit = () => {
   );
 };
 
-export default BusinessUnit;
+export default Supplier;
