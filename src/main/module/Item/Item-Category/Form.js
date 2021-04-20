@@ -8,7 +8,7 @@ import { useFormik } from "formik";
 import {
   formsInitialValues,
   formsValidationSchema,
-  purchaseObject,
+  // purchaseObject,
 } from "./util";
 
 import { createItemCategory } from "./http";
@@ -45,6 +45,14 @@ function ItemCategoryForm(props) {
       createItemCategory(obj, formik, props.populateTable);
     },
   });
+
+  const testDDL = [
+    { value: 1, label: "Test" },
+    { value: 2, label: "Test2" },
+    { value: 3, label: "Test3" },
+    { value: 4, label: "Test4" },
+    { value: 5, label: "Test5" },
+  ]
 
   return (
     <>
