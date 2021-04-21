@@ -7,11 +7,11 @@ function setData(key, value) {
     setDataToLocalStorage(key, encodeData(value))
 }
 
-function removeData (key) {
+function removeData(key) {
     removeDataFromLocalStorage(key)
 }
 
-function clearAllData(){
+function clearAllData() {
     localStorage.clear();
 }
 
@@ -41,12 +41,12 @@ function removeDataFromLocalStorage(key) {
 
 // decode data 
 function decodeData(data) {
-    return atob(data);
+    return JSON.parse(atob(data));
 }
 
 // encode data
 function encodeData(data) {
-    return btoa(data);
+    return btoa(JSON.stringify(data));
 }
 
 

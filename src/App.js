@@ -3,12 +3,24 @@ import SignUp from "./main/base-layout/Screens/SignUp";
 import Login from "./main/base-layout/Screens/Login";
 import "./App.css";
 import MainLayout from "./main/base-layout/main-layout";
+import { useSelector } from 'react-redux'
+import lh from './main/services/local-storage'
 function App() {
+  // const isLoged = useSelector(state => state.user)
+  console.log()
+  const isLoged = lh.getData('user')['auth']['token']
+
   return (
     <div>
       {/* <SignUp /> */}
-      {/* <Login /> */}
-      <MainLayout />
+      {
+        isLoged &&
+        <MainLayout />
+        ||
+        <Login />
+      }
+
+
     </div>
   );
 }

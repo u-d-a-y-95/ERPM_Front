@@ -6,17 +6,24 @@ import "../../../assets/css/login.css";
 import logo from "../../../assets/image/erp-logo.png";
 import LoginInput from "../../common/base-component/login-input";
 import MasterErrorText from "../../common/base-component/master-errortext";
+import http from '../../services/http/http-client'
+import lh from '../../services/local-storage'
+import { useSelector, useDispatch } from "react-redux";
+import { setLoginDataToState } from '../../state/actions/user-action'
 
 function Login() {
   //initialValues;
+  const dispatch = useDispatch();
   const initialValues = {
-    email: "",
+    userName: "",
     password: "",
   };
 
+
+
   //validationSchema
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
+    userName: Yup.string()
       .email("Provide valid email")
       .required("Email is required"),
     password: Yup.string().required("Password is required"),
@@ -24,6 +31,19 @@ function Login() {
 
   const onSubmit = (values) => {
     console.log(values);
+    http.postData('https://demoerpm.ibos.io/identity/LogIn/UserLogIn', values)
+      .then(res => {
+        console.log(res)
+        dispatch(setLoginDataToState({
+          accountEmail: res.data.accountEmail,
+          accountId: res.data.accountId,
+          accountName: res.data.accountName,
+          token: res.data.auth.token,
+          isAuth: true
+        }))
+        lh.setData('user', res.data)
+
+      })
   };
   const formik = useFormik({
     initialValues,
@@ -62,7 +82,7 @@ function Login() {
               <div className='row'>
                 <div className='col-12 mt-5'>
                   <LoginInput
-                    name='email'
+                    name='userName'
                     label='Email'
                     type='email'
                     icon='fa fa-envelope'
@@ -71,8 +91,8 @@ function Login() {
                     value={formik?.values?.email}
                     disabled={false}
                   />
-                  {formik.errors.email && formik.touched.email ? (
-                    <MasterErrorText message={formik.errors.email} />
+                  {formik.errors.userName && formik.touched.userName ? (
+                    <MasterErrorText message={formik.errors.userName} />
                   ) : null}
                 </div>
                 <div className='col-12 mt-3'>
@@ -80,6 +100,7 @@ function Login() {
                     name='password'
                     label='Password'
                     icon='fa fa-unlock-alt'
+                    type="password"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik?.values?.password}
