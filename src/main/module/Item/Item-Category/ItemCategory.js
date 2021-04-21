@@ -6,30 +6,31 @@ import ItemCategoryTable from "./Table";
 
 function ItemCategory() {
   const [tableData, setTableData] = useState([]);
-  const [upDate, setUpData] = useState({});
+  const [updateFromData, setUpdateFromData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
+  const accountId = 1;
+  const businessId = 1234;
+
   useEffect(() => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(setTableData);
+    getList(accountId, businessId, setTableData);
   };
   // const deleteFromTable = (id) => {
   //     purchaseOrderDeleteData(id, populateTable)
   // }
   const updateToTable = (row) => {
-    // console.log(row)
-    row["description"] = row["body"];
-    setUpData(row);
+    setUpdateFromData(row);
   };
   return (
     <>
       <h3 className="">New Item Category</h3>
       <ItemCategoryForm
         populateTable={populateTable}
-        upDate={upDate}
-        setUpData={setUpData}
+        updateFromData={updateFromData}
+        setUpdateFromData={setUpdateFromData}
       />
       <h3 className="text-center my-2">Item Category</h3>
       <ItemCategoryTable
