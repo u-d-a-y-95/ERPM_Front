@@ -6,10 +6,9 @@ import MainLayout from "./main/base-layout/main-layout";
 import { useSelector } from 'react-redux'
 import lh from './main/services/local-storage'
 function App() {
-  // const isLoged = useSelector(state => state.user)
-  console.log()
-  const isLoged = lh.getData('user')['auth']['token']
-
+  const isLoged = useSelector(state => state.user.isAuth)
+  // console.log()
+  // const isLoged = lh.getData('user')?.auth?.token || false
   return (
     <div>
       {/* <SignUp /> */}

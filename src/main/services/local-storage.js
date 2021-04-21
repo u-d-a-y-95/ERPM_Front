@@ -41,7 +41,7 @@ function removeDataFromLocalStorage(key) {
 
 // decode data 
 function decodeData(data) {
-    return JSON.parse(atob(data));
+    return data && JSON.parse(atob(data)) || null;
 }
 
 // encode data
