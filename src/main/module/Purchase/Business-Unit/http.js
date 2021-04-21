@@ -15,7 +15,7 @@ export const createBusinessUnit = (values, formik, populateTable) => {
 export const getList = (accId, pageNo, pageSize, setData) => {
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/BusinessUnit/GetLandingPasignation?searchTerm=dem&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
+      `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?searchTerm=dem&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
       setData(res?.data);
