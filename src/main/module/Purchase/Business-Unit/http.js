@@ -15,13 +15,9 @@ export const createBusinessUnit = (values, formik, populateTable) => {
 export const getList = (accId, pageNo, pageSize, setData, searchTerm) => {
   httpClient
     .getData(
-<<<<<<< HEAD
-      `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?searchTerm=dem&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
-=======
       searchTerm
-        ? `https://demoerpm.ibos.io/domain/BusinessUnit/GetLandingPasignation?searchTerm=${searchTerm}&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
-        : `https://demoerpm.ibos.io/domain/BusinessUnit/GetLandingPasignation?AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
->>>>>>> 6082f03 (done)
+        ? `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?searchTerm=${searchTerm}&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
+        : `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
       setData(res?.data);
