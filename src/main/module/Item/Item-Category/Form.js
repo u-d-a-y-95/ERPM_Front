@@ -11,12 +11,12 @@ import {
   // purchaseObject,
 } from "./util";
 
-import { createItemCategory } from "./http";
+import { createItemCategory, getItemTypeDropdownListAction } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
 function ItemCategoryForm(props) {
     const [businessUnitDDL, setBusinessUnitDDL] = useState([]);
-    const [itemTypeDDL, setitemTypeDDL] = useState([]);
+    const [itemTypeDropdownList, setItemTypeDropdownList] = useState([]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -34,6 +34,11 @@ function ItemCategoryForm(props) {
     { value: 4, label: "Test4" },
     { value: 5, label: "Test5" },
   ]
+
+  useEffect(() => {
+    getItemTypeDropdownListAction(setItemTypeDropdownList);
+    
+  }, []);
 
   return (
     <>
@@ -72,7 +77,7 @@ function ItemCategoryForm(props) {
             label="Item Type"
             name="itemType"
             // data={itemTypeDDL}
-            data={testDDL}
+            data={itemTypeDropdownList}
             value={formik.values.itemType}
             onChange={(value) => {
               formik.setFieldValue("itemType", value);

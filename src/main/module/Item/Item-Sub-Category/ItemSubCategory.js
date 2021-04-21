@@ -6,7 +6,7 @@ import ItemSubCategoryTable from './Table';
 
 function ItemSubCategory() {
     const [tableData, setTableData] = useState([])
-    const [upDate, setUpData] = useState({})
+    const [updateFromData, setUpdateFromData] = useState({})
     const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
     useEffect(() => {
@@ -19,7 +19,7 @@ function ItemSubCategory() {
     //     purchaseOrderDeleteData(id, populateTable)
     // }
     const updateToTable = (row) => {
-        setUpData(row)
+        setUpdateFromData(row)
     }
     return (
         <>
@@ -28,8 +28,8 @@ function ItemSubCategory() {
             </h3>
             <ItemSubCategoryForm
                 populateTable={populateTable}
-                upDate={upDate}
-                setUpData={setUpData}
+                updateFromData={updateFromData}
+                setUpdateFromData={setUpdateFromData}
             />
             <h3 className="my-2 text-center">Item Sub Category</h3>
             <ItemSubCategoryTable
