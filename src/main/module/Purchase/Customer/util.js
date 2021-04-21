@@ -10,7 +10,7 @@ export const initialValues = {
   contactNumber: "",
   nid: "",
   bin: "",
-  licenceNumber: "",
+  licenseNo: "",
 };
 
 export const formValidationSchema = Yup.object().shape({
@@ -22,8 +22,9 @@ export const formValidationSchema = Yup.object().shape({
   billingName: Yup.string().required("Billing Name is Required"),
   billingAddress: Yup.string().required("Billing Address is Required"),
   contactNumber: Yup.string().required("Contact Number is required"),
+  customerEmail: Yup.string().email("Provide valid email address"),
   nid: Yup.string().required("Nid is Required"),
-  licenceNumber: Yup.string().required("Licence Number is Required"),
+  licenseNo: Yup.string().required("Licence Number is Required"),
 });
 
 export const tableConfig = {

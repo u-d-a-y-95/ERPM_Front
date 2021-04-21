@@ -17,7 +17,7 @@ const CustomerTable = (props) => {
       icon: "fa fa-edit",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        props.updateToTable(row?.supplierId);
+        props.updateToTable(row);
       },
     },
     // {

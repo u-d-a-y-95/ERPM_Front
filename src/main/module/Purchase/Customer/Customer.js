@@ -2,13 +2,15 @@
 import React, { useState, useEffect } from "react";
 import CustomerForm from "./Form";
 import CustomerTable from "./Table";
-import { businessUnitDeleteData, getList } from "./http";
+import { getList } from "./http";
 
 const Customer = () => {
   const accId = 1;
+  const businessUnitId = 1;
+  const searchValue = "somethingSearch";
+
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
-  // const [currentRowId, setCurrentRowId] = useState("");
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -17,11 +19,11 @@ const Customer = () => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(accId, pageNo, pageSize, setTableData);
+    getList(accId, pageNo, pageSize, setTableData, businessUnitId, searchValue);
   };
 
   const updateToTable = (row) => {
-    // setCurrentRowId(row);
+    setUpdateFormData(row);
   };
   const viewData = (row) => {
     setUpdateFormData(row);
