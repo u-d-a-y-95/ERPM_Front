@@ -15,10 +15,19 @@ export const createSupplier = (values, formik, populateTable) => {
 };
 
 //landing api call not done
-export const getList = (accId, pageNo, pageSize, setter, businessUnitId) => {
+export const getList = (
+  accId,
+  pageNo,
+  pageSize,
+  setter,
+  businessUnitId,
+  searchTerm
+) => {
   httpClient
     .getData(
-      `https://localhost:44339/domain/Supplier/GetListForPaignation?search=str&accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+      searchTerm
+        ? `https://localhost:44339/domain/Supplier/GetListForPaignation?search=${searchTerm}&accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        : `https://localhost:44339/domain/Supplier/GetListForPaignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
       setter(res?.data);
@@ -81,11 +90,11 @@ const createPayloadChange = (values) => {
     supplierCode: values?.supplierType?.code,
     supplierName: values?.supplierName || "",
     supplierAddress: values?.supplierAddress || "",
-    contactNumber: values?.contactNumber || "",
+    contactNumber: values?.contactNumber?.toString() || "",
     bin: values?.bin || "",
     licenseNo: values?.licenseNo || "",
     email: "kolmilota@gmail.com",
-    nid: values?.nid,
+    nid: values?.nid?.toString(),
     supplierTypeId: +3,
     actionBy: +0,
   };

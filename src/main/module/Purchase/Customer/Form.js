@@ -1,27 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import { initialValues, formValidationSchema, onSubmit } from "./util";
 import MasterInput from "../../../common/base-component/master-input";
 import MasterErrorText from "../../../common/base-component/master-errortext";
 import FormikSaveButton from "../../../common/composite-component/formik-save-button";
 import FormikResetButton from "../../../common/composite-component/formik-reset-button";
-import { createSupplier, updateSupplier } from "./http";
+import {
+  createCustomer,
+  customerDropdownListAction,
+  updateCustomer,
+} from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
 const CustomerForm = (props) => {
+  const [customerDropdownList, setCustomerDropdownList] = useState([]);
   const formik = useFormik({
     enableReinitialize: true,
-    // initialValues: props.upDate || initialValues,
-    initialValues: initialValues,
+    initialValues: props.upDate || initialValues,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      console.log("values", values);
-      // if (props.upDate?.intBusinessUnitId) {
-      //   updateBusinessUnit(values, formik, props.populateTable);
-      // }
-      // createBusinessUnit(values, formik, props.populateTable);
+      if (props.upDate?.intBusinessUnitId) {
+        return updateCustomer(values, formik, props.populateTable);
+      }
+      return createCustomer(values, formik, props.populateTable);
     },
   });
+
+  useEffect(() => {
+    customerDropdownListAction(setCustomerDropdownList);
+  }, []);
 
   return (
     <>
@@ -36,6 +43,7 @@ const CustomerForm = (props) => {
               { value: "strawberry", label: "Strawberry" },
               { value: "vanilla", label: "Vanilla" },
             ]}
+            // data={customerDropdownList}
             value={formik.values?.customerType}
             onChange={(value) => formik.setFieldValue("customerType", value)}
             onBlur={formik.handleBlur}
@@ -180,15 +188,15 @@ const CustomerForm = (props) => {
             type='text'
             label='Licence Number'
             placeholder='Licence number'
-            name='licenceNumber'
-            value={formik.values?.licenceNumber}
+            name='licenseNo'
+            value={formik.values?.licenseNo}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
             disabled={props.isDisabled}
           />
-          {formik.errors?.licenceNumber && formik.touched?.licenceNumber && (
-            <MasterErrorText message={formik.errors.licenceNumber} />
+          {formik.errors?.licenseNo && formik.touched?.licenseNo && (
+            <MasterErrorText message={formik.errors.licenseNo} />
           )}
         </div>
         <div className='col-md-12 mt-3 text-left'>
