@@ -56,6 +56,11 @@ const ItemCategoryForm = ({
     getItemTypeDropdownListAction(setItemTypeDropdownList);
   }, []);
 
+  useEffect(() => {
+    getItemTypeDropdownListAction(setItemTypeDropdownList);
+    
+  }, []);
+
   return (
     <>
       <div className="row">
