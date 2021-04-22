@@ -12,7 +12,6 @@ import {
 } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
-<<<<<<< HEAD
 const CustomerForm = ({
   updateFormData,
   populateTable,
@@ -29,19 +28,6 @@ const CustomerForm = ({
         return updateCustomer(values, formik, populateTable, setUpdateFormData);
       }
       return createCustomer(values, formik, populateTable, setUpdateFormData);
-=======
-const CustomerForm = (props) => {
-  const [customerDropdownList, setCustomerDropdownList] = useState([]);
-  const formik = useFormik({
-    enableReinitialize: true,
-    initialValues: props.upDate || initialValues,
-    validationSchema: formValidationSchema,
-    onSubmit: (values) => {
-      if (props.upDate?.intBusinessUnitId) {
-        return updateCustomer(values, formik, props.populateTable);
-      }
-      return createCustomer(values, formik, props.populateTable);
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
     },
   });
 
@@ -57,25 +43,12 @@ const CustomerForm = (props) => {
             label='Customer Type'
             name='customerType'
             placeholder='Customer Type'
-<<<<<<< HEAD
             data={customerDropdownList}
-=======
-            data={[
-              { value: "chocolate", label: "Chocolate" },
-              { value: "strawberry", label: "Strawberry" },
-              { value: "vanilla", label: "Vanilla" },
-            ]}
-            // data={customerDropdownList}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
             value={formik.values?.customerType}
             onChange={(value) => formik.setFieldValue("customerType", value)}
             onBlur={formik.handleBlur}
             required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.customerType && formik.touched?.customerType && (
             <MasterErrorText message={formik.errors?.customerType} />
@@ -91,11 +64,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.customerName && formik.touched?.customerName && (
             <MasterErrorText message={formik.errors?.customerName} />
@@ -111,11 +80,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.customerAddress &&
             formik.touched?.customerAddress && (
@@ -132,11 +97,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             // required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.customerEmail && formik.touched?.customerEmail && (
             <MasterErrorText message={formik.errors.customerEmail} />
@@ -152,11 +113,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.billingName && formik.touched?.billingName && (
             <MasterErrorText message={formik.errors.billingName} />
@@ -172,11 +129,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.billingAddress && formik.touched?.billingAddress && (
             <MasterErrorText message={formik.errors.billingAddress} />
@@ -184,11 +137,7 @@ const CustomerForm = (props) => {
         </div>
         <div className='col-md-4 col-lg-3'>
           <MasterInput
-<<<<<<< HEAD
             type='text'
-=======
-            type='number'
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
             label='Contact Number'
             placeholder='Contact Number'
             name='contactNumber'
@@ -196,11 +145,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.contactNumber && formik.touched?.contactNumber && (
             <MasterErrorText message={formik.errors.contactNumber} />
@@ -208,11 +153,7 @@ const CustomerForm = (props) => {
         </div>
         <div className='col-md-4 col-lg-3'>
           <MasterInput
-<<<<<<< HEAD
             type='text'
-=======
-            type='number'
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
             label='NID'
             placeholder='NID number'
             name='nid'
@@ -220,11 +161,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.nid && formik.touched?.nid && (
             <MasterErrorText message={formik.errors.nid} />
@@ -240,11 +177,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             // required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.bin && formik.touched?.bin && (
             <MasterErrorText message={formik.errors.bin} />
@@ -260,30 +193,18 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-<<<<<<< HEAD
             disabled={isDisabled}
-=======
-            disabled={props.isDisabled}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
           {formik.errors?.licenseNo && formik.touched?.licenseNo && (
             <MasterErrorText message={formik.errors.licenseNo} />
           )}
         </div>
         <div className='col-md-12 mt-3 text-left'>
-<<<<<<< HEAD
           <FormikSaveButton id={updateFormData?.customerId} formik={formik} />
           <FormikResetButton
             className='ml-2'
             formik={formik}
             formikData={setUpdateFormData}
-=======
-          <FormikSaveButton formik={formik} />
-          <FormikResetButton
-            className='ml-2'
-            formik={formik}
-            formikData={props.setUpData}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
           />
         </div>
       </div>

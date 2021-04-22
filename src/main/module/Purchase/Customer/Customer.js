@@ -7,11 +7,7 @@ import { getList } from "./http";
 const Customer = () => {
   const accId = 1;
   const businessUnitId = 1;
-<<<<<<< HEAD
   const searchValue = "";
-=======
-  const searchValue = "somethingSearch";
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
 
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
@@ -27,10 +23,7 @@ const Customer = () => {
   };
 
   const updateToTable = (row) => {
-<<<<<<< HEAD
     setIsDisabled(false);
-=======
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
     setUpdateFormData(row);
   };
   const viewData = (row) => {
@@ -42,13 +35,8 @@ const Customer = () => {
       <h1>Customer</h1>
       <CustomerForm
         populateTable={populateTable}
-<<<<<<< HEAD
         updateFormData={updateFormData}
         setUpdateFormData={setUpdateFormData}
-=======
-        upDate={updateFormData}
-        setUpData={setUpdateFormData}
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
         isDisabled={isDisabled}
       />
       <CustomerTable

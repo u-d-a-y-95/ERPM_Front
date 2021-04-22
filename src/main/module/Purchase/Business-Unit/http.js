@@ -16,13 +16,8 @@ export const getList = (accId, pageNo, pageSize, setData, searchTerm) => {
   httpClient
     .getData(
       searchTerm
-<<<<<<< HEAD
         ? `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?searchTerm=${searchTerm}&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
         : `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
-=======
-        ? `https://demoerpm.ibos.io/domain/BusinessUnit/GetLandingPasignation?searchTerm=${searchTerm}&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
-        : `https://demoerpm.ibos.io/domain/BusinessUnit/GetLandingPasignation?AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
->>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
     )
     .then((res) => {
       // console.log("res", res?.data);
