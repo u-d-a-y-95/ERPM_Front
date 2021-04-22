@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from "react";
 import BusinessUnitForm from "./Form";
 import BusinessUnitTable from "./Table";
-import { businessUnitDeleteData, getList } from "./http";
+import { getList } from "./http";
 
 const BusinessUnit = () => {
   const accId = 1;
+  const searchTerm = "";
   const [tableData, setTableData] = useState([]);
-  const [upDate, setUpData] = useState({});
+  const [updateFormData, setUpdateFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -15,17 +16,15 @@ const BusinessUnit = () => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(accId, pageNo, pageSize, setTableData);
+    getList(accId, pageNo, pageSize, setTableData, searchTerm);
   };
 
-  // const deleteFromTable = (id) => {
-  //   businessUnitDeleteData(id, populateTable);
-  // };
   const updateToTable = (row) => {
-    setUpData(row);
+    setUpdateFormData(row);
+    setIsDisabled(false);
   };
   const viewData = (row) => {
-    setUpData(row);
+    setUpdateFormData(row);
     setIsDisabled(true);
   };
   return (
@@ -33,13 +32,12 @@ const BusinessUnit = () => {
       <h1 className=''>Business Unit</h1>
       <BusinessUnitForm
         populateTable={populateTable}
-        upDate={upDate}
-        setUpData={setUpData}
+        updateFormData={updateFormData}
+        setUpdateFormData={setUpdateFormData}
         isDisabled={isDisabled}
       />
       <BusinessUnitTable
         data={tableData}
-        // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
         viewData={viewData}
       />
