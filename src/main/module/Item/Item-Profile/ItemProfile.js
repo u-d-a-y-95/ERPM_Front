@@ -5,41 +5,41 @@ import { getList } from "./http";
 import ItemProfileTable from "./Table";
 
 function ItemProfile() {
+  const accountId = 1;
+  const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
-  const [updateFromData, setUpdateFromData] = useState({});
+  // const [updateFromData, setUpdateFromData] = useState({});
+  const [updateFormData, setUpdateFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
-  const acountId = 1;
-  const businessId = 1234;
 
   useEffect(() => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(setTableData);
+    getList(accountId, businessUnitId, pageNo, pageSize, setTableData);
   };
-  // const deleteFromTable = (id) => {
-  //     purchaseOrderDeleteData(id, populateTable)
-  // }
   const updateToTable = (row) => {
-    setUpdateFromData(row);
+    setIsDisabled(false);
+    setUpdateFormData(row);
   };
   const viewData = (row) => {
-    setUpdateFromData(row);
+    setUpdateFormData(row);
     setIsDisabled(true);
   };
+
   return (
     <>
       <ItemProfileForm
         populateTable={populateTable}
-        updateFromData={updateFromData}
-        setUpdateFromData={setUpdateFromData}
+        updateFormData={updateFormData}
+        setUpdateFormData={setUpdateFormData}
         isDisabled={isDisabled}
-        accountId={acountId}
-        businessId={businessId}
+        accountId={accountId}
+        businessUnitId={businessUnitId}
       />
-      <h3 className="my-3 text-center">Item Basic Information</h3>
+      {/* <h3 className="my-3 text-center">Item Basic Information</h3> */}
       <ItemProfileTable
         data={tableData}
         // deleteFromTable={deleteFromTable}

@@ -1,30 +1,26 @@
 import React from "react";
 import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
-import { tableConfig } from "./util";
+import { tableConfig, itemProfileViewUpdatePayloadData } from "./util";
 
-const ItemProfileTable = (props) => {
+const ItemProfileTable = ({viewData, updateToTable, data}) => {
   const config = tableConfig;
-  config.data = props.data;
-  config.action = [
-    // {
-    //     icon: 'fa fa-trash',
-    //     className: "btn btn-sm btn-warning text-white",
-    //     event: (row) => {
-    //         props.deleteFromTable(row.id)
-    //     }
-    // },
+  config.data = data;
+  config.action = [    
     {
       icon: "fa fa-edit",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        props.updateToTable(row);
+        console.log(row)
+        const newData = itemProfileViewUpdatePayloadData(row);
+        updateToTable(newData);
       },
     },
     {
       icon: "fa fa-eye",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        props.viewData(row);
+        const newData = itemProfileViewUpdatePayloadData(row);
+        viewData(newData);
       },
     },
   ];

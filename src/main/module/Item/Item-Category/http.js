@@ -21,9 +21,9 @@ const createPayloadChange = (values) => {
       : "",
     accountId: 1,
     businessUnitId: values.businessUnitId || 0,
-    itemTypeId: values.itemTypeId
+    itemType: values.itemTypeId
     ? { value: values.itemTypeId, label: values.itemTypeName }
-    : "",
+    : 0,
     actionBy: 1234,
   };
   return payload;
