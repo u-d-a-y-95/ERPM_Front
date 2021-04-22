@@ -6,15 +6,28 @@ import FormikResetButton from "../../../common/composite-component/formik-reset-
 import { useFormik } from "formik";
 import { formsInitialValues, formsValidationSchema } from "./util";
 
-import { createItemProfile, getItemCategoryDropdownListAction, getItemSubCategoryDropdownListAction, getItemTypeDropdownListAction, updateItemProfile, getUomDropdownListAction } from "./http";
+import {
+  createItemProfile,
+  getItemCategoryDropdownListAction,
+  getItemSubCategoryDropdownListAction,
+  getItemTypeDropdownListAction,
+  updateItemProfile,
+  getUomDropdownListAction,
+} from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 import FormikSaveButton from "./../../../common/composite-component/formik-save-button";
 
-function ItemProfileForm(props) {
-  // console.log(props)
-  // const [codeDDL, setCodeDDL] = useState([]);
-  const {accountId, businessId} = props;
-  // console.log(props)
+const ItemProfileForm = ({
+  updateFormData,
+  populateTable,
+  isDisabled,
+  setUpdateFormData,
+  accountId,
+  businessUnitId,
+}) => {
+
+  
+  console.log(updateFormData);
 
   const [itemTypeDropdownList, setitemTypeDropdownList] = useState([]);
   const [itemCategoryDropdownList, setItemCategoryDropdownList] = useState([]);
@@ -23,57 +36,55 @@ function ItemProfileForm(props) {
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: props.updateFromData || formsInitialValues,
-    validationSchema: formsValidationSchema,
+    initialValues: updateFormData || formsInitialValues,
+    // initialValues: formsInitialValues,
+    // validationSchema: formsValidationSchema,
     onSubmit: (values) => {
-      // console.log(values);
-      if (props.updateFromData) {
-        updateItemProfile(values, formik, props.populateTable);
+      if (updateFormData?.itemCode) {
+        return updateItemProfile(values, formik, populateTable, setUpdateFormData);
       }
-      createItemProfile(values, formik, props.populateTable);
+      return createItemProfile(values, formik, populateTable, setUpdateFormData);
+      // console.log(formik.values.itemName)
     },
+
   });
 
   useEffect(() => {
     getItemTypeDropdownListAction(setitemTypeDropdownList);
-    getItemCategoryDropdownListAction(accountId, businessId, setItemCategoryDropdownList);
-    getItemSubCategoryDropdownListAction(accountId, businessId, setitemSubCategoryDropdownList);
+    getItemCategoryDropdownListAction(
+      accountId,
+      businessUnitId,
+      setItemCategoryDropdownList
+    );
+    getItemSubCategoryDropdownListAction(
+      accountId,
+      businessUnitId,
+      setitemSubCategoryDropdownList
+    );
     getUomDropdownListAction(setUomDropdownList);
-    // getItemTypeDDLActions(setItemTypeDDL);
+
     // // console.log("currentRowId", currentRowId);
     // if (currentRowId) {
     //   getItemByIdActions(currentRowId, setSingleData, setDisabled);
     // }
   }, []);
 
-  // const itemTypeDDL = [
-  //   { value: 1, label: "Bangladesh" },
-  //   { value: 2, label: "India" },
-  //   { value: 3, label: "China" },
-  // ];
-  // const categotyDDL = [
-  //   { value: 1, label: "Bangladesh" },
-  //   { value: 2, label: "India" },
-  //   { value: 3, label: "China" },
-  // ];
-  // const subCategoryDDL = [
-  //   { value: 1, label: "Bangladesh" },
-  //   { value: 2, label: "India" },
-  //   { value: 3, label: "China" },
-  // ];
-  // const uomDDL = [
-  //   { value: 1, label: "Bangladesh" },
-  //   { value: 2, label: "India" },
-  //   { value: 3, label: "China" },
-  // ];
+  const categotyDDL = [
+    { value: 1, label: "Bangladesh" },
+    { value: 2, label: "India" },
+    { value: 3, label: "China" },
+    { value: 4, label: "Pakistan" },
+    { value: 5, label: "Iran" },
+    { value: 6, label: "Srilanka" },
+  ];
 
   return (
     <>
-      {props.updateFromData ? (
+      {/* {updateFromData ? (
         <h3>Edit Item Basic Information</h3>
       ) : (
         <h3>Create Item Basic Information</h3>
-      )}
+      )} */}
       <div className="row">
         <div className="col-md-4 col-lg-3">
           <MasterInput
@@ -85,7 +96,7 @@ function ItemProfileForm(props) {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             placeholder="Enter Item Name"
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.itemName && formik.touched.itemName && (
             <MasterErrorText message={formik.errors.itemName} />
@@ -94,17 +105,17 @@ function ItemProfileForm(props) {
         <div className="col-md-4 col-lg-3">
           <MasterInput
             label="Code"
-            name="code"
+            name="itemCode"
             type="text"
             required={true}
-            value={formik.values?.code}
+            value={formik.values?.itemCode}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Enter Code"
-            disabled={props.isDisabled}
+            placeholder="Enter Item Code"
+            disabled={isDisabled}
           />
-          {formik.errors?.code && formik.touched.code && (
-            <MasterErrorText message={formik.errors.code} />
+          {formik.errors?.itemCode && formik.touched.itemCode && (
+            <MasterErrorText message={formik.errors.itemCode} />
           )}
         </div>
         <div className="col-md-4 col-lg-3">
@@ -112,53 +123,61 @@ function ItemProfileForm(props) {
             label="Item Type"
             name="itemType"
             data={itemTypeDropdownList}
-            value={formik.values.itemType}
+            value={formik.values?.itemType}
             onChange={(value) => {
               formik.setFieldValue("itemType", value);
             }}
             onBlur={formik.handleBlur}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
+            required={true}
+            placeholder="Select Item Type"
           />
 
-          {formik?.errors?.itemType?.label &&
-          formik?.touched?.itemType?.label ? (
-            <MasterErrorText message={formik?.errors?.itemType?.label} />
+          {formik?.errors?.itemType &&
+          formik?.touched?.itemType ? (
+            <MasterErrorText message={formik?.errors?.itemType} />
           ) : null}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-3">         
           <MasterSelect
             label="Category"
             name="category"
-            data={itemCategoryDropdownList}
-            value={formik.values.category}
+            // data={itemCategoryDropdownList}
+            data={categotyDDL}
+            value={formik.values?.category}
             onChange={(value) => {
               formik.setFieldValue("category", value);
             }}
             onBlur={formik.handleBlur}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
+            required={true}
+            placeholder="Select Item Category"
           />
 
-          {formik?.errors?.category?.label &&
-          formik?.touched?.category?.label ? (
-            <MasterErrorText message={formik?.errors?.category?.label} />
+          {formik?.errors?.category &&
+          formik?.touched?.category ? (
+            <MasterErrorText message={formik?.errors?.category} />
           ) : null}
         </div>
         <div className="col-md-4 col-lg-3">
           <MasterSelect
             label="Sub-Category"
             name="subCategory"
-            data={itemSubCategoryDropdownList}
-            value={formik.values.subCategory}
+            // data={itemSubCategoryDropdownList}
+            data={categotyDDL}
+            value={formik.values?.subCategory}
             onChange={(value) => {
               formik.setFieldValue("subCategory", value);
             }}
             onBlur={formik.handleBlur}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
+            required={true}
+            placeholder="Item Sub-Category"
           />
 
-          {formik?.errors?.subCategory?.label &&
-          formik?.touched?.subCategory?.label ? (
-            <MasterErrorText message={formik?.errors?.subCategory?.label} />
+          {formik?.errors?.subCategory &&
+          formik?.touched?.subCategory ? (
+            <MasterErrorText message={formik?.errors?.subCategory} />
           ) : null}
         </div>
         <div className="col-md-4 col-lg-3">
@@ -166,31 +185,33 @@ function ItemProfileForm(props) {
             label="UOM"
             name="uom"
             data={uomDropdownList}
-            value={formik.values.uom}
+            value={formik.values?.uom}
             onChange={(value) => {
               formik.setFieldValue("uom", value);
             }}
             onBlur={formik.handleBlur}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
+            required={true}
+            placeholder="Select Item UOM"
           />
 
-          {formik?.errors?.uom?.label && formik?.touched?.uom?.label ? (
-            <MasterErrorText message={formik?.errors?.uom?.label} />
+          {formik?.errors?.uom && formik?.touched?.uom ? (
+            <MasterErrorText message={formik?.errors?.uom} />
           ) : null}
         </div>
 
-        {props.updateFromData.length > 0 && (
+        {updateFormData.length > 0 && (
           <div className="col-md-4 col-lg-3">
             <MasterInput
               label="Part Number"
               name="partNumber"
               type="text"
               required={true}
-              value={formik.values.partNumber}
+              value={formik.values?.partNumber}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               placeholder="Enter Part Number"
-              disabled={props.isDisabled}
+              disabled={isDisabled}
             />
             {formik.errors?.partNumber && formik.touched.partNumber && (
               <MasterErrorText message={formik.errors.partNumber} />
@@ -199,16 +220,16 @@ function ItemProfileForm(props) {
         )}
 
         <div className="col-md-12 mt-3 text-left">
-          <FormikSaveButton formik={formik} />
+          <FormikSaveButton id={updateFormData?.itemCode} formik={formik} />
           <FormikResetButton
             className="ml-2"
             formik={formik}
-            formikData={props.setUpData}
+            formikData={setUpdateFormData}
           />
         </div>
       </div>
     </>
   );
-}
+};
 
 export default ItemProfileForm;

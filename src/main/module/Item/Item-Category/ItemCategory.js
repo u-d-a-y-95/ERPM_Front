@@ -33,11 +33,11 @@ function ItemCategory() {
         setUpdateFromData={setUpdateFromData}
       />
       <h3 className="text-center my-2">Item Category</h3>
-      <ItemCategoryTable
+      {/* <ItemCategoryTable
         data={tableData}
         // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
-      />
+      /> */}
     </>
   );
 }
