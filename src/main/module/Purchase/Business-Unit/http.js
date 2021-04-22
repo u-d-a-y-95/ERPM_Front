@@ -20,6 +20,7 @@ export const getList = (accId, pageNo, pageSize, setData, searchTerm) => {
         : `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
+      // console.log("res", res?.data);
       setData(res?.data);
     });
 };

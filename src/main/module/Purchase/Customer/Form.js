@@ -12,17 +12,22 @@ import {
 } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
-const CustomerForm = (props) => {
+const CustomerForm = ({
+  updateFormData,
+  populateTable,
+  isDisabled,
+  setUpdateFormData,
+}) => {
   const [customerDropdownList, setCustomerDropdownList] = useState([]);
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: props.upDate || initialValues,
+    initialValues: updateFormData || initialValues,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      if (props.upDate?.intBusinessUnitId) {
-        return updateCustomer(values, formik, props.populateTable);
+      if (updateFormData?.customerId) {
+        return updateCustomer(values, formik, populateTable, setUpdateFormData);
       }
-      return createCustomer(values, formik, props.populateTable);
+      return createCustomer(values, formik, populateTable, setUpdateFormData);
     },
   });
 
@@ -38,17 +43,12 @@ const CustomerForm = (props) => {
             label='Customer Type'
             name='customerType'
             placeholder='Customer Type'
-            data={[
-              { value: "chocolate", label: "Chocolate" },
-              { value: "strawberry", label: "Strawberry" },
-              { value: "vanilla", label: "Vanilla" },
-            ]}
-            // data={customerDropdownList}
+            data={customerDropdownList}
             value={formik.values?.customerType}
             onChange={(value) => formik.setFieldValue("customerType", value)}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.customerType && formik.touched?.customerType && (
             <MasterErrorText message={formik.errors?.customerType} />
@@ -64,7 +64,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.customerName && formik.touched?.customerName && (
             <MasterErrorText message={formik.errors?.customerName} />
@@ -80,7 +80,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.customerAddress &&
             formik.touched?.customerAddress && (
@@ -97,7 +97,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             // required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.customerEmail && formik.touched?.customerEmail && (
             <MasterErrorText message={formik.errors.customerEmail} />
@@ -113,7 +113,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.billingName && formik.touched?.billingName && (
             <MasterErrorText message={formik.errors.billingName} />
@@ -129,7 +129,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.billingAddress && formik.touched?.billingAddress && (
             <MasterErrorText message={formik.errors.billingAddress} />
@@ -137,7 +137,7 @@ const CustomerForm = (props) => {
         </div>
         <div className='col-md-4 col-lg-3'>
           <MasterInput
-            type='number'
+            type='text'
             label='Contact Number'
             placeholder='Contact Number'
             name='contactNumber'
@@ -145,7 +145,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.contactNumber && formik.touched?.contactNumber && (
             <MasterErrorText message={formik.errors.contactNumber} />
@@ -153,7 +153,7 @@ const CustomerForm = (props) => {
         </div>
         <div className='col-md-4 col-lg-3'>
           <MasterInput
-            type='number'
+            type='text'
             label='NID'
             placeholder='NID number'
             name='nid'
@@ -161,7 +161,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.nid && formik.touched?.nid && (
             <MasterErrorText message={formik.errors.nid} />
@@ -177,7 +177,7 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             // required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.bin && formik.touched?.bin && (
             <MasterErrorText message={formik.errors.bin} />
@@ -193,18 +193,18 @@ const CustomerForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.licenseNo && formik.touched?.licenseNo && (
             <MasterErrorText message={formik.errors.licenseNo} />
           )}
         </div>
         <div className='col-md-12 mt-3 text-left'>
-          <FormikSaveButton formik={formik} />
+          <FormikSaveButton id={updateFormData?.customerId} formik={formik} />
           <FormikResetButton
             className='ml-2'
             formik={formik}
-            formikData={props.setUpData}
+            formikData={setUpdateFormData}
           />
         </div>
       </div>

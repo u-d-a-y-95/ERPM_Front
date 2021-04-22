@@ -7,7 +7,7 @@ import { getList } from "./http";
 const Customer = () => {
   const accId = 1;
   const businessUnitId = 1;
-  const searchValue = "somethingSearch";
+  const searchValue = "";
 
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
@@ -23,6 +23,7 @@ const Customer = () => {
   };
 
   const updateToTable = (row) => {
+    setIsDisabled(false);
     setUpdateFormData(row);
   };
   const viewData = (row) => {
@@ -34,8 +35,8 @@ const Customer = () => {
       <h1>Customer</h1>
       <CustomerForm
         populateTable={populateTable}
-        upDate={updateFormData}
-        setUpData={setUpdateFormData}
+        updateFormData={updateFormData}
+        setUpdateFormData={setUpdateFormData}
         isDisabled={isDisabled}
       />
       <CustomerTable

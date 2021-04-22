@@ -6,6 +6,7 @@ export const createCustomer = (values, formik, populateTable) => {
   httpClient
     .postData("https://demoerpm.ibos.io/domain/Customer/Create", obj)
     .then((res) => {
+      formik.setValues(null);
       formik.resetForm();
       populateTable();
     })
@@ -30,7 +31,8 @@ export const getList = (
         : `https://demoerpm.ibos.io/domain/Customer/GetList?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
     )
     .then((res) => {
-      setter(res?.data);
+      const values = getPayloadChange(res?.data?.data);
+      setter(values && values);
     })
     .catch((err) => {
       setter([]);
@@ -51,11 +53,17 @@ export const getList = (
 // };
 
 //update business unit
-export const updateCustomer = (values, formik, populateTable) => {
+export const updateCustomer = (
+  values,
+  formik,
+  populateTable,
+  setUpdateFormData
+) => {
   const obj = updatePayloadChange(values);
   httpClient
     .putData("https://demoerpm.ibos.io/domain/Customer/Update", obj)
     .then((res) => {
+      setUpdateFormData(null);
       formik.resetForm();
       populateTable();
     });
@@ -74,22 +82,46 @@ export const customerDropdownListAction = (setter) => {
     });
 };
 
+//get payload change
+const getPayloadChange = (values) => {
+  return values?.map((data) => ({
+    accountId: data?.accountId,
+    billingName: data?.billingName,
+    billingAddress: data?.billingAddress,
+    bin: data?.bin,
+    businessUnitId: data?.businessUnitId,
+    contactNumber: data?.contactNumber,
+    customerAddress: data?.customerAddress,
+    customerCode: data?.customerCode,
+    customerId: data?.customerId,
+    address: data?.customerAddress,
+    customerName: data?.customerName,
+    customerTypeName: data?.customerTypeName,
+    customerTypeId: data?.customerTypeId,
+    nid: data?.nid,
+    licenseNo: data?.licenseNo,
+    customerEmail: data?.email,
+    sl: data?.sl,
+  }));
+};
+
 //create payload change
 const createPayloadChange = (values) => {
   const payload = {
+    // login theke asbe
     accountId: +1,
     businessUnitId: +1,
     customerName: values?.customerName || "",
     customerAddress: values?.customerAddress || "",
-    contactNumber: values?.contactNumber?.toString() || "",
-    customerTypeId: +1,
+    contactNumber: values?.contactNumber || "",
+    customerTypeId: values?.customerType?.value,
     email: values?.customerEmail || "",
     billingName: values?.billingName || "",
     billingAddress: values?.billingAddress || "",
-    nid: values?.nid?.toString() || "",
+    nid: values?.nid || "",
     bin: values?.bin || "",
     licenseNo: values?.licenseNo || "",
-    intActionBy: +0,
+    intActionBy: values?.intActionBy || +0,
   };
   return payload;
 };
@@ -97,17 +129,17 @@ const createPayloadChange = (values) => {
 //update payload change
 const updatePayloadChange = (values) => {
   const payload = {
-    customerId: +1,
+    customerId: values?.customerId,
     customerName: values?.customerName || "",
     customerAddress: values?.customerAddress || "",
-    contactNumber: values?.contactNumber?.toString() || "",
+    contactNumber: values?.contactNumber || "",
     email: values?.customerEmail || "",
     billingName: values?.billingName || "",
     billingAddress: values?.billingAddress || "",
-    nid: values?.nid?.toString() || "",
+    nid: values?.nid || "",
     bin: values?.bin || "",
     licenseNo: values?.licenseNo || "",
-    intActionBy: +0,
+    intActionBy: values?.intActionBy || +0,
   };
   return payload;
 };
