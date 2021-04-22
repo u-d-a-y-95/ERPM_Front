@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import SupplierForm from "./Form";
 import SupplierTable from "./Table";
-import { businessUnitDeleteData, getList, getRowById } from "./http";
+import { getList } from "./http";
 
 const Supplier = () => {
   const accId = 1;
@@ -10,7 +10,6 @@ const Supplier = () => {
   const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
-  // const [currentRowId, setCurrentRowId] = useState("");
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);

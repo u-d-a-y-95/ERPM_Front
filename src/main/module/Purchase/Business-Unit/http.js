@@ -16,16 +16,14 @@ export const getList = (accId, pageNo, pageSize, setData, searchTerm) => {
   httpClient
     .getData(
       searchTerm
-        ? `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?searchTerm=${searchTerm}&AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
-        : `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?AccountId=${accId}&viewOrder=asc&PageNo=${pageNo}&PageSize=${pageSize}`
+        ? `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?searchTerm=${searchTerm}&AccountId=${accId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        : `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?AccountId=${accId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
-      // console.log("res", res?.data);
-      setData(res?.data);
+      setData(res?.data?.data);
     });
 };
-
-//get by id for delete api call
+//get by id for get by id api call
 // export const businessUnitDeleteData = (id, populateTable) => {
 //   httpClient
 //     .deleteData(
@@ -37,12 +35,18 @@ export const getList = (accId, pageNo, pageSize, setData, searchTerm) => {
 // };
 
 //update business unit
-export const updateBusinessUnit = (values, formik, populateTable) => {
+export const updateBusinessUnit = (
+  values,
+  formik,
+  populateTable,
+  setUpdateFormData
+) => {
   const obj = updatePayloadChange(values);
   httpClient
     .putData("https://demoerpm.ibos.io/domain/BusinessUnit/Update", obj)
     .then((res) => {
       formik.resetForm();
+      setUpdateFormData(null);
       populateTable();
     });
 };
@@ -51,6 +55,7 @@ export const updateBusinessUnit = (values, formik, populateTable) => {
 const createPayloadChange = (values) => {
   const payload = {
     accountId: +1,
+    businessUnitId: 1,
     businessUnitCode: values?.businessUnitCode || "",
     businessUnitName: values?.businessUnitName || "",
     businessUnitAddress: values?.businessUnitAddress || "",
@@ -62,6 +67,8 @@ const createPayloadChange = (values) => {
 //update payload change
 const updatePayloadChange = (values) => {
   const payload = {
+    businessUnitId: 1,
+    actionBy: 1,
     businessUnitCode: values?.businessUnitCode || "",
     businessUnitName: values?.businessUnitName || "",
     businessUnitAddress: values?.businessUnitAddress || "",

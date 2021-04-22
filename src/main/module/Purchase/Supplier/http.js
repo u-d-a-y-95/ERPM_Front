@@ -121,24 +121,3 @@ const updatePayloadChange = (values) => {
   };
   return payload;
 };
-
-//get bi id payload change
-// const getByIdPayloadChange = (values) => {
-//   const payload = {
-//     sl: values?.sl,
-//     supplierId: values?.supplierId,
-//     supplierCode: values?.supplierCode,
-//     supplierName: values?.supplierName,
-//     supplierAddress: values?.supplierAddress,
-//     contactNumber: values?.contactNumber,
-//     bin: values?.bin,
-//     licenseNo: values?.licenseNo,
-//     email: values?.email,
-//     nid: values?.nid,
-//     // accountId: 1,
-//     // businessUnitId: 1,
-//     // supplierTypeId: 3,
-//     // actionBy: 0,
-//   };
-//   return payload;
-// };

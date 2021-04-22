@@ -40,7 +40,7 @@ export const getList = (
     });
 };
 
-//get by id for delete api call
+//get by id for get by id api call
 // export const businessUnitDeleteData = (id, populateTable) => {
 //   httpClient
 //     .deleteData(`https://demoerpm.ibos.io//domain/Customer/GetById/${id}`)
