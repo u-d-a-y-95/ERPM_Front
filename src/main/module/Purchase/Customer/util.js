@@ -21,11 +21,15 @@ export const formValidationSchema = Yup.object().shape({
   customerAddress: Yup.string().required("Address is Required"),
   billingName: Yup.string().required("Billing Name is Required"),
   billingAddress: Yup.string().required("Billing Address is Required"),
+<<<<<<< HEAD
   contactNumber: Yup.string()
     .required("Mobile no is required")
     .matches(/^[0-9]+$/, "Must be only digits")
     .min(11, "Must be exactly 11 digits")
     .max(11, "Must be exactly 11 digits"),
+=======
+  contactNumber: Yup.string().required("Contact Number is required"),
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
   customerEmail: Yup.string().email("Provide valid email address"),
   nid: Yup.string().required("Nid is Required"),
   licenseNo: Yup.string().required("Licence Number is Required"),
@@ -38,6 +42,7 @@ export const tableConfig = {
       label: "SL",
     },
     {
+<<<<<<< HEAD
       key: "customerCode",
       label: "Code",
     },
@@ -47,6 +52,17 @@ export const tableConfig = {
     },
     {
       key: "customerTypeName",
+=======
+      key: "code",
+      label: "Code",
+    },
+    {
+      key: "customer",
+      label: "Customer",
+    },
+    {
+      key: "customerType",
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
       label: "Customer Type",
     },
     {
@@ -66,12 +82,17 @@ export const tableConfig = {
       label: "BIN",
     },
     {
+<<<<<<< HEAD
       key: "licenseNo",
+=======
+      key: "licenceNumber",
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
       label: "Licence Number",
     },
   ],
   isSearchable: true,
 };
+<<<<<<< HEAD
 
 export const viewUpdatePayloadData = (value) => {
   const payload = {
@@ -97,3 +118,5 @@ export const viewUpdatePayloadData = (value) => {
   };
   return payload;
 };
+=======
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8

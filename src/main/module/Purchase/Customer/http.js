@@ -6,7 +6,10 @@ export const createCustomer = (values, formik, populateTable) => {
   httpClient
     .postData("https://demoerpm.ibos.io/domain/Customer/Create", obj)
     .then((res) => {
+<<<<<<< HEAD
       formik.setValues(null);
+=======
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
       formik.resetForm();
       populateTable();
     })
@@ -31,8 +34,12 @@ export const getList = (
         : `https://demoerpm.ibos.io/domain/Customer/GetList?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
     )
     .then((res) => {
+<<<<<<< HEAD
       const values = getPayloadChange(res?.data?.data);
       setter(values && values);
+=======
+      setter(res?.data);
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
     })
     .catch((err) => {
       setter([]);
@@ -53,17 +60,24 @@ export const getList = (
 // };
 
 //update business unit
+<<<<<<< HEAD
 export const updateCustomer = (
   values,
   formik,
   populateTable,
   setUpdateFormData
 ) => {
+=======
+export const updateCustomer = (values, formik, populateTable) => {
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
   const obj = updatePayloadChange(values);
   httpClient
     .putData("https://demoerpm.ibos.io/domain/Customer/Update", obj)
     .then((res) => {
+<<<<<<< HEAD
       setUpdateFormData(null);
+=======
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
       formik.resetForm();
       populateTable();
     });
@@ -82,6 +96,7 @@ export const customerDropdownListAction = (setter) => {
     });
 };
 
+<<<<<<< HEAD
 //get payload change
 const getPayloadChange = (values) => {
   return values?.map((data) => ({
@@ -109,10 +124,16 @@ const getPayloadChange = (values) => {
 const createPayloadChange = (values) => {
   const payload = {
     // login theke asbe
+=======
+//create payload change
+const createPayloadChange = (values) => {
+  const payload = {
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
     accountId: +1,
     businessUnitId: +1,
     customerName: values?.customerName || "",
     customerAddress: values?.customerAddress || "",
+<<<<<<< HEAD
     contactNumber: values?.contactNumber || "",
     customerTypeId: values?.customerType?.value,
     email: values?.customerEmail || "",
@@ -122,6 +143,17 @@ const createPayloadChange = (values) => {
     bin: values?.bin || "",
     licenseNo: values?.licenseNo || "",
     intActionBy: values?.intActionBy || +0,
+=======
+    contactNumber: values?.contactNumber?.toString() || "",
+    customerTypeId: +1,
+    email: values?.customerEmail || "",
+    billingName: values?.billingName || "",
+    billingAddress: values?.billingAddress || "",
+    nid: values?.nid?.toString() || "",
+    bin: values?.bin || "",
+    licenseNo: values?.licenseNo || "",
+    intActionBy: +0,
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
   };
   return payload;
 };
@@ -129,6 +161,7 @@ const createPayloadChange = (values) => {
 //update payload change
 const updatePayloadChange = (values) => {
   const payload = {
+<<<<<<< HEAD
     customerId: values?.customerId,
     customerName: values?.customerName || "",
     customerAddress: values?.customerAddress || "",
@@ -140,6 +173,19 @@ const updatePayloadChange = (values) => {
     bin: values?.bin || "",
     licenseNo: values?.licenseNo || "",
     intActionBy: values?.intActionBy || +0,
+=======
+    customerId: +1,
+    customerName: values?.customerName || "",
+    customerAddress: values?.customerAddress || "",
+    contactNumber: values?.contactNumber?.toString() || "",
+    email: values?.customerEmail || "",
+    billingName: values?.billingName || "",
+    billingAddress: values?.billingAddress || "",
+    nid: values?.nid?.toString() || "",
+    bin: values?.bin || "",
+    licenseNo: values?.licenseNo || "",
+    intActionBy: +0,
+>>>>>>> 6082f03b6956fb1773c3c8c871d11a01a34b44b8
   };
   return payload;
 };
