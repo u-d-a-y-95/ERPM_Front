@@ -1,10 +1,10 @@
 import React from "react";
-import { tableConfig } from "./util";
+import { supplierViewUpdatePayloadData, tableConfig } from "./util";
 import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
 
-const BusinessUnitTable = (props) => {
+const BusinessUnitTable = ({ viewData, updateToTable, data }) => {
   const config = tableConfig;
-  config.data = props.data;
+  config.data = data;
   config.action = [
     // {
     //   icon: "fa fa-trash",
@@ -17,14 +17,17 @@ const BusinessUnitTable = (props) => {
       icon: "fa fa-eye",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        props.viewData(row);
+        console.log(row);
+        const newData = supplierViewUpdatePayloadData(row);
+        viewData(newData);
       },
     },
     {
       icon: "fa fa-edit",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        props.updateToTable(row);
+        const newData = supplierViewUpdatePayloadData(row);
+        updateToTable(newData);
       },
     },
   ];

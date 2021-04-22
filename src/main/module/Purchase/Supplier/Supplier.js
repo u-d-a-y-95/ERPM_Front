@@ -6,6 +6,8 @@ import { businessUnitDeleteData, getList, getRowById } from "./http";
 
 const Supplier = () => {
   const accId = 1;
+  const searchTerm = "";
+  const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
   // const [currentRowId, setCurrentRowId] = useState("");
@@ -16,11 +18,11 @@ const Supplier = () => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(accId, pageNo, pageSize, setTableData);
+    getList(accId, pageNo, pageSize, setTableData, businessUnitId, searchTerm);
   };
 
   const updateToTable = (row) => {
-    // getRowById()
+    setIsDisabled(false);
     setUpdateFormData(row);
   };
   const viewData = (row) => {

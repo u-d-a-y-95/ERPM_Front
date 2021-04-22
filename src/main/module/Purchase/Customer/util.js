@@ -73,7 +73,7 @@ export const tableConfig = {
   isSearchable: true,
 };
 
-export const viewUpdatePayloadData = (value) => {
+export const customerViewUpdatePayloadData = (value) => {
   const payload = {
     accountId: 1,
     address: value?.address,
