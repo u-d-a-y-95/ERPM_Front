@@ -57,6 +57,7 @@ const ItemProfileForm = ({
       );
       // console.log(formik.values.itemName)
     },
+
   });
 
   useEffect(() => {
@@ -147,7 +148,7 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik?.errors?.itemType} />
           ) : null}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-3">         
           <MasterSelect
             label="Category"
             name="category"

@@ -13,9 +13,9 @@ function Holder() {
     return (
         <div className="holder h-100 p-5">
           {/* <PurchaseOrder /> */}
-          {/* <ItemProfile /> */}
+          <ItemProfile />
           {/* <BusinessUnit /> */}
-          <ItemCategory />
+          {/* <ItemCategory /> */}
           {/* <ItemSubCategory /> */}
         </div>
     )
