@@ -6,6 +6,7 @@ export const createSupplier = (values, formik, populateTable) => {
   httpClient
     .postData("https://demoerpm.ibos.io/domain/Supplier/Create", obj)
     .then((res) => {
+      formik.setValues(null);
       formik.resetForm();
       populateTable();
     })
@@ -26,11 +27,11 @@ export const getList = (
   httpClient
     .getData(
       searchTerm
-        ? `https://localhost:44339/domain/Supplier/GetListForPaignation?search=${searchTerm}&accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
-        : `https://localhost:44339/domain/Supplier/GetListForPaignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        ? `https://demoerpm.ibos.io/domain/Supplier/GetList?search=${searchTerm}&accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        : `https://demoerpm.ibos.io/domain/Supplier/GetList?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
-      setter(res?.data);
+      setter(res?.data?.data);
     })
     .catch((err) => {
       setter([]);
@@ -56,11 +57,17 @@ export const getList = (
 // };
 
 //update business unit
-export const updateSupplier = (values, formik, populateTable) => {
+export const updateSupplier = (
+  values,
+  formik,
+  populateTable,
+  setUpdateFormData
+) => {
   const obj = updatePayloadChange(values);
   httpClient
     .putData("https://demoerpm.ibos.io/domain/Supplier/Update", obj)
     .then((res) => {
+      setUpdateFormData(null);
       formik.resetForm();
       populateTable();
     })
@@ -87,16 +94,15 @@ const createPayloadChange = (values) => {
   const payload = {
     accountId: +1,
     businessUnitId: +1,
-    supplierCode: values?.supplierType?.code,
+    actionBy: +0,
     supplierName: values?.supplierName || "",
     supplierAddress: values?.supplierAddress || "",
-    contactNumber: values?.contactNumber?.toString() || "",
+    contactNumber: values?.contactNumber || "",
     bin: values?.bin || "",
     licenseNo: values?.licenseNo || "",
-    email: "kolmilota@gmail.com",
-    nid: values?.nid?.toString(),
-    supplierTypeId: +3,
-    actionBy: +0,
+    email: values?.email || "",
+    nid: values?.nid || "",
+    supplierTypeId: values?.supplierType?.value || 0,
   };
   return payload;
 };

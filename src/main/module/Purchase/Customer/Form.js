@@ -27,7 +27,7 @@ const CustomerForm = ({
       if (updateFormData?.customerId) {
         return updateCustomer(values, formik, populateTable, setUpdateFormData);
       }
-      return createCustomer(values, formik, populateTable, setUpdateFormData);
+      return createCustomer(values, formik, populateTable);
     },
   });
 

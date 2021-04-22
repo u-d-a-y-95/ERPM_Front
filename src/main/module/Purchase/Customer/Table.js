@@ -1,5 +1,5 @@
 import React from "react";
-import { tableConfig, viewUpdatePayloadData } from "./util";
+import { customerViewUpdatePayloadData, tableConfig } from "./util";
 import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
 
 const CustomerTable = (props) => {
@@ -10,7 +10,7 @@ const CustomerTable = (props) => {
       icon: "fa fa-eye",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        const newData = viewUpdatePayloadData(row);
+        const newData = customerViewUpdatePayloadData(row);
         props.viewData(newData);
       },
     },
@@ -18,7 +18,7 @@ const CustomerTable = (props) => {
       icon: "fa fa-edit",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        const newData = viewUpdatePayloadData(row);
+        const newData = customerViewUpdatePayloadData(row);
         props.updateToTable(newData);
       },
     },
