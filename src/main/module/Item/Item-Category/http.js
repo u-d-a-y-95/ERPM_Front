@@ -19,28 +19,27 @@ export const createItemCategory = (values, formik, populateTable) => {
 
 //Create Payload Change
 const createPayloadChange = (values) => {
-  console.log(values)
+  // console.log(values)
   const payload = {
     sl: +1,
     itemCategoryId: values.category.value || 0,
-    itemCategoryName: values.category.label || "",
     accountId: 1,
     businessUnitId: values.businessUnit.value || 0,
     itemTypeId: values.itemType.value || 0,
     itemTypeName: values.itemType.label || "",
     actionBy: +1234,
-  };
+  // console.log(values)
+  }
   return payload;
-};
+}
 
-//Item Category Landing API Binding
 export const getList = (
   accId,
   businessUnitId,
   pageNo,
   pageSize,
   setter,
-  searchTerm
+
 ) => {
   httpClient
     .getData(
@@ -48,6 +47,7 @@ export const getList = (
     )
     .then((res) => {
       setter(res?.data.data);
+      // setter(res?.data);
     })
     .catch((error) => {
       // setter([]);
@@ -171,3 +171,4 @@ export const getItemCategoryDropdownListAction = (
       console.log("Error", error?.message);
     });
 };
+
