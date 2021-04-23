@@ -25,28 +25,38 @@ const ItemProfileForm = ({
   accountId,
   businessUnitId,
 }) => {
-
-  
-  console.log(updateFormData);
+  // console.log(updateFormData);
 
   const [itemTypeDropdownList, setitemTypeDropdownList] = useState([]);
   const [itemCategoryDropdownList, setItemCategoryDropdownList] = useState([]);
-  const [itemSubCategoryDropdownList, setitemSubCategoryDropdownList] = useState([]);
+  const [
+    itemSubCategoryDropdownList,
+    setitemSubCategoryDropdownList,
+  ] = useState([]);
   const [uomDropdownList, setUomDropdownList] = useState([]);
 
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: updateFormData || formsInitialValues,
     // initialValues: formsInitialValues,
-    // validationSchema: formsValidationSchema,
+    validationSchema: formsValidationSchema,
     onSubmit: (values) => {
       if (updateFormData?.itemCode) {
-        return updateItemProfile(values, formik, populateTable, setUpdateFormData);
+        return updateItemProfile(
+          values,
+          formik,
+          populateTable,
+          setUpdateFormData
+        );
       }
-      return createItemProfile(values, formik, populateTable, setUpdateFormData);
+      return createItemProfile(
+        values,
+        formik,
+        populateTable,
+        setUpdateFormData
+      );
       // console.log(formik.values.itemName)
     },
-
   });
 
   useEffect(() => {
@@ -133,12 +143,11 @@ const ItemProfileForm = ({
             placeholder="Select Item Type"
           />
 
-          {formik?.errors?.itemType &&
-          formik?.touched?.itemType ? (
+          {formik?.errors?.itemType && formik?.touched?.itemType ? (
             <MasterErrorText message={formik?.errors?.itemType} />
           ) : null}
         </div>
-        <div className="col-md-4 col-lg-3">         
+        <div className="col-md-4 col-lg-3">
           <MasterSelect
             label="Category"
             name="category"
@@ -154,8 +163,7 @@ const ItemProfileForm = ({
             placeholder="Select Item Category"
           />
 
-          {formik?.errors?.category &&
-          formik?.touched?.category ? (
+          {formik?.errors?.category && formik?.touched?.category ? (
             <MasterErrorText message={formik?.errors?.category} />
           ) : null}
         </div>
@@ -175,8 +183,7 @@ const ItemProfileForm = ({
             placeholder="Item Sub-Category"
           />
 
-          {formik?.errors?.subCategory &&
-          formik?.touched?.subCategory ? (
+          {formik?.errors?.subCategory && formik?.touched?.subCategory ? (
             <MasterErrorText message={formik?.errors?.subCategory} />
           ) : null}
         </div>
@@ -200,24 +207,22 @@ const ItemProfileForm = ({
           ) : null}
         </div>
 
-        {updateFormData.length > 0 && (
-          <div className="col-md-4 col-lg-3">
-            <MasterInput
-              label="Part Number"
-              name="partNumber"
-              type="text"
-              required={true}
-              value={formik.values?.partNumber}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              placeholder="Enter Part Number"
-              disabled={isDisabled}
-            />
-            {formik.errors?.partNumber && formik.touched.partNumber && (
-              <MasterErrorText message={formik.errors.partNumber} />
-            )}
-          </div>
-        )}
+        <div className="col-md-4 col-lg-3">
+          <MasterInput
+            label="Part Number"
+            name="partNumber"
+            type="text"
+            required={true}
+            value={formik.values?.partNumber}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            placeholder="Enter Part Number"
+            disabled={isDisabled}
+          />
+          {formik.errors?.partNumber && formik.touched.partNumber && (
+            <MasterErrorText message={formik.errors.partNumber} />
+          )}
+        </div>
 
         <div className="col-md-12 mt-3 text-left">
           <FormikSaveButton id={updateFormData?.itemCode} formik={formik} />

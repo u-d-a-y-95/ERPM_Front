@@ -31,7 +31,9 @@ export const tableConfig = {
 
 
 export const formsValidationSchema = Yup.object().shape({
-    subCategory: Yup.string().required("Sub Category is required"),
+    subCategory: Yup.object().shape({
+        value: Yup.string().required("Sub Category is required"),
+      }),
     category: Yup.object().shape({
         value: Yup.string().required("Category is required"),
       }),

@@ -6,25 +6,29 @@ export const createItemCategory = (values, formik, populateTable) => {
   httpClient
     .postData("https://demoerpm.ibos.io/domain/ItemCategory/Create", obj)
     .then((res) => {
+      // console.log(res.data)
+      // console.log(res.data.data)
+      formik.setValues(null);
       formik.resetForm();
       populateTable();
+    })
+    .catch((error) => {
+      console.log("Error: ", error?.message);
     });
 };
 
 //Create Payload Change
 const createPayloadChange = (values) => {
-  // console.log(values)
+  console.log(values)
   const payload = {
-    sl: values.sl,
-    itemCategory: values.itemCategoryId
-      ? { value: values.itemCategoryId, label: values.itemCategoryName }
-      : "",
+    sl: +1,
+    itemCategoryId: values.category.value || 0,
+    itemCategoryName: values.category.label || "",
     accountId: 1,
-    businessUnitId: values.businessUnitId || 0,
-    itemType: values.itemTypeId
-    ? { value: values.itemTypeId, label: values.itemTypeName }
-    : 0,
-    actionBy: 1234,
+    businessUnitId: values.businessUnit.value || 0,
+    itemTypeId: values.itemType.value || 0,
+    itemTypeName: values.itemType.label || "",
+    actionBy: +1234,
   };
   return payload;
 };
@@ -32,10 +36,10 @@ const createPayloadChange = (values) => {
 //Item Category Landing API Binding
 export const getList = (
   accId,
+  businessUnitId,
   pageNo,
   pageSize,
   setter,
-  businessUnitId,
   searchTerm
 ) => {
   httpClient
@@ -43,7 +47,7 @@ export const getList = (
       `https://demoerpm.ibos.io/domain/ItemCategory/GetListPagination?accountId=${accId}&businessUnitId=${businessUnitId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`
     )
     .then((res) => {
-      setter(res?.data);
+      setter(res?.data.data);
     })
     .catch((error) => {
       // setter([]);

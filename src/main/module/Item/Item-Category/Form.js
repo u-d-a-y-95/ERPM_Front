@@ -21,10 +21,11 @@ function ItemCategoryForm(props) {
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: props.upDate || formsInitialValues,
+    initialValues: updateFormData || formsInitialValues,
+    // initialValues: formsInitialValues,
     validationSchema: formsValidationSchema,
     onSubmit: (values) => {
-      createItemCategory(values, formik, props.populateTable);
+      return createItemCategory(values, formik, populateTable, setUpdateFormData);
     },
   });
 
@@ -34,11 +35,19 @@ function ItemCategoryForm(props) {
     { value: 3, label: "Test3" },
     { value: 4, label: "Test4" },
     { value: 5, label: "Test5" },
-  ]
+  ];
+
+  const categotyDDL = [
+    { value: 1, label: "Bangladesh" },
+    { value: 2, label: "India" },
+    { value: 3, label: "China" },
+    { value: 4, label: "Pakistan" },
+    { value: 5, label: "Iran" },
+    { value: 6, label: "Srilanka" },
+  ];
 
   useEffect(() => {
     getItemTypeDropdownListAction(setItemTypeDropdownList);
-    
   }, []);
 
       const obj = purchaseObject(values);
@@ -57,7 +66,6 @@ function ItemCategoryForm(props) {
   return (
     <>
       <div className="row">
-        
         <div className="col-md-4 col-lg-3">
           <MasterSelect
             label="Business Unit"
@@ -70,10 +78,27 @@ function ItemCategoryForm(props) {
               formik.setFieldValue("businessUnit", value);
             }}
             onBlur={formik.handleBlur}
+            isDisabled={isDisabled}
+            required={true}
+            placeholder="Select Business Unit"
           />
         </div>
         <div className="col-md-4 col-lg-3">
-          <MasterInput
+        <MasterSelect
+            label="Item Category"
+            name="category"
+            // data={itemTypeDDL}
+            data={categotyDDL}
+            value={formik.values?.category}
+            onChange={(value) => {
+              formik.setFieldValue("category", value);
+            }}
+            onBlur={formik.handleBlur}
+            isDisabled={isDisabled}
+            required={true}
+            placeholder="Select Item Category"
+          />
+          {/* <MasterInput
             label="Category"
             name="category"
             type="text"
@@ -82,13 +107,14 @@ function ItemCategoryForm(props) {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             placeholder="Enter Category Name"
+            isDisabled={isDisabled}
           />
           {formik.errors?.category && formik.touched.category && (
             <MasterErrorText message={formik.errors.category} />
-          )}
-        </div>
+          )}*/}
+        </div> 
         <div className="col-md-4 col-lg-3">
-        <MasterSelect
+          <MasterSelect
             label="Item Type"
             name="itemType"
             // data={itemTypeDDL}
@@ -99,6 +125,9 @@ function ItemCategoryForm(props) {
               formik.setFieldValue("itemType", value);
             }}
             onBlur={formik.handleBlur}
+            isDisabled={isDisabled}
+            required={true}
+            placeholder="Select Business Unit"
           />
         </div>
         <div className="col-md-12 mt-3 text-left">
@@ -107,7 +136,7 @@ function ItemCategoryForm(props) {
           <FormikResetButton
             className="ml-2"
             formik={formik}
-            formikData={props.setUpData}
+            formikData={setUpdateFormData}
           />
         </div>
       </div>
