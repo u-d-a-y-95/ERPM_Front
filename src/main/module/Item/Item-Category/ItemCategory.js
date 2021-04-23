@@ -5,39 +5,46 @@ import { getList } from "./http";
 import ItemCategoryTable from "./Table";
 
 function ItemCategory() {
+  const accountId = 1;
+  const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
-  const [updateFromData, setUpdateFromData] = useState({});
+  const [updateFormData, setUpdateFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
-  const accountId = 1;
-  const businessId = 1234;
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(accountId, businessId, setTableData);
+    getList(accountId, businessUnitId, pageNo, pageSize, setTableData);
   };
-  // const deleteFromTable = (id) => {
-  //     purchaseOrderDeleteData(id, populateTable)
-  // }
   const updateToTable = (row) => {
-    setUpdateFromData(row);
+    console.log(row)
+    setIsDisabled(false);
+    setUpdateFormData(row);
+  };
+  const viewData = (row) => {
+    setUpdateFormData(row);
+    setIsDisabled(true);
   };
   return (
     <>
       <h3 className="">New Item Category</h3>
       <ItemCategoryForm
         populateTable={populateTable}
-        updateFromData={updateFromData}
-        setUpdateFromData={setUpdateFromData}
+        updateFormData={updateFormData}
+        setUpdateFormData={setUpdateFormData}
+        isDisabled={isDisabled}
+        accountId={accountId}
+        businessUnitId={businessUnitId}
       />
       <h3 className="text-center my-2">Item Category</h3>
-      {/* <ItemCategoryTable
+      <ItemCategoryTable
         data={tableData}
-        // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
-      /> */}
+        viewData={viewData}
+      />
     </>
   );
 }

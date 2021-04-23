@@ -1,4 +1,4 @@
-// import httpClient from "../../../services/http/http-client";
+import httpClient from "../../../services/http/http-client";
 
 //Item Category Create Api Binding
 export const createItemCategory = (values, formik, populateTable) => {
@@ -152,25 +152,22 @@ export const getItemTypeDropdownListAction = (setter) => {
       console.log("Error", error?.message);
     });
 };
-import httpClient from "../../../services/http/http-client"
 
-export const createItemCategory = (values, formik, populateTable) => {
-  const obj = createPayloadChange(values);
+// Item Category Drop Down List
+export const getItemCategoryDropdownListAction = (
+  accId,
+  businessId,
+  setter
+) => {
   httpClient
-    .postData("https://jsonplaceholder.typicode.com/user", obj)
+    .getData(
+      `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=1`
+    )
     .then((res) => {
-      formik.resetForm();
-      populateTable();
+      setter(res?.data);
+    })
+    .catch((error) => {
+      setter([]);
+      console.log("Error", error?.message);
     });
 };
-export const getList = (setData) => {
-  httpClient
-    .getData("https://jsonplaceholder.typicode.com/users")
-    .then((res) => {
-      setData(res.data);
-    });
-};
-
-const createPayloadChange = (payload) => {
-    return payload
-}
