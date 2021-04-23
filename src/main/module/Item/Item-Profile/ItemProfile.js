@@ -21,6 +21,7 @@ function ItemProfile() {
     getList(accountId, businessUnitId, pageNo, pageSize, setTableData);
   };
   const updateToTable = (row) => {
+    console.log(row)
     setIsDisabled(false);
     setUpdateFormData(row);
   };

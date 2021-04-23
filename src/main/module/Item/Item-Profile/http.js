@@ -20,7 +20,7 @@ const createPayloadChange = (values) => {
   console.log(values)
   const payload = {
     accountId: +1,
-    itemCode: values?.code || "",
+    itemCode: values?.itemCode || "",
     itemName: values?.itemName || "",
     partNumber: values?.partNumber || "",
     itemTypeId: values?.itemType?.value || +0,
@@ -48,9 +48,10 @@ export const getList = (accId, businessUnitId, pageNo, pageSize, setter) => {
       `https://demoerpm.ibos.io/domain/ItemBasicInfo/GetLandingPasignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=dsce&pageNo=${pageNo}&pageSize=${pageSize}`
     )
     .then((res) => {
-      // setter(res?.data?.data);
-      const values = getPayloadChange(res?.data?.data);
-      setter(values && values);
+      setter(res?.data?.data);
+      // console.log(res.data.data)
+      // const values = getPayloadChange(res?.data?.data);
+      // setter(values && values);
     })
     .catch((error) => {
       console.log("Error: ", error?.message);
@@ -113,6 +114,14 @@ const updatePayloadChange = (values) => {
     itemTypeName: values?.itemType || +0,
     itemCategoryName: values?.itemCategoryName || +0,
     itemSubCategoryName: values?.itemSubCategoryName || +0,
+
+    // itemCode: values?.code || "",
+    // itemName: values?.itemName || "",
+    // partNumber: values?.partNumber || "",
+    // itemTypeId: values?.itemType?.value || +0,
+    // itemCategoryId: values?.category?.value || +0,
+    // itemSubCategoryId: values?.subCategory?.value || +0,
+    // uom: values?.uom?.value || +0,
   };
   return payload;
 };
