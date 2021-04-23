@@ -11,13 +11,19 @@ import {
   // purchaseObject,
 } from "./util";
 
-import { createItemCategory } from "./http";
+import { createItemCategory, getItemTypeDropdownListAction } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
-function ItemCategoryForm(props) {
-    const [businessUnitDDL, setBusinessUnitDDL] = useState([]);
-    const [itemTypeDropdownList, setItemTypeDropdownList] = useState([]);
-    const [itemTypeDDL, setitemTypeDDL] = useState([]);
+const ItemCategoryForm = ({
+  updateFormData,
+  populateTable,
+  isDisabled,
+  setUpdateFormData,
+  accountId,
+  businessUnitId,
+}) => {
+  const [businessUnitDDL, setBusinessUnitDDL] = useState([]);
+  const [itemTypeDropdownList, setItemTypeDropdownList] = useState([]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -50,14 +56,6 @@ function ItemCategoryForm(props) {
     getItemTypeDropdownListAction(setItemTypeDropdownList);
   }, []);
 
-  // const testDDL = [
-  //   { value: 1, label: "Test" },
-  //   { value: 2, label: "Test2" },
-  //   { value: 3, label: "Test3" },
-  //   { value: 4, label: "Test4" },
-  //   { value: 5, label: "Test5" },
-  // ]
-
   return (
     <>
       <div className="row">
@@ -67,8 +65,7 @@ function ItemCategoryForm(props) {
             name="businessUnit"
             // data={businessUnitDDL}
             data={testDDL}
-            data={businessUnitDDL}
-            value={formik.values.businessUnit}
+            value={formik.values?.businessUnit}
             onChange={(value) => {
               formik.setFieldValue("businessUnit", value);
             }}
@@ -114,8 +111,7 @@ function ItemCategoryForm(props) {
             name="itemType"
             // data={itemTypeDDL}
             data={itemTypeDropdownList}
-            data={itemTypeDDL}
-            value={formik.values.itemType}
+            value={formik.values?.itemType}
             onChange={(value) => {
               formik.setFieldValue("itemType", value);
             }}
@@ -127,7 +123,6 @@ function ItemCategoryForm(props) {
         </div>
         <div className="col-md-12 mt-3 text-left">
           <FormikSaveButton formik={formik} />
-          <FormikSaveButton className="" formik={formik} />
           <FormikResetButton
             className="ml-2"
             formik={formik}
