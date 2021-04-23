@@ -7,16 +7,26 @@ import FormikSaveButton from "../../../common/composite-component/formik-save-bu
 import FormikResetButton from "../../../common/composite-component/formik-reset-button";
 import { createBusinessUnit, updateBusinessUnit } from "./http";
 
-const BusinessUnitForm = (props) => {
+const BusinessUnitForm = ({
+  populateTable,
+  updateFormData,
+  setUpdateFormData,
+  isDisabled,
+}) => {
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: props.upDate || initialValues,
+    initialValues: updateFormData || initialValues,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      if (props.upDate?.intBusinessUnitId) {
-        updateBusinessUnit(values, formik, props.populateTable);
+      if (updateFormData?.businessUnitId) {
+        return updateBusinessUnit(
+          values,
+          formik,
+          populateTable,
+          setUpdateFormData
+        );
       }
-      createBusinessUnit(values, formik, props.populateTable);
+      return createBusinessUnit(values, formik, populateTable);
     },
   });
 
@@ -33,7 +43,7 @@ const BusinessUnitForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.businessUnitName &&
             formik.touched?.businessUnitName && (
@@ -50,7 +60,7 @@ const BusinessUnitForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.businessUnitCode &&
             formik.touched?.businessUnitCode && (
@@ -67,7 +77,7 @@ const BusinessUnitForm = (props) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             required={true}
-            disabled={props.isDisabled}
+            disabled={isDisabled}
           />
           {formik.errors?.businessUnitAddress &&
             formik.touched?.businessUnitAddress && (
@@ -75,11 +85,14 @@ const BusinessUnitForm = (props) => {
             )}
         </div>
         <div className='col-md-12 mt-3 text-left'>
-          <FormikSaveButton formik={formik} />
+          <FormikSaveButton
+            id={updateFormData?.businessUnitId}
+            formik={formik}
+          />
           <FormikResetButton
             className='ml-2'
             formik={formik}
-            formikData={props.setUpData}
+            formikData={setUpdateFormData}
           />
         </div>
       </div>

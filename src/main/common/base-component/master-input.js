@@ -10,7 +10,7 @@ function MasterInput(props) {
         type={props.type}
         className='form-control'
         id={props.name}
-        placeholder={props.placeHolder}
+        placeholder={props.placeholder}
         value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}

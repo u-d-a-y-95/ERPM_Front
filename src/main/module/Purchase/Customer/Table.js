@@ -1,8 +1,8 @@
 import React from "react";
-import { tableConfig } from "./util";
+import { customerViewUpdatePayloadData, tableConfig } from "./util";
 import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
 
-const BusinessUnitTable = (props) => {
+const CustomerTable = (props) => {
   const config = tableConfig;
   config.data = props.data;
   config.action = [
@@ -10,20 +10,23 @@ const BusinessUnitTable = (props) => {
       icon: "fa fa-eye",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        props.viewData(row);
+        const newData = customerViewUpdatePayloadData(row);
+        props.viewData(newData);
       },
     },
     {
       icon: "fa fa-edit",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
-        props.updateToTable(row);
+        const newData = customerViewUpdatePayloadData(row);
+        props.updateToTable(newData);
       },
     },
     // {
     //   icon: "fa fa-trash",
     //   className: "btn btn-sm btn-warning text-white",
     //   event: (row) => {
+    //     // props.deleteFromTable(row.id);
     //   },
     // },
   ];
@@ -34,4 +37,4 @@ const BusinessUnitTable = (props) => {
   );
 };
 
-export default BusinessUnitTable;
+export default CustomerTable;
