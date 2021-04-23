@@ -50,18 +50,13 @@ function ItemCategoryForm(props) {
     getItemTypeDropdownListAction(setItemTypeDropdownList);
   }, []);
 
-      const obj = purchaseObject(values);
-      createItemCategory(obj, formik, props.populateTable);
-    },
-  });
-
-  const testDDL = [
-    { value: 1, label: "Test" },
-    { value: 2, label: "Test2" },
-    { value: 3, label: "Test3" },
-    { value: 4, label: "Test4" },
-    { value: 5, label: "Test5" },
-  ]
+  // const testDDL = [
+  //   { value: 1, label: "Test" },
+  //   { value: 2, label: "Test2" },
+  //   { value: 3, label: "Test3" },
+  //   { value: 4, label: "Test4" },
+  //   { value: 5, label: "Test5" },
+  // ]
 
   return (
     <>

@@ -1,4 +1,4 @@
-import httpClient from "../../../services/http/http-client";
+// import httpClient from "../../../services/http/http-client";
 
 //Item Category Create Api Binding
 export const createItemCategory = (values, formik, populateTable) => {
