@@ -30,6 +30,10 @@ export const tableConfig = {
       key: "businessUnitAddress",
       label: "Address",
     },
+    {
+      key: "baseCurrency",
+      label: "Base Currency",
+    },
   ],
   isSearchable: true,
 };

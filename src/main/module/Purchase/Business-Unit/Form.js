@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { initialValues, formValidationSchema, onSubmit } from "./util";
+import { initialValues, formValidationSchema } from "./util";
 import MasterInput from "../../../common/base-component/master-input";
 import MasterErrorText from "../../../common/base-component/master-errortext";
 import FormikSaveButton from "../../../common/composite-component/formik-save-button";
 import FormikResetButton from "../../../common/composite-component/formik-reset-button";
-import { createBusinessUnit, updateBusinessUnit } from "./http";
+import {
+  createBusinessUnit,
+  currencyDropdownListAction,
+  updateBusinessUnit,
+} from "./http";
+import MasterSelect from "../../../common/base-component/master-select";
 
 const BusinessUnitForm = ({
   populateTable,
@@ -13,6 +18,11 @@ const BusinessUnitForm = ({
   setUpdateFormData,
   isDisabled,
 }) => {
+  const [currencyDropdownList, setCurrencyDropdownList] = useState([]);
+  useEffect(() => {
+    currencyDropdownListAction(setCurrencyDropdownList);
+  }, []);
+
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: updateFormData || initialValues,
@@ -23,6 +33,7 @@ const BusinessUnitForm = ({
           values,
           formik,
           populateTable,
+          updateFormData,
           setUpdateFormData
         );
       }
@@ -84,6 +95,27 @@ const BusinessUnitForm = ({
               <MasterErrorText message={formik.errors.businessUnitAddress} />
             )}
         </div>
+        {/* <div className='col-md-4 col-lg-3'>
+          <MasterSelect
+            label='Base Currency'
+            name='baseCurrency'
+            placeholder='Base Currency'
+            data={[
+              { value: "chocolate", label: "Chocolate" },
+              { value: "strawberry", label: "Strawberry" },
+              { value: "vanilla", label: "Vanilla" },
+            ]}
+            // data={currencyDropdownList}
+            value={formik.values?.baseCurrency}
+            onChange={(value) => formik.setFieldValue("baseCurrency", value)}
+            onBlur={formik.handleBlur}
+            required={true}
+            disabled={isDisabled}
+          />
+          {formik.errors?.baseCurrency && formik.touched?.baseCurrency && (
+            <MasterErrorText message={formik.errors?.baseCurrency} />
+          )}
+        </div> */}
         <div className='col-md-12 mt-3 text-left'>
           <FormikSaveButton
             id={updateFormData?.businessUnitId}
