@@ -35,14 +35,27 @@ export const getList = (accId, pageNo, pageSize, setData, searchTerm) => {
 //     });
 // };
 
+//base currency dropdown list
+
+export const currencyDropdownListAction = (setter) => {
+  httpClient
+    .getData(``)
+    .then((res) => {
+      setter(res?.data);
+    })
+    .catch((err) => console.log(err));
+};
+
 //update business unit
 export const updateBusinessUnit = (
   values,
   formik,
   populateTable,
+  updateFormData,
   setUpdateFormData
 ) => {
-  const obj = updatePayloadChange(values);
+  console.log(values);
+  const obj = updatePayloadChange(values, updateFormData);
   httpClient
     .putData("https://demoerpm.ibos.io/domain/BusinessUnit/Update", obj)
     .then((res) => {
@@ -64,19 +77,21 @@ const createPayloadChange = (values) => {
     businessUnitCode: values?.businessUnitCode || "",
     businessUnitName: values?.businessUnitName || "",
     businessUnitAddress: values?.businessUnitAddress || "",
+    baseCurrency: values?.baseCurrency || "",
     actionBy: +1234,
   };
   return payload;
 };
 
 //update payload change
-const updatePayloadChange = (values) => {
+const updatePayloadChange = (values, updateFormData) => {
   const payload = {
-    businessUnitId: 1,
+    businessUnitId: updateFormData?.businessUnitId,
     actionBy: 1,
     businessUnitCode: values?.businessUnitCode || "",
     businessUnitName: values?.businessUnitName || "",
     businessUnitAddress: values?.businessUnitAddress || "",
+    baseCurrency: values?.baseCurrency || "",
   };
   return payload;
 };
