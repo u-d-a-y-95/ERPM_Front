@@ -53,7 +53,7 @@ function Login() {
 
   return (
     <>
-      <div className='iboslogo'>
+      <div className="iboslogo">
         <img src={logo} alt='' />
       </div>
       <div className='login-left-decription '>

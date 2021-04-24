@@ -5,14 +5,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux'
-import { store } from './main/state/store'
+import { store, persistor } from './main/state/store'
+import { PersistGate } from "redux-persist/integration/react";
+import 'react-toastify/dist/ReactToastify.css';
+
+import Modal from 'react-modal';
+Modal.setAppElement('#root')
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
     </Provider>
-
   </React.StrictMode>,
   document.getElementById('root')
 );

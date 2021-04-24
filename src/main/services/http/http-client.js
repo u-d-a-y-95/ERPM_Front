@@ -1,5 +1,6 @@
 import axios from 'axios';
 import "../interceptors/request-interceptor"
+import "../interceptors/response-interceptor"
 
 function getData(url) {
     return excuteHttpRequest(url, 'get')

@@ -17,7 +17,6 @@ function configRequest(config) {
         config.headers['crossorigin'] = true
 
     }
-    console.log(config.headers)
     return config
 }
 

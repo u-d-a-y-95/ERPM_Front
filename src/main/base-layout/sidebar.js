@@ -16,14 +16,14 @@ function Sidebar(props) {
         }
     }
     return (
-        <div className="sidebar" style={props.isExpandSidebar ? { width: "250px" } : { width: "70px" }}>
+        <>
             <div className="company-logo d-flex justify-content-center  mt-3">
                 {
                     props.isExpandSidebar &&
                     <img
                         style={{
                             width: "150px",
-                            transition:"width" 
+                            transition: "width"
                         }}
                         src={logo}
                         alt="ibosLOg"
@@ -61,7 +61,7 @@ function Sidebar(props) {
             </div>
 
 
-        </div>
+        </>
     )
 }
 

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import httpClient from "../../../services/http/http-client";
 
 //create api call
@@ -48,7 +49,11 @@ export const updateBusinessUnit = (
       formik.resetForm();
       setUpdateFormData(null);
       populateTable();
-    });
+    })
+    .catch(error => {
+      // console.log(error)
+      toast.warn(error.response.data.message)
+    })
 };
 
 //create payload change
