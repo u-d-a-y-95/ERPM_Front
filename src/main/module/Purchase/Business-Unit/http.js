@@ -2,26 +2,31 @@ import { toast } from "react-toastify";
 import httpClient from "../../../services/http/http-client";
 
 //create api call
-export const createBusinessUnit = (values, formik, populateTable) => {
+export const createBusinessUnit = (values, formik, populateTable, onClickClose, setLoading) => {
   const obj = createPayloadChange(values);
+  onClickClose();
+  setLoading(true)
   httpClient
-    .postData("https://demoerpm.ibos.io/domain/BusinessUnit/Create", obj)
+    .postData("/domain/BusinessUnit/Create", obj)
     .then((res) => {
       formik.resetForm();
       populateTable();
+      setLoading(false)
     });
 };
 
 //landing api call
-export const getList = (accId, pageNo, pageSize, setData, searchTerm) => {
+export const getList = (accId, pageNo, pageSize, setData, searchTerm, setLoading) => {
+  setLoading(true)
   httpClient
     .getData(
       searchTerm
-        ? `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?searchTerm=${searchTerm}&AccountId=${accId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
-        : `https://demoerpm.ibos.io/domain/BusinessUnit/GetList?AccountId=${accId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        ? `/domain/BusinessUnit/GetList?searchTerm=${searchTerm}&AccountId=${accId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        : `/domain/BusinessUnit/GetList?AccountId=${accId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
       setData(res?.data?.data);
+      setLoading(false)
     });
 };
 //get by id for get by id api call
@@ -52,16 +57,20 @@ export const updateBusinessUnit = (
   formik,
   populateTable,
   updateFormData,
-  setUpdateFormData
+  setUpdateFormData,
+  onClickClose,
+  setLoading
 ) => {
-  console.log(values);
-  const obj = updatePayloadChange(values, updateFormData);
+  onClickClose()
+  setLoading(true)
+  const obj = updatePayloadChange(values, updateFormData,);
   httpClient
-    .putData("https://demoerpm.ibos.io/domain/BusinessUnit/Update", obj)
+    .putData("/domain/BusinessUnit/Update", obj)
     .then((res) => {
       formik.resetForm();
       setUpdateFormData(null);
       populateTable();
+      setLoading(false)
     })
     .catch(error => {
       // console.log(error)

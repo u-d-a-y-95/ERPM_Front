@@ -117,6 +117,18 @@ function SimpleMasterList(props) {
                 }}
                 onClick={onSearch}
               />
+
+            </div>
+            <div className="col-md-4 text-right">
+              {
+                props.config.create &&
+                <MasterButton
+                  label="new"
+                  className="btn base-color text-white"
+                  onClick={props.config.create}
+                />
+              }
+
             </div>
           </div>
         </div>

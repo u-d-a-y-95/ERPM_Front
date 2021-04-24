@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import Header from './header'
 import Sidebar from './sidebar'
 import Holder from './holder'
-
 function MainLayout() {
-
 
     // style={props.isExpandSidebar ? { width: "250px" } : { width: "70px" }}
 

@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { initialValues, formValidationSchema } from "./util";
+import { formValidationSchema } from "./util";
 import MasterInput from "../../../common/base-component/master-input";
 import MasterErrorText from "../../../common/base-component/master-errortext";
 import FormikSaveButton from "../../../common/composite-component/formik-save-button";
 import FormikResetButton from "../../../common/composite-component/formik-reset-button";
 import {
-  createBusinessUnit,
   currencyDropdownListAction,
-  updateBusinessUnit,
 } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
 const BusinessUnitForm = ({
-  populateTable,
-  updateFormData,
-  setUpdateFormData,
+  formData,
   isDisabled,
+  submitBtnClick
 }) => {
   const [currencyDropdownList, setCurrencyDropdownList] = useState([]);
   useEffect(() => {
@@ -25,26 +22,17 @@ const BusinessUnitForm = ({
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: updateFormData || initialValues,
+    initialValues: formData,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      if (updateFormData?.businessUnitId) {
-        return updateBusinessUnit(
-          values,
-          formik,
-          populateTable,
-          updateFormData,
-          setUpdateFormData
-        );
-      }
-      return createBusinessUnit(values, formik, populateTable);
+      submitBtnClick(values, formik)
     },
   });
 
   return (
     <>
       <div className='row'>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-12 col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Enter Business Unit'
@@ -61,7 +49,7 @@ const BusinessUnitForm = ({
               <MasterErrorText message={formik.errors?.businessUnitName} />
             )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Enter code'
@@ -78,7 +66,7 @@ const BusinessUnitForm = ({
               <MasterErrorText message={formik.errors?.businessUnitCode} />
             )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Enter Address'
@@ -116,17 +104,23 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors?.baseCurrency} />
           )}
         </div> */}
-        <div className='col-md-12 mt-3 text-left'>
-          <FormikSaveButton
-            id={updateFormData?.businessUnitId}
-            formik={formik}
-          />
-          <FormikResetButton
-            className='ml-2'
-            formik={formik}
-            formikData={setUpdateFormData}
-          />
-        </div>
+        <div className="col-12 mt-5"></div>
+        {
+
+          !isDisabled &&
+
+          <div className='col-md-12 text-right'>
+            <FormikSaveButton
+              id={formData?.businessUnitId}
+              formik={formik}
+            />
+            <FormikResetButton
+              className='ml-2'
+              formik={formik}
+              formikData={formData}
+            />
+          </div>
+        }
       </div>
     </>
   );

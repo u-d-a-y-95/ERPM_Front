@@ -9,8 +9,8 @@ axios.interceptors.request.use(configRequest, errorRequest);
 
 
 function configRequest(config) {
-
-    if (config.url.split('https://demoerpm.ibos.io/')[1].split("/")[0] !== "identity") {
+    console.log(config)
+    if (config.url.split('/')[0] !== "identity") {
         config.headers['Authorization'] = `bearer ${lh.getData('user')['auth']['token']}`
         config.headers['Access-Control-Allow-Origin'] = '*'
         config.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,PATCH,OPTIONS';

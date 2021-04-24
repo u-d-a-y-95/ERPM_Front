@@ -2,9 +2,10 @@ import React from "react";
 import { tableConfig } from "./util";
 import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
 
-const BusinessUnitTable = ({ data, viewData, updateToTable }) => {
+const BusinessUnitTable = ({ data, viewData, updateToTable, createEvent }) => {
   const config = tableConfig;
   config.data = data;
+  config.create = createEvent
   config.action = [
     {
       icon: "fa fa-eye",

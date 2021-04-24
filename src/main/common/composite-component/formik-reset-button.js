@@ -8,8 +8,8 @@ function FormikResetButton(props) {
                 label="Reset"
                 className={`${props.className} + btn btn-warning text-white`}
                 onClick={() => {
-                    props.formikData(null)
-                    props.formik.resetForm()
+                    // props.formikData(null)
+                    props.formik.resetForm(props.formikData)
                 }}
                 style={{
                     "width": "150px",

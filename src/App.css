@@ -1,7 +1,20 @@
 .base-color {
   background-color: #121e43;
 }
-
+.global-loading-css {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000000000;
+  background: white;
+  opacity: .8;
+}
 .login-form-field {
   display: flex;
   flex-direction: column;
@@ -75,3 +88,5 @@
   width: 70%  ;  /* Occupy the 90% of the screen width */
   max-width: 90vw;
 } 
+
+
