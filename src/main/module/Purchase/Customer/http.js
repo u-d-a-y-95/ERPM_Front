@@ -1,13 +1,13 @@
 import httpClient from "../../../services/http/http-client";
 import { toast } from "react-toastify";
 import {
-  successCreateMessage,
+  successInsertMessage,
   successUpdateMessage,
 } from "../../../constant/message.constant";
 
 //create api call
-export const createCustomer = (values, formik, populateTable, setIsLoading) => {
-  setIsLoading(true);
+export const createCustomer = (values, formik, populateTable, setLoading) => {
+  setLoading(true);
   const obj = createPayloadChange(values);
   httpClient
     .postData("/domain/Customer/Create", obj)
@@ -15,11 +15,11 @@ export const createCustomer = (values, formik, populateTable, setIsLoading) => {
       formik.setValues(null);
       formik.resetForm();
       populateTable();
-      setIsLoading(false);
-      toast.success(successCreateMessage);
+      setLoading(false);
+      toast.success(successInsertMessage);
     })
     .catch((error) => {
-      setIsLoading(false);
+      setLoading(false);
       toast.error(error?.response?.data?.message);
     });
 };
@@ -32,9 +32,9 @@ export const getList = (
   setter,
   businessUnitId,
   searchTerm,
-  setIsLoading
+  setLoading
 ) => {
-  setIsLoading(true);
+  setLoading(true);
   httpClient
     .getData(
       searchTerm
@@ -44,10 +44,10 @@ export const getList = (
     .then((res) => {
       const values = getPayloadChange(res?.data?.data);
       setter(values && values);
-      setIsLoading(false);
+      setLoading(false);
     })
     .catch((error) => {
-      setIsLoading(false);
+      setLoading(false);
       setter([]);
       toast.error(error?.response?.data?.message);
     });
@@ -71,9 +71,9 @@ export const updateCustomer = (
   formik,
   populateTable,
   setUpdateFormData,
-  setIsLoading
+  setLoading
 ) => {
-  setIsLoading(true);
+  setLoading(true);
   const obj = updatePayloadChange(values);
   httpClient
     .putData("/domain/Customer/Update", obj)
@@ -81,26 +81,26 @@ export const updateCustomer = (
       setUpdateFormData(null);
       formik.resetForm();
       populateTable();
-      setIsLoading(false);
+      setLoading(false);
       toast.success(successUpdateMessage);
     })
     .catch((error) => {
-      setIsLoading(false);
+      setLoading(false);
       toast.error(error?.response?.data?.message);
     });
 };
 
 // customer Dropdown List list
-export const customerDropdownListAction = (setter, setIsLoading) => {
-  setIsLoading(true);
+export const customerDropdownListAction = (setter, setLoading) => {
+  setLoading(true);
   httpClient
     .getData("/domain/CustomerType/GetList")
     .then((res) => {
       setter(res?.data);
-      setIsLoading(false);
+      setLoading(false);
     })
     .catch((err) => {
-      setIsLoading(false);
+      setLoading(false);
       setter([]);
       toast.error(err?.response?.data?.message);
     });
