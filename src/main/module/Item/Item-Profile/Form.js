@@ -4,7 +4,6 @@ import MasterErrorText from "../../../common/base-component/master-errortext";
 import FormikResetButton from "../../../common/composite-component/formik-reset-button";
 
 import { useFormik } from "formik";
-import { formsInitialValues, formsValidationSchema } from "./util";
 
 import {
   createItemProfile,
@@ -16,48 +15,29 @@ import {
 } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 import FormikSaveButton from "./../../../common/composite-component/formik-save-button";
+import { formValidationSchema } from './util';
 
 const ItemProfileForm = ({
-  updateFormData,
-  populateTable,
+  formData,
   isDisabled,
-  setUpdateFormData,
+  submitBtnClick,
   accountId,
   businessUnitId,
 }) => {
-  // console.log(updateFormData);
-  const itemTypeId = 4;
   const [itemTypeDropdownList, setitemTypeDropdownList] = useState([]);
   const [itemCategoryDropdownList, setItemCategoryDropdownList] = useState([]);
-  const [itemTypeList, setItemTypeList] = useState({});
-  const [itemCategoryList, setItemCategoryList] = useState({});
+  const [uomDropdownList, setUomDropdownList] = useState([]);
   const [
     itemSubCategoryDropdownList,
-    setitemSubCategoryDropdownList,
+    setItemSubCategoryDropdownList,
   ] = useState([]);
-  const [uomDropdownList, setUomDropdownList] = useState([]);
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: updateFormData || formsInitialValues,
-    // initialValues: formsInitialValues,
-    validationSchema: formsValidationSchema,
+    initialValues: formData,
+    validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      if (updateFormData?.itemCode) {
-        return updateItemProfile(
-          values,
-          formik,
-          populateTable,
-          setUpdateFormData
-        );
-      }
-      return createItemProfile(
-        values,
-        formik,
-        populateTable,
-        setUpdateFormData
-      );
-      // console.log(formik.values.itemName)
+      submitBtnClick(values, formik);
     },
   });
 
@@ -68,11 +48,6 @@ const ItemProfileForm = ({
 
   return (
     <>
-      {/* {updateFromData ? (
-        <h3>Edit Item Basic Information</h3>
-      ) : (
-        <h3>Create Item Basic Information</h3>
-      )} */}
       <div className="row">
         <div className="col-md-4 col-lg-3">
           <MasterInput
@@ -131,12 +106,11 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik?.errors?.itemType} />
           ) : null}
         </div>
-        <div className="col-md-4 col-lg-3">         
+        <div className="col-md-4 col-lg-3">
           <MasterSelect
             label="Category"
             name="category"
             data={itemCategoryDropdownList}
-            // data={categotyDDL}
             value={formik.values?.category}
             onChange={(value) => {
               formik.setFieldValue("category", value);
@@ -144,7 +118,7 @@ const ItemProfileForm = ({
                 accountId,
                 businessUnitId,
                 value?.value,
-                setitemSubCategoryDropdownList
+                setItemSubCategoryDropdownList
               );
             }}
             onBlur={formik.handleBlur}
@@ -162,7 +136,6 @@ const ItemProfileForm = ({
             label="Sub-Category"
             name="subCategory"
             data={itemSubCategoryDropdownList}
-            // data={categotyDDL}
             value={formik.values?.subCategory}
             onChange={(value) => {
               formik.setFieldValue("subCategory", value);
@@ -216,11 +189,11 @@ const ItemProfileForm = ({
 
         {!isDisabled && (
           <div className="col-md-12 mt-3 text-left">
-            <FormikSaveButton id={updateFormData?.itemCode} formik={formik} />
+            <FormikSaveButton id={formData?.itemCode} formik={formik} />
             <FormikResetButton
               className="ml-2"
               formik={formik}
-              formikData={setUpdateFormData}
+              formikData={formData}
             />
           </div>
         )}

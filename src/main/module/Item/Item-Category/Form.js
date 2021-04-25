@@ -15,50 +15,26 @@ import { createItemCategory, getItemTypeDropdownListAction } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
 const ItemCategoryForm = ({
-  updateFormData,
-  populateTable,
+  formData,
   isDisabled,
-  setUpdateFormData,
+  submitBtnClick,
   accountId,
   businessUnitId,
 }) => {
-  const [businessUnitDDL, setBusinessUnitDDL] = useState([]);
+  // const [businessUnitDDL, setBusinessUnitDDL] = useState([]);
   const [itemTypeDropdownList, setItemTypeDropdownList] = useState([]);
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: updateFormData || formsInitialValues,
-    // initialValues: formsInitialValues,
+    initialValues: formData,
     validationSchema: formsValidationSchema,
     onSubmit: (values) => {
-      return createItemCategory(values, formik, populateTable, setUpdateFormData);
+      submitBtnClick(values, formik);
     },
   });
 
-  const testDDL = [
-    { value: 1, label: "Test" },
-    { value: 2, label: "Test2" },
-    { value: 3, label: "Test3" },
-    { value: 4, label: "Test4" },
-    { value: 5, label: "Test5" },
-  ];
-
-  const categotyDDL = [
-    { value: 1, label: "Bangladesh" },
-    { value: 2, label: "India" },
-    { value: 3, label: "China" },
-    { value: 4, label: "Pakistan" },
-    { value: 5, label: "Iran" },
-    { value: 6, label: "Srilanka" },
-  ];
-
   useEffect(() => {
     getItemTypeDropdownListAction(setItemTypeDropdownList);
-  }, []);
-
-  useEffect(() => {
-    getItemTypeDropdownListAction(setItemTypeDropdownList);
-    
   }, []);
 
   return (
@@ -95,12 +71,11 @@ const ItemCategoryForm = ({
           {formik.errors?.category && formik.touched.category && (
             <MasterErrorText message={formik.errors.category} />
           )}
-        </div> 
+        </div>
         <div className="col-md-4 col-lg-3">
           <MasterSelect
             label="Item Type"
             name="itemType"
-            // data={itemTypeDDL}
             data={itemTypeDropdownList}
             value={formik.values?.itemType}
             onChange={(value) => {
@@ -112,17 +87,19 @@ const ItemCategoryForm = ({
             placeholder="Select Item Type"
           />
         </div>
-        <div className="col-md-12 mt-3 text-left">
-          <FormikSaveButton formik={formik} />
-          <FormikResetButton
-            className="ml-2"
-            formik={formik}
-            formikData={setUpdateFormData}
-          />
-        </div>
+        {!isDisabled && (
+          <div className="col-md-12 mt-3 text-left">
+            <FormikSaveButton id={formData?.itemCode} formik={formik} />
+            <FormikResetButton
+              className="ml-2"
+              formik={formik}
+              formikData={formData}
+            />
+          </div>
+        )}
       </div>
     </>
   );
-}
+};
 
 export default ItemCategoryForm;
