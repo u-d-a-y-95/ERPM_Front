@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from "react";
 import CustomerForm from "./Form";
 import CustomerTable from "./Table";
-import { getList } from "./http";
+import { createCustomer, getList, updateCustomer } from "./http";
+import { initialValues } from "./util";
+import Loading from "../../../common/composite-component/loading";
+import ModalComponent from "../../../common/composite-component/modal";
 
 const Customer = () => {
   const accId = 1;
@@ -20,6 +23,7 @@ const Customer = () => {
   useEffect(() => {
     populateTable();
   }, []);
+
   const populateTable = () => {
     getList(
       accId,
@@ -32,28 +36,75 @@ const Customer = () => {
     );
   };
 
-  const updateToTable = (row) => {
+  const createToTable = () => {
+    setUpdateFormData(initialValues);
     setIsDisabled(false);
-    setUpdateFormData(row);
+    setIsModalOpen(true);
   };
+
+  const updateToTable = (row) => {
+    setUpdateFormData(row);
+    setIsDisabled(false);
+    setIsModalOpen(true);
+  };
+
   const viewData = (row) => {
     setUpdateFormData(row);
     setIsDisabled(true);
+    setIsModalOpen(true);
+  };
+
+  //submit button click;
+  const submitBtnClick = (values, formik) => {
+    if (updateFormData?.customerId) {
+      return updateCustomer(
+        values,
+        formik,
+        populateTable,
+        setUpdateFormData,
+        setIsLoading
+      );
+    }
+    return createCustomer(
+      values,
+      formik,
+      populateTable,
+      onClickClose,
+      setIsLoading
+    );
+  };
+
+  const onClickClose = () => {
+    setIsModalOpen(false);
   };
   return (
     <>
-      <h1>Customer</h1>
-      <CustomerForm
-        populateTable={populateTable}
-        updateFormData={updateFormData}
-        setUpdateFormData={setUpdateFormData}
-        isDisabled={isDisabled}
-      />
+      {isLoading && <Loading />}
+      <div className='d-flex justify-content-between'>
+        <h1>Customer</h1>
+      </div>
+
+      <ModalComponent
+        modalSate={isModalOpen}
+        modalClose={onClickClose}
+        fixed={true}
+        size='lg'
+        title='Customer'
+      >
+        <CustomerForm
+          updateFormData={updateFormData}
+          isDisabled={isDisabled}
+          submitBtnClick={submitBtnClick}
+          onClickClose={onClickClose}
+          setIsLoading={setIsLoading}
+        />
+      </ModalComponent>
+
       <CustomerTable
         data={tableData}
-        // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
         viewData={viewData}
+        createEvent={createToTable}
       />
     </>
   );

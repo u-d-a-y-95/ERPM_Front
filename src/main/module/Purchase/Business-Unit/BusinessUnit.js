@@ -10,7 +10,7 @@ const BusinessUnit = (props) => {
   const accId = 1;
   const searchTerm = "";
   const [tableData, setTableData] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [updateFormData, setUpdateFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -25,47 +25,47 @@ const BusinessUnit = (props) => {
   };
 
   const createToTable = () => {
-    setFormData(initialValues);
+    setUpdateFormData(initialValues);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const updateToTable = (row) => {
-    setFormData(row);
+    setUpdateFormData(row);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const viewData = (row) => {
-    setFormData(row);
+    setUpdateFormData(row);
     setIsDisabled(true);
     setModalOpen(true);
   };
 
-  function onClickClose() {
+  const onClickClose = () => {
     setModalOpen(false);
     // business
     // mail .....
-  }
-  function submitBtnClick(values, formik) {
-    if (formData?.businessUnitId) {
+  };
+  const submitBtnClick = (values, formik) => {
+    if (updateFormData?.businessUnitId) {
       return updateBusinessUnit(
         values,
         formik,
         populateTable,
-        formData,
-        setFormData,
+        updateFormData,
+        setUpdateFormData,
         onClickClose,
         setLoading
       );
     }
     createBusinessUnit(values, formik, populateTable, onClickClose, setLoading);
-  }
+  };
   return (
     <>
       {isLoading && <Loading />}
       <div className='d-flex justify-content-between'>
-        <h3 className=''>Business Unit</h3>
+        <h3>Business Unit</h3>
       </div>
 
       <ModalComponent
@@ -76,7 +76,7 @@ const BusinessUnit = (props) => {
         title='Busines Unit'
       >
         <BusinessUnitForm
-          formData={formData}
+          updateFormData={updateFormData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
         />
