@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import MasterInput from "../../common/base-component/master-input";
-import "../../../assets/css/login.css";
 import logo from "../../../assets/image/erp-logo.png";
 import LoginInput from "../../common/base-component/login-input";
 import MasterErrorText from "../../common/base-component/master-errortext";
 import http from '../../services/http/http-client'
 import lh from '../../services/local-storage'
-import { useSelector, useDispatch } from "react-redux";
-import { setLoginDataToState } from '../../state/actions/user-action'
+import { useDispatch } from "react-redux";
+import { setLoginDataToState } from '../../state/actions/auth-action'
 
 function Login() {
   //initialValues;
@@ -33,13 +31,12 @@ function Login() {
     console.log(values);
     http.postData('https://demoerpm.ibos.io/identity/LogIn/UserLogIn', values)
       .then(res => {
-        console.log(res)
         dispatch(setLoginDataToState({
           accountEmail: res.data.accountEmail,
           accountId: res.data.accountId,
           accountName: res.data.accountName,
           token: res.data.auth.token,
-          isAuth: true
+          isLogged: true
         }))
         lh.setData('user', res.data)
 
@@ -56,7 +53,7 @@ function Login() {
       <div className="iboslogo">
         <img src={logo} alt='' />
       </div>
-      <div className='login-left-decription '>
+      <div className='login-left-decription'>
         <div className='ibos-desctiption h-100 d-flex flex-column justify-content-start'>
           <h3>Welcome T iBOS ERP-M</h3>
 
@@ -67,15 +64,13 @@ function Login() {
           </p>
         </div>
       </div>
-      <div className='loginPage d-flex justify-content-end align-items-center'>
+      <div className='login-screen loginPage d-flex justify-content-end align-items-center'>
         <div className='loginArea px-5'>
           <p className='text-center welcome-text pt-5'>Welcome Back!</p>
-          <p className='text-center login-text'>
+          <p className='text-center login-text d-flex flex-column justify-content-center align-items-center'>
             Please Log In To Your Account
+            <div className='line mt-1' />
           </p>
-          <div className='line' />
-
-          {/* azizul code */}
 
           <div className='container'>
             <form onSubmit={formik.handleSubmit}>
@@ -130,7 +125,7 @@ function Login() {
                 </button>
               </div>
             </form>
-            <div className='text-center'>
+            <div className='text-center mb-5'>
               <a
                 className='navigate-link'
                 style={{ color: "#46455F" }}
@@ -140,44 +135,6 @@ function Login() {
               </a>
             </div>
           </div>
-
-          {/* tuhin code */}
-          {/* <div className='row'>
-            <div className='col-12 mt-4'>
-              <LoginInput
-                name='email'
-                label='Email'
-                type='email'
-                value={email}
-                onChange={emailChange}
-              />
-            </div>
-            <div className='col-12 mt-4'>
-              <LoginInput
-                name='password'
-                label='Password'
-                type='password'
-                value={password}
-                onChange={passwordChange}
-              />
-            </div>
-          </div>
-          <div className='row mt-2'>
-            <div className='col-6 text-left'>
-              <input type='checkbox' name='' id='' />
-              Remember Me
-            </div>
-            <div className='col-6 text-right'>
-              <p>Forgot Password</p>
-            </div>
-          </div>
-
-          <div className='text-center'>
-            <button className='login-button mt-5 w-75'>Login</button>
-            <p className='pb-5 pt-3 navigate-link'>
-              Don't have an account? Sign Up
-            </p>
-          </div> */}
         </div>
       </div>
     </>
