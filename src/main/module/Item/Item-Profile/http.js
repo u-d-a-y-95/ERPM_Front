@@ -29,14 +29,6 @@ const createPayloadChange = (values) => {
     uom: values?.uom?.value || +0,
     actionBy: +1234,
 
-
-// itemCode:"string"
-// itemName:"string"
-// partNumber:"string"
-// itemTypeId: 0
-// itemCategoryId: 0
-// itemSubCategoryId: 0
-// uom: 0
   };
   return payload;
 };
@@ -45,13 +37,10 @@ const createPayloadChange = (values) => {
 export const getList = (accId, businessUnitId, pageNo, pageSize, setter) => {
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemBasicInfo/GetLandingPasignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=dsce&pageNo=${pageNo}&pageSize=${pageSize}`
+      `https://demoerpm.ibos.io/domain/ItemBasicInfo/GetLandingPasignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
     )
     .then((res) => {
       setter(res?.data?.data);
-      // console.log(res.data.data)
-      // const values = getPayloadChange(res?.data?.data);
-      // setter(values && values);
     })
     .catch((error) => {
       console.log("Error: ", error?.message);
@@ -63,6 +52,8 @@ const getPayloadChange = (values) => {
   console.log(values)
   return values?.map((data) => ({
     sl: data?.sl,
+    // uom: data?.uom?.value,
+    partNumber: data?.value?.partNumber,
     itemName: data?.itemName,
     itemCategoryId: data?.itemCategoryId,
     itemCategoryName: data?.itemCategoryName,
@@ -71,26 +62,10 @@ const getPayloadChange = (values) => {
     itemSubCategoryName: data?.itemSubCategoryName,
     itemTypeId: data?.itemTypeId,
     itemTypeName: data?.itemTypeName,
-
-    // accountId: data?.accountId,
-    // billingName: data?.billingName,
-    // billingAddress: data?.billingAddress,
-    // bin: data?.bin,
-    // businessUnitId: data?.businessUnitId,
-    // contactNumber: data?.contactNumber,
-    // customerAddress: data?.customerAddress,
-    // customerCode: data?.customerCode,
-    // customerId: data?.customerId,
-    // address: data?.customerAddress,
-    // customerName: data?.customerName,
-    // customerTypeName: data?.customerTypeName,
-    // customerTypeId: data?.customerTypeId,
-    // nid: data?.nid,
-    // licenseNo: data?.licenseNo,
-    // customerEmail: data?.email,
-    // sl: data?.sl,
   }));
 };
+
+
 
 //update Item Profile
 export const updateItemProfile = (values, formik, populateTable, setUpdateFormData) => {
@@ -108,20 +83,15 @@ export const updateItemProfile = (values, formik, populateTable, setUpdateFormDa
 const updatePayloadChange = (values) => {
   console.log(values)
   const payload = {
+    actionBy: +0,
+    itemId: +0,
     itemCode: values?.itemCode || "",
     itemName: values?.itemName || "",
-    // partNumber: values?.partNumber || "",
-    itemTypeName: values?.itemType || +0,
-    itemCategoryName: values?.itemCategoryName || +0,
-    itemSubCategoryName: values?.itemSubCategoryName || +0,
-
-    // itemCode: values?.code || "",
-    // itemName: values?.itemName || "",
-    // partNumber: values?.partNumber || "",
-    // itemTypeId: values?.itemType?.value || +0,
-    // itemCategoryId: values?.category?.value || +0,
-    // itemSubCategoryId: values?.subCategory?.value || +0,
-    // uom: values?.uom?.value || +0,
+    partNumber: values?.partNumber || "",
+    uom: values?.uom?.value,
+    itemTypeId: values?.itemType?.value || 0,
+    itemCategoryId: values?.category?.value || 0,
+    itemSubCategoryId: values?.subCategory?.value || 0,
   };
   return payload;
 };
@@ -143,14 +113,24 @@ export const getItemTypeDropdownListAction = (setter) => {
 export const getItemCategoryDropdownListAction = (
   accId,
   businessId,
+  itemTypeId,
   setter
 ) => {
+  // console.log(itemTypeList.value);
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=1`
+      `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=${itemTypeId}`
     )
     .then((res) => {
-      setter(res?.data);
+      const newData = res?.data?.map(item => (
+        {
+          value: item?.itemCategoryId,
+          label: item?.itemCategoryName
+        }
+      ))
+      // console.log(res)
+      setter(newData);
+      console.log(newData)
     })
     .catch((error) => {
       setter([]);
@@ -162,14 +142,24 @@ export const getItemCategoryDropdownListAction = (
 export const getItemSubCategoryDropdownListAction = (
   accId,
   businessId,
+  itemCategoryId,
   setter
 ) => {
+  // console.log(itemCategoryId)
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemSubCategory/GetListByItemCategory?accountId=${accId}&businessUnitId=${businessId}&itemCategoryId=1`
+      `https://demoerpm.ibos.io/domain/ItemSubCategory/GetListByItemCategory?accountId=${accId}&businessUnitId=${businessId}&itemCategoryId=${itemCategoryId}`
     )
     .then((res) => {
-      setter(res?.data);
+      const newData = res?.data?.map(item => (
+        {
+          value: item?.itemSubCategoryId,
+          label: item?.itemSubCategoryName
+        }
+      ))
+      // console.log(res)
+      setter(newData);
+      // setter(res?.data);
     })
     .catch((error) => {
       setter([]);

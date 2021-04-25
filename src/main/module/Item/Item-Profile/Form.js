@@ -26,9 +26,11 @@ const ItemProfileForm = ({
   businessUnitId,
 }) => {
   // console.log(updateFormData);
-
+  const itemTypeId = 4;
   const [itemTypeDropdownList, setitemTypeDropdownList] = useState([]);
   const [itemCategoryDropdownList, setItemCategoryDropdownList] = useState([]);
+  const [itemTypeList, setItemTypeList] = useState({});
+  const [itemCategoryList, setItemCategoryList] = useState({});
   const [
     itemSubCategoryDropdownList,
     setitemSubCategoryDropdownList,
@@ -62,32 +64,8 @@ const ItemProfileForm = ({
 
   useEffect(() => {
     getItemTypeDropdownListAction(setitemTypeDropdownList);
-    getItemCategoryDropdownListAction(
-      accountId,
-      businessUnitId,
-      setItemCategoryDropdownList
-    );
-    getItemSubCategoryDropdownListAction(
-      accountId,
-      businessUnitId,
-      setitemSubCategoryDropdownList
-    );
     getUomDropdownListAction(setUomDropdownList);
-
-    // // console.log("currentRowId", currentRowId);
-    // if (currentRowId) {
-    //   getItemByIdActions(currentRowId, setSingleData, setDisabled);
-    // }
   }, []);
-
-  const categotyDDL = [
-    { value: 1, label: "Bangladesh" },
-    { value: 2, label: "India" },
-    { value: 3, label: "China" },
-    { value: 4, label: "Pakistan" },
-    { value: 5, label: "Iran" },
-    { value: 6, label: "Srilanka" },
-  ];
 
   return (
     <>
@@ -137,6 +115,12 @@ const ItemProfileForm = ({
             value={formik.values?.itemType}
             onChange={(value) => {
               formik.setFieldValue("itemType", value);
+              getItemCategoryDropdownListAction(
+                accountId,
+                businessUnitId,
+                value?.value,
+                setItemCategoryDropdownList
+              );
             }}
             onBlur={formik.handleBlur}
             disabled={isDisabled}
@@ -152,14 +136,20 @@ const ItemProfileForm = ({
           <MasterSelect
             label="Category"
             name="category"
-            // data={itemCategoryDropdownList}
-            data={categotyDDL}
+            data={itemCategoryDropdownList}
+            // data={categotyDDL}
             value={formik.values?.category}
             onChange={(value) => {
               formik.setFieldValue("category", value);
+              getItemSubCategoryDropdownListAction(
+                accountId,
+                businessUnitId,
+                value?.value,
+                setitemSubCategoryDropdownList
+              );
             }}
             onBlur={formik.handleBlur}
-            disabled={isDisabled}
+            disabled={!formik?.values?.itemType || isDisabled}
             required={true}
             placeholder="Select Item Category"
           />
@@ -172,14 +162,14 @@ const ItemProfileForm = ({
           <MasterSelect
             label="Sub-Category"
             name="subCategory"
-            // data={itemSubCategoryDropdownList}
-            data={categotyDDL}
+            data={itemSubCategoryDropdownList}
+            // data={categotyDDL}
             value={formik.values?.subCategory}
             onChange={(value) => {
               formik.setFieldValue("subCategory", value);
             }}
             onBlur={formik.handleBlur}
-            disabled={isDisabled}
+            disabled={!formik?.values?.category || isDisabled}
             required={true}
             placeholder="Item Sub-Category"
           />
@@ -225,14 +215,16 @@ const ItemProfileForm = ({
           )}
         </div>
 
-        <div className="col-md-12 mt-3 text-left">
-          <FormikSaveButton id={updateFormData?.itemCode} formik={formik} />
-          <FormikResetButton
-            className="ml-2"
-            formik={formik}
-            formikData={setUpdateFormData}
-          />
-        </div>
+        {!isDisabled && (
+          <div className="col-md-12 mt-3 text-left">
+            <FormikSaveButton id={updateFormData?.itemCode} formik={formik} />
+            <FormikResetButton
+              className="ml-2"
+              formik={formik}
+              formikData={setUpdateFormData}
+            />
+          </div>
+        )}
       </div>
     </>
   );

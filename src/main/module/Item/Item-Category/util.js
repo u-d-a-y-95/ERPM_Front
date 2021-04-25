@@ -30,13 +30,10 @@ export const tableConfig = {
 };
 
 export const formsValidationSchema = Yup.object().shape({
-  category: Yup.object().shape({
-    value: Yup.number().required("Item Type is required"),
-  }),
+  category:  Yup.string().required("Item Type is required"),
   itemType: Yup.object().shape({
-    value: Yup.number().required("Item Type is required"),
+    value: Yup.string().required("Item Type is required"),
   }),
-  businessUnit: Yup.object().shape({
-    value: Yup.string().required("UoM is required"),
-  }),
+  businessUnit: Yup.string().required("Business Unit is required"),
+  
 });

@@ -7,12 +7,12 @@ import FormikSaveButton from "../../../common/composite-component/formik-save-bu
 import { useFormik } from "formik";
 import { formsInitialValues, formsValidationSchema } from "./util";
 
-import { 
-  createItemSubCategory, 
-  getItemTypeDropdownListAction, 
+import {
+  createItemSubCategory,
+  getItemTypeDropdownListAction,
   getItemCategoryDropdownListAction,
-  getItemSubCategoryDropdownListAction
- } from "./http";
+  getItemSubCategoryDropdownListAction,
+} from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
 function ItemSubCategoryForm({
@@ -23,13 +23,9 @@ function ItemSubCategoryForm({
   accountId,
   businessUnitId,
 }) {
-  const [businessUnitDropdownList, setBusinessUnitDropdownList] = useState([]);
+  // const [businessUnitDropdownList, setBusinessUnitDropdownList] = useState([]);
   const [itemTypeDropdownList, setitemTypeDropdownList] = useState([]);
   const [itemCategoryDropdownList, setItemCategoryDropdownList] = useState([]);
-  const [
-    itemSubCategoryDropdownList,
-    setitemSubCategoryDropdownList,
-  ] = useState([]);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -51,53 +47,32 @@ function ItemSubCategoryForm({
 
   useEffect(() => {
     getItemTypeDropdownListAction(setitemTypeDropdownList);
-    getItemCategoryDropdownListAction(
-      accountId,
-      businessUnitId,
-      setItemCategoryDropdownList
-    );
-    getItemSubCategoryDropdownListAction(
-      accountId,
-      businessUnitId,
-      setitemSubCategoryDropdownList
-    );
-  }, [])
+  }, []);
+
+  console.log(itemCategoryDropdownList)
+
 
   return (
     <>
       <div className="row">
-        <div className="col-md-4 col-lg-3">
-          <MasterSelect
+        <div className="col-md-4 col-lg-3">        
+          <MasterInput
             label="Business Unit"
             name="businessUnit"
-            // data={businessUnitDDL}
-            data={testDDL}
-            value={formik.values?.businessUnit}
-            onChange={(value) => {
-              formik.setFieldValue("businessUnit", value);
-            }}
-            onBlur={formik.handleBlur}
-            disabled={isDisabled}
-            required={true}
-            placeholder="Select Business Unit"
-          />
-        </div>
-        <div className="col-md-4 col-lg-3">
-          {/* <MasterInput
-            label="Sub-Category"
-            name="subCategory"
             type="text"
             required={true}
-            value={formik.values.subCategory}
+            value={formik.values.businessUnit}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Enter Sub Category"
+            placeholder="Enter Business Unit"
             disabled={isDisabled}
           />
-          {formik.errors?.subCategory && formik.touched.subCategory && (
-            <MasterErrorText message={formik.errors.subCategory} />
-          )} */}
-          <MasterSelect
+          {formik.errors?.businessUnit && formik.touched.businessUnit && (
+            <MasterErrorText message={formik.errors.businessUnit} />
+          )}
+        </div>
+        <div className="col-md-4 col-lg-3">          
+          {/* <MasterSelect
             label="Sub-Category"
             name="subCategory"
             // data={itemTypeDDL}
@@ -110,7 +85,21 @@ function ItemSubCategoryForm({
             disabled={isDisabled}
             required={true}
             placeholder="Select Sub Category"
+          /> */}
+           <MasterInput
+            label="Sub-Category"
+            name="subCategory"
+            type="text"
+            required={true}
+            value={formik.values.subCategory}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            placeholder="Enter Sub Category"
+            disabled={isDisabled}
           />
+          {formik.errors?.subCategory && formik.touched.subCategory && (
+            <MasterErrorText message={formik.errors.subCategory} />
+          )}
         </div>
         <div className="col-md-4 col-lg-3">
           <MasterSelect
@@ -120,7 +109,15 @@ function ItemSubCategoryForm({
             // data={testDDL}
             value={formik.values?.itemType}
             onChange={(value) => {
+              console.log(value)
               formik.setFieldValue("itemType", value);
+              getItemCategoryDropdownListAction(
+                accountId, 
+                businessUnitId, 
+                value?.value,
+                setItemCategoryDropdownList
+              )
+
             }}
             onBlur={formik.handleBlur}
             disabled={isDisabled}
@@ -133,7 +130,7 @@ function ItemSubCategoryForm({
             label="Category"
             name="category"
             // data={categoryDDL}
-            data={testDDL}
+            data={itemCategoryDropdownList}
             value={formik.values?.category}
             onChange={(value) => {
               formik.setFieldValue("category", value);

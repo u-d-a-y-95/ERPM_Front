@@ -65,50 +65,36 @@ const ItemCategoryForm = ({
     <>
       <div className="row">
         <div className="col-md-4 col-lg-3">
-          <MasterSelect
+          <MasterInput
             label="Business Unit"
             name="businessUnit"
-            // data={businessUnitDDL}
-            data={testDDL}
-            value={formik.values?.businessUnit}
-            onChange={(value) => {
-              formik.setFieldValue("businessUnit", value);
-            }}
-            onBlur={formik.handleBlur}
-            isDisabled={isDisabled}
+            type="text"
             required={true}
-            placeholder="Select Business Unit"
+            value={formik.values?.businessUnit}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            placeholder="Enter Business Unit"
+            isDisabled={isDisabled}
           />
+          {formik.errors?.businessUnit && formik.touched.businessUnit && (
+            <MasterErrorText message={formik.errors.businessUnit} />
+          )}
         </div>
         <div className="col-md-4 col-lg-3">
-        <MasterSelect
+          <MasterInput
             label="Item Category"
-            name="category"
-            // data={itemTypeDDL}
-            data={categotyDDL}
-            value={formik.values?.category}
-            onChange={(value) => {
-              formik.setFieldValue("category", value);
-            }}
-            onBlur={formik.handleBlur}
-            isDisabled={isDisabled}
-            required={true}
-            placeholder="Select Item Category"
-          />
-          {/* <MasterInput
-            label="Category"
             name="category"
             type="text"
             required={true}
-            value={formik.values.category}
+            value={formik.values?.category}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Enter Category Name"
+            placeholder="Enter Category"
             isDisabled={isDisabled}
           />
           {formik.errors?.category && formik.touched.category && (
             <MasterErrorText message={formik.errors.category} />
-          )}*/}
+          )}
         </div> 
         <div className="col-md-4 col-lg-3">
           <MasterSelect
@@ -123,7 +109,7 @@ const ItemCategoryForm = ({
             onBlur={formik.handleBlur}
             isDisabled={isDisabled}
             required={true}
-            placeholder="Select Business Unit"
+            placeholder="Select Item Type"
           />
         </div>
         <div className="col-md-12 mt-3 text-left">

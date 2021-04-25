@@ -1,13 +1,10 @@
 import * as Yup from "yup";
 
 export const formsInitialValues = {
-  itemName: "",
-  itemCode: "",
-  itemType: "",
-  category: "",
-  subCategory: "",
-  uom: "",
-  partNumber: "",
+  userName: "",
+  userType: "",
+  loginId: "",
+  isSuperUser: "",
 };
 
 export const tableConfig = {
@@ -45,33 +42,23 @@ export const tableConfig = {
 };
 
 export const formsValidationSchema = Yup.object().shape({
-  itemCode: Yup.string().required("Item Code is Required"),
-  itemName: Yup.string().required("Item Name isRequired"),
-  partNumber: Yup.string().required('Part Number Required'),
-  itemType: Yup.object().shape({
+  userName: Yup.string().required("User Name is Required"),
+  loginId: Yup.string().required("Login Id is Required"),
+  userType: Yup.object().shape({
     value: Yup.string().required("Item Type is required"),
   }),
-  subCategory: Yup.object().shape({
-    value: Yup.string().required("Item Sub Category is required"),
-  }),
-  category: Yup.object().shape({
-    value: Yup.string().required("Item Category is required"),
-  }),
-  uom: Yup.object().shape({
-    value: Yup.string().required("UoM is required"),
+  isSuperUser: Yup.object().shape({
+    value: Yup.string().required("User Status is required"),
   }),
 });
 
 export const itemProfileViewUpdatePayloadData = (value) => {
-  console.log(value)
+  console.log(value);
   const payload = {
     accountId: 1,
     itemName: value?.itemName,
-    partNumber: value?.partNumber,
-    uom: {
-      value: value?.uomId,
-      label: value?.uomName,
-    },
+    // partNumber: value?.partNumber,
+    // uom: value?.uom,
     category: {
       value: value?.itemCategoryId,
       label: value?.itemCategoryName,
@@ -86,8 +73,8 @@ export const itemProfileViewUpdatePayloadData = (value) => {
     },
     itemCode: value?.itemCode,
     sl: value?.sl,
-
   };
   return payload;
 };
+
 

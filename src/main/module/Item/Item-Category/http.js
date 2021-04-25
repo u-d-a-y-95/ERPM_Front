@@ -3,11 +3,10 @@ import httpClient from "../../../services/http/http-client";
 //Item Category Create Api Binding
 export const createItemCategory = (values, formik, populateTable) => {
   const obj = createPayloadChange(values);
+  console.log(obj)
   httpClient
     .postData("https://demoerpm.ibos.io/domain/ItemCategory/Create", obj)
     .then((res) => {
-      // console.log(res.data)
-      // console.log(res.data.data)
       formik.setValues(null);
       formik.resetForm();
       populateTable();
@@ -25,7 +24,7 @@ const createPayloadChange = (values) => {
     itemCategoryId: values.category.value || 0,
     itemCategoryName: values.category.label || "",
     accountId: 1,
-    businessUnitId: values.businessUnit.value || 0,
+    businessUnitId: 1,
     itemTypeId: values.itemType.value || 0,
     itemTypeName: values.itemType.label || "",
     actionBy: +1234,
@@ -52,6 +51,19 @@ export const getList = (
     .catch((error) => {
       // setter([]);
       console.log("Error: ", error?.message);
+    });
+};
+
+// Item Type Drop Down List
+export const getItemTypeDropdownListAction = (setter) => {
+  httpClient
+    .getData("https://demoerpm.ibos.io/domain/ItemType/GetList")
+    .then((res) => {
+      setter(res?.data);
+    })
+    .catch((error) => {
+      setter([]);
+      console.log("Error", error?.message);
     });
 };
 
@@ -140,18 +152,7 @@ export const getList = (
 //   return payload;
 // };
 
-// Item Type Drop Down List
-export const getItemTypeDropdownListAction = (setter) => {
-  httpClient
-    .getData("https://demoerpm.ibos.io/domain/ItemType/GetList")
-    .then((res) => {
-      setter(res?.data);
-    })
-    .catch((error) => {
-      setter([]);
-      console.log("Error", error?.message);
-    });
-};
+
 
 // Item Category Drop Down List
 export const getItemCategoryDropdownListAction = (
