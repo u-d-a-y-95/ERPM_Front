@@ -12,8 +12,7 @@ const CustomerForm = ({
   updateFormData,
   isDisabled,
   submitBtnClick,
-  onClickClose,
-  setIsLoading,
+  setLoading,
 }) => {
   const [customerDropdownList, setCustomerDropdownList] = useState([]);
   const formik = useFormik({
@@ -26,7 +25,7 @@ const CustomerForm = ({
   });
 
   useEffect(() => {
-    customerDropdownListAction(setCustomerDropdownList, setIsLoading);
+    customerDropdownListAction(setCustomerDropdownList, setLoading);
   }, []);
 
   return (
@@ -191,14 +190,10 @@ const CustomerForm = ({
             <MasterErrorText message={formik.errors.licenseNo} />
           )}
         </div>
-        <div className='col-12 mt-5'></div>
+        <div className='col-12 mt-2'></div>
         {!isDisabled && (
-          <div className='col-md-12 mt-3 text-left'>
-            <FormikSaveButton
-              onClickClose={onClickClose}
-              id={updateFormData?.customerId}
-              formik={formik}
-            />
+          <div className='col-md-12 mt-3 text-right'>
+            <FormikSaveButton id={updateFormData?.customerId} formik={formik} />
             <FormikResetButton
               className='ml-2'
               formik={formik}
@@ -206,6 +201,7 @@ const CustomerForm = ({
             />
           </div>
         )}
+        <div className='col-12 mb-2'></div>
       </div>
     </>
   );

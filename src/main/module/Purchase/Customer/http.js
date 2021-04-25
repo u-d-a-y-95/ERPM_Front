@@ -6,9 +6,16 @@ import {
 } from "../../../constant/message.constant";
 
 //create api call
-export const createCustomer = (values, formik, populateTable, setLoading) => {
+export const createCustomer = (
+  values,
+  formik,
+  populateTable,
+  setLoading,
+  closeModal
+) => {
   setLoading(true);
   const obj = createPayloadChange(values);
+  closeModal();
   httpClient
     .postData("/domain/Customer/Create", obj)
     .then((res) => {
@@ -56,7 +63,7 @@ export const getList = (
 //get by id for get by id api call
 // export const businessUnitDeleteData = (id, populateTable) => {
 //   httpClient
-//     .deleteData(`https://demoerpm.ibos.io//domain/Customer/GetById/${id}`)
+//     .deleteData(`/domain/Customer/GetById/${id}`)
 //     .then((res) => {
 //       populateTable();
 //     })
@@ -71,10 +78,12 @@ export const updateCustomer = (
   formik,
   populateTable,
   setUpdateFormData,
-  setLoading
+  setLoading,
+  closeModal
 ) => {
   setLoading(true);
   const obj = updatePayloadChange(values);
+  closeModal();
   httpClient
     .putData("/domain/Customer/Update", obj)
     .then((res) => {

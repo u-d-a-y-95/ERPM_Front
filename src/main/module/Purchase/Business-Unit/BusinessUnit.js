@@ -42,10 +42,8 @@ const BusinessUnit = (props) => {
     setModalOpen(true);
   };
 
-  const onClickClose = () => {
+  const closeModal = () => {
     setModalOpen(false);
-    // business
-    // mail .....
   };
   const submitBtnClick = (values, formik) => {
     if (updateFormData?.businessUnitId) {
@@ -55,11 +53,11 @@ const BusinessUnit = (props) => {
         populateTable,
         updateFormData,
         setUpdateFormData,
-        onClickClose,
+        closeModal,
         setLoading
       );
     }
-    createBusinessUnit(values, formik, populateTable, onClickClose, setLoading);
+    createBusinessUnit(values, formik, populateTable, closeModal, setLoading);
   };
   return (
     <>
@@ -70,7 +68,7 @@ const BusinessUnit = (props) => {
 
       <ModalComponent
         modalSate={isModalOpen}
-        modalClose={onClickClose}
+        modalClose={closeModal}
         fixed={true}
         size='lg'
         title='Busines Unit'
