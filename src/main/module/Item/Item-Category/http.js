@@ -153,7 +153,6 @@ export const getItemTypeDropdownListAction = (setter) => {
 // };
 
 
-
 // Item Category Drop Down List
 export const getItemCategoryDropdownListAction = (
   accId,

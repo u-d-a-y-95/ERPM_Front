@@ -59,7 +59,6 @@ const ItemProfileForm = ({
       );
       // console.log(formik.values.itemName)
     },
-
   });
 
   useEffect(() => {
