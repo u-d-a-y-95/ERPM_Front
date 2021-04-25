@@ -8,7 +8,6 @@ import FormikResetButton from "../../../common/composite-component/formik-reset-
 import {
   currencyDropdownListAction,
 } from "./http";
-import MasterSelect from "../../../common/base-component/master-select";
 
 const BusinessUnitForm = ({
   formData,
