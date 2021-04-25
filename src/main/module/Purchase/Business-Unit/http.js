@@ -10,11 +10,11 @@ export const createBusinessUnit = (
   values,
   formik,
   populateTable,
-  onClickClose,
+  closeModal,
   setLoading
 ) => {
   const obj = createPayloadChange(values);
-  onClickClose();
+  closeModal();
   setLoading(true);
   httpClient
     .postData("/domain/BusinessUnit/Create", obj)
@@ -80,10 +80,10 @@ export const updateBusinessUnit = (
   populateTable,
   updateFormData,
   setUpdateFormData,
-  onClickClose,
+  closeModal,
   setLoading
 ) => {
-  onClickClose();
+  closeModal();
   setLoading(true);
   const obj = updatePayloadChange(values, updateFormData);
   httpClient
@@ -96,6 +96,7 @@ export const updateBusinessUnit = (
       toast.success(successUpdateMessage);
     })
     .catch((error) => {
+      setLoading(false);
       toast.warn(error.response.data.message);
     });
 };

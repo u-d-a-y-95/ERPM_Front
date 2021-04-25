@@ -1,17 +1,33 @@
 import httpClient from "../../../services/http/http-client";
+import { toast } from "react-toastify";
+import {
+  successInsertMessage,
+  successUpdateMessage,
+} from "../../../constant/message.constant.js";
 
 //create api call
-export const createSupplier = (values, formik, populateTable) => {
+export const createSupplier = (
+  values,
+  formik,
+  populateTable,
+  setLoading,
+  closeModal
+) => {
+  setLoading(true);
   const obj = createPayloadChange(values);
+  closeModal();
   httpClient
-    .postData("https://demoerpm.ibos.io/domain/Supplier/Create", obj)
+    .postData("/domain/Supplier/Create", obj)
     .then((res) => {
       formik.setValues(null);
       formik.resetForm();
       populateTable();
+      setLoading(false);
+      toast.success(successInsertMessage);
     })
-    .catch((err) => {
-      console.log(err?.message);
+    .catch((error) => {
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
     });
 };
 
@@ -22,53 +38,84 @@ export const getList = (
   pageSize,
   setter,
   businessUnitId,
-  searchTerm
+  searchTerm,
+  setLoading
 ) => {
+  setLoading(true);
   httpClient
     .getData(
       searchTerm
-        ? `https://demoerpm.ibos.io/domain/Supplier/GetList?search=${searchTerm}&accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
-        : `https://demoerpm.ibos.io/domain/Supplier/GetList?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        ? `/domain/Supplier/GetList?search=${searchTerm}&accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        : `/domain/Supplier/GetList?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
       setter(res?.data?.data);
+      setLoading(false);
     })
-    .catch((err) => {
+    .catch((error) => {
       setter([]);
-      console.log(err?.message);
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
     });
 };
+
+// get by id api call
+// export const getRowById = (id, populateTable, setter) => {
+//   httpClient
+//     .getData(
+//       `/domain/Supplier/GetById?supplierId=${id}`
+//     )
+//     .then((res) => {
+//       const payload = getByIdPayloadChange(res?.data);
+//       setter(payload);
+//       populateTable();
+//     })
+//     .catch((err) => {
+//       setter({});
+//      toast.error(error?.response?.data?.message);
+//     });
+// };
 
 //update business unit
 export const updateSupplier = (
   values,
   formik,
   populateTable,
-  setUpdateFormData
+  setUpdateFormData,
+  setLoading,
+  closeModal
 ) => {
+  setLoading(true);
   const obj = updatePayloadChange(values);
+  closeModal();
   httpClient
-    .putData("https://demoerpm.ibos.io/domain/Supplier/Update", obj)
+    .putData("/domain/Supplier/Update", obj)
     .then((res) => {
       setUpdateFormData(null);
       formik.resetForm();
       populateTable();
+      setLoading(false);
+      toast.success(successUpdateMessage);
     })
-    .catch((err) => {
-      console.log(err?.message);
+    .catch((error) => {
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
     });
 };
 
 // supplier Dropdown List list
-export const supplierDropdownListAction = (setter) => {
+export const supplierDropdownListAction = (setter, setLoading) => {
+  setLoading(true);
   httpClient
-    .getData("https://demoerpm.ibos.io/domain/SupplierType/GetList")
+    .getData("/domain/SupplierType/GetList")
     .then((res) => {
       setter(res?.data);
+      setLoading(false);
     })
-    .catch((err) => {
+    .catch((error) => {
       setter([]);
-      console.log(err?.message);
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
     });
 };
 

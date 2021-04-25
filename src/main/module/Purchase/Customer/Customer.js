@@ -62,19 +62,21 @@ const Customer = () => {
         formik,
         populateTable,
         setUpdateFormData,
-        setLoading
+        setLoading,
+        closeModal
       );
     }
     return createCustomer(
       values,
       formik,
       populateTable,
-      onClickClose,
-      setLoading
+      setLoading,
+      closeModal
     );
   };
 
-  const onClickClose = () => {
+  //close modal
+  const closeModal = () => {
     setModalOpen(false);
   };
   return (
@@ -86,7 +88,7 @@ const Customer = () => {
 
       <ModalComponent
         modalSate={isModalOpen}
-        modalClose={onClickClose}
+        modalClose={closeModal}
         fixed={true}
         size='lg'
         title='Customer'
@@ -95,7 +97,6 @@ const Customer = () => {
           updateFormData={updateFormData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
-          onClickClose={onClickClose}
           setLoading={setLoading}
         />
       </ModalComponent>
