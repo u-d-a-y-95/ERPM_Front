@@ -1,5 +1,9 @@
 import React from "react";
+import ItemCategory from "../module/Item/Item-Category/ItemCategory";
+import ItemProfile from "../module/Item/Item-Profile/ItemProfile";
+import ItemSubCategory from "../module/Item/Item-Sub-Category/ItemSubCategory";
 import BusinessUnit from "../module/Purchase/Business-Unit/BusinessUnit";
+import Supplier from './../module/Purchase/Supplier/Supplier';
 
 function Holder() {
   return (
@@ -8,6 +12,9 @@ function Holder() {
       <BusinessUnit />
       {/* <Supplier /> */}
       {/* <Customer /> */}
+      <ItemProfile />
+      {/* <ItemCategory /> */}
+      {/* <ItemSubCategory /> */}
     </>
   );
 }

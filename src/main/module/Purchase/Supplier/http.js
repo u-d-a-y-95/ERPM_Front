@@ -39,23 +39,6 @@ export const getList = (
     });
 };
 
-// get by id api call
-// export const getRowById = (id, populateTable, setter) => {
-//   httpClient
-//     .getData(
-//       `https://demoerpm.ibos.io/domain/Supplier/GetById?supplierId=${id}`
-//     )
-//     .then((res) => {
-//       const payload = getByIdPayloadChange(res?.data);
-//       setter(payload);
-//       populateTable();
-//     })
-//     .catch((err) => {
-//       setter({});
-//       console.log(err?.message);
-//     });
-// };
-
 //update business unit
 export const updateSupplier = (
   values,
@@ -121,3 +104,20 @@ const updatePayloadChange = (values) => {
   };
   return payload;
 };
+
+// get by id api call
+// export const getRowById = (id, populateTable, setter) => {
+//   httpClient
+//     .getData(
+//       `https://demoerpm.ibos.io/domain/Supplier/GetById?supplierId=${id}`
+//     )
+//     .then((res) => {
+//       const payload = getByIdPayloadChange(res?.data);
+//       setter(payload);
+//       populateTable();
+//     })
+//     .catch((err) => {
+//       setter({});
+//       console.log(err?.message);
+//     });
+// };

@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const formsInitialValues = {
+export const initialValues = {
   itemName: "",
   itemCode: "",
   itemType: "",
@@ -44,7 +44,7 @@ export const tableConfig = {
   isSearchable: true,
 };
 
-export const formsValidationSchema = Yup.object().shape({
+export const formValidationSchema = Yup.object().shape({
   itemCode: Yup.string().required("Item Code is Required"),
   itemName: Yup.string().required("Item Name isRequired"),
   partNumber: Yup.string().required('Part Number Required'),
@@ -65,7 +65,6 @@ export const formsValidationSchema = Yup.object().shape({
 export const itemProfileViewUpdatePayloadData = (value) => {
   console.log(value)
   const payload = {
-    accountId: 1,
     itemName: value?.itemName,
     partNumber: value?.partNumber,
     uom: {
