@@ -15,6 +15,7 @@ const BusinessUnit = (props) => {
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isloading, setLoading] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     populateTable();
@@ -41,7 +42,7 @@ const BusinessUnit = (props) => {
     setModalOpen(true)
   };
 
-  const [isModalOpen, setModalOpen] = useState(false);
+
   function onClickClose() {
     setModalOpen(false)
     // business 

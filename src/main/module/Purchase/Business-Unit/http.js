@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import httpClient from "../../../services/http/http-client";
+import { succesInsertMessage, succesUpdateMessage } from "../../../constant/message.constant"
 
 //create api call
 export const createBusinessUnit = (values, formik, populateTable, onClickClose, setLoading) => {
@@ -12,7 +13,12 @@ export const createBusinessUnit = (values, formik, populateTable, onClickClose, 
       formik.resetForm();
       populateTable();
       setLoading(false)
-    });
+      toast.success(succesInsertMessage)
+    })
+    .catch(error => {
+      setLoading(false)
+      toast.error(error.response.data.message)
+    })
 };
 
 //landing api call
@@ -71,9 +77,9 @@ export const updateBusinessUnit = (
       setUpdateFormData(null);
       populateTable();
       setLoading(false)
+      toast.success(succesUpdateMessage)
     })
     .catch(error => {
-      // console.log(error)
       toast.warn(error.response.data.message)
     })
 };
