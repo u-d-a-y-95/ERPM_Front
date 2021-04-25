@@ -17,8 +17,8 @@ const Customer = () => {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
     populateTable();
@@ -32,26 +32,26 @@ const Customer = () => {
       setTableData,
       businessUnitId,
       searchTerm,
-      setIsLoading
+      setLoading
     );
   };
 
   const createToTable = () => {
     setUpdateFormData(initialValues);
     setIsDisabled(false);
-    setIsModalOpen(true);
+    setModalOpen(true);
   };
 
   const updateToTable = (row) => {
     setUpdateFormData(row);
     setIsDisabled(false);
-    setIsModalOpen(true);
+    setModalOpen(true);
   };
 
   const viewData = (row) => {
     setUpdateFormData(row);
     setIsDisabled(true);
-    setIsModalOpen(true);
+    setModalOpen(true);
   };
 
   //submit button click;
@@ -62,7 +62,7 @@ const Customer = () => {
         formik,
         populateTable,
         setUpdateFormData,
-        setIsLoading
+        setLoading
       );
     }
     return createCustomer(
@@ -70,12 +70,12 @@ const Customer = () => {
       formik,
       populateTable,
       onClickClose,
-      setIsLoading
+      setLoading
     );
   };
 
   const onClickClose = () => {
-    setIsModalOpen(false);
+    setModalOpen(false);
   };
   return (
     <>
@@ -96,7 +96,7 @@ const Customer = () => {
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
           onClickClose={onClickClose}
-          setIsLoading={setIsLoading}
+          setLoading={setLoading}
         />
       </ModalComponent>
 

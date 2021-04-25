@@ -14,7 +14,7 @@ const BusinessUnit = (props) => {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [isloading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
