@@ -10,12 +10,11 @@ axios.interceptors.request.use(configRequest, errorRequest);
 
 function configRequest(config) {
     console.log(config)
-    if (config.url.split('/')[0] !== "identity") {
+    if (config.url != 'https://demoerpm.ibos.io/identity/LogIn/UserLogIn') {
         config.headers['Authorization'] = `bearer ${lh.getData('user')['auth']['token']}`
         config.headers['Access-Control-Allow-Origin'] = '*'
         config.headers['Access-Control-Allow-Methods'] = 'GET,PUT,POST,DELETE,PATCH,OPTIONS';
         config.headers['crossorigin'] = true
-
     }
     return config
 }
