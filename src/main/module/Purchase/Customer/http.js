@@ -1,4 +1,5 @@
 import httpClient from "../../../services/http/http-client";
+import { toast } from "react-toastify";
 
 //create api call
 export const createCustomer = (values, formik, populateTable) => {
@@ -22,8 +23,10 @@ export const getList = (
   pageSize,
   setter,
   businessUnitId,
-  searchTerm
+  searchTerm,
+  setIsLoading
 ) => {
+  setIsLoading(true);
   httpClient
     .getData(
       searchTerm
@@ -33,6 +36,7 @@ export const getList = (
     .then((res) => {
       const values = getPayloadChange(res?.data?.data);
       setter(values && values);
+      setIsLoading(false);
     })
     .catch((err) => {
       setter([]);

@@ -7,19 +7,29 @@ import { getList } from "./http";
 const Customer = () => {
   const accId = 1;
   const businessUnitId = 1;
-  const searchValue = "";
+  const searchTerm = "";
 
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(accId, pageNo, pageSize, setTableData, businessUnitId, searchValue);
+    getList(
+      accId,
+      pageNo,
+      pageSize,
+      setTableData,
+      businessUnitId,
+      searchTerm,
+      setIsLoading
+    );
   };
 
   const updateToTable = (row) => {

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import BusinessUnitForm from "./Form";
 import BusinessUnitTable from "./Table";
 import { getList, createBusinessUnit, updateBusinessUnit } from "./http";
-import ModalComponent from "../../../common/composite-component/modal"
+import ModalComponent from "../../../common/composite-component/modal";
 import Loading from "../../../common/composite-component/loading";
 import { initialValues } from "./util";
 const BusinessUnit = (props) => {
@@ -27,25 +27,24 @@ const BusinessUnit = (props) => {
   const createToTable = () => {
     setFormData(initialValues);
     setIsDisabled(false);
-    setModalOpen(true)
+    setModalOpen(true);
   };
 
   const updateToTable = (row) => {
     setFormData(row);
     setIsDisabled(false);
-    setModalOpen(true)
+    setModalOpen(true);
   };
 
   const viewData = (row) => {
     setFormData(row);
     setIsDisabled(true);
-    setModalOpen(true)
+    setModalOpen(true);
   };
 
-
   function onClickClose() {
-    setModalOpen(false)
-    // business 
+    setModalOpen(false);
+    // business
     // mail .....
   }
   function submitBtnClick(values, formik) {
@@ -64,22 +63,17 @@ const BusinessUnit = (props) => {
   }
   return (
     <>
-      {
-        isloading && <Loading />
-      }
-      <div className="d-flex justify-content-between">
+      {isLoading && <Loading />}
+      <div className='d-flex justify-content-between'>
         <h3 className=''>Business Unit</h3>
-
       </div>
 
       <ModalComponent
         modalSate={isModalOpen}
-        modalClose={
-          onClickClose
-        }
+        modalClose={onClickClose}
         fixed={true}
-        size="lg"
-        title="Busines Unit"
+        size='lg'
+        title='Busines Unit'
       >
         <BusinessUnitForm
           formData={formData}
@@ -87,12 +81,6 @@ const BusinessUnit = (props) => {
           submitBtnClick={submitBtnClick}
         />
       </ModalComponent>
-      {/* <BusinessUnitForm
-        populateTable={populateTable}
-        updateFormData={updateFormData}
-        setUpdateFormData={setUpdateFormData}
-        isDisabled={isDisabled}
-      /> */}
       <BusinessUnitTable
         data={tableData}
         updateToTable={updateToTable}

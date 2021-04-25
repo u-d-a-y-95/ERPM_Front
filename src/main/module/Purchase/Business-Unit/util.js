@@ -3,7 +3,7 @@ import * as Yup from "yup";
 export const initialValues = {
   businessUnitName: "",
   businessUnitCode: "",
-  businessUnitAddress: "dummy",
+  businessUnitAddress: "",
 };
 
 export const formValidationSchema = Yup.object().shape({
