@@ -1,18 +1,30 @@
 import httpClient from "../../../services/http/http-client";
+import { succesInsertMessage, succesUpdateMessage } from './../../../constant/message.constant';
+import { toast } from "react-toastify";
 
 //Item Category Create Api Binding
-export const createItemCategory = (values, formik, populateTable) => {
+export const createItemCategory = (
+  values,
+  formik,
+  populateTable,
+  onClickClose,
+  setLoading) => {
+  onClickClose();
+  setLoading(true);
   const obj = createPayloadChange(values);
-  console.log(obj)
   httpClient
-    .postData("https://demoerpm.ibos.io/domain/ItemCategory/Create", obj)
+    // .postData("https://demoerpm.ibos.io/domain/ItemCategory/Create", obj)
+    .postData("/domain/ItemCategory/Create", obj)
     .then((res) => {
       formik.setValues(null);
       formik.resetForm();
       populateTable();
+      setLoading(false);
+      toast.success(succesInsertMessage);
     })
     .catch((error) => {
-      console.log("Error: ", error?.message);
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
     });
 };
 
@@ -20,15 +32,15 @@ export const createItemCategory = (values, formik, populateTable) => {
 const createPayloadChange = (values) => {
   console.log(values)
   const payload = {
-    sl: +1,
-    itemCategoryId: values.category.value || 0,
-    itemCategoryName: values.category.label || "",
     accountId: 1,
+    itemCategoryName: values.category || "",   
     businessUnitId: 1,
+    // businessUnit: values.businessUnit,
     itemTypeId: values.itemType.value || 0,
     itemTypeName: values.itemType.label || "",
     actionBy: +1234,
   };
+
   return payload;
 };
 
@@ -39,18 +51,21 @@ export const getList = (
   pageNo,
   pageSize,
   setter,
-  searchTerm
+  setLoading
 ) => {
+  setLoading(true);
   httpClient
     .getData(
       `https://demoerpm.ibos.io/domain/ItemCategory/GetListPagination?accountId=${accId}&businessUnitId=${businessUnitId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`
     )
     .then((res) => {
       setter(res?.data.data);
+      setLoading(false);
     })
     .catch((error) => {
-      // setter([]);
-      console.log("Error: ", error?.message);
+      setLoading(false);
+      setter([]);
+      toast.error(error?.response?.data?.message);
     });
 };
 
@@ -58,6 +73,25 @@ export const getList = (
 export const getItemTypeDropdownListAction = (setter) => {
   httpClient
     .getData("https://demoerpm.ibos.io/domain/ItemType/GetList")
+    .then((res) => {
+      setter(res?.data);
+    })
+    .catch((error) => {
+      setter([]);
+      console.log("Error", error?.message);
+    });
+};
+
+// Item Category Drop Down List
+export const getItemCategoryDropdownListAction = (
+  accId,
+  businessId,
+  setter
+) => {
+  httpClient
+    .getData(
+      `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=1`
+    )
     .then((res) => {
       setter(res?.data);
     })
@@ -153,21 +187,4 @@ export const getItemTypeDropdownListAction = (setter) => {
 // };
 
 
-// Item Category Drop Down List
-export const getItemCategoryDropdownListAction = (
-  accId,
-  businessId,
-  setter
-) => {
-  httpClient
-    .getData(
-      `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=1`
-    )
-    .then((res) => {
-      setter(res?.data);
-    })
-    .catch((error) => {
-      setter([]);
-      console.log("Error", error?.message);
-    });
-};
+
