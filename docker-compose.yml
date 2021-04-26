@@ -4,6 +4,6 @@ services:
     build:
       context: . 
       dockerfile: Dockerfile
-    image: "dockerhub.akij.net:5000/smeweb:${tag}"  
+    image: "dockerhub.akij.net:5000/erpm-web:${tag}"  
 
  
