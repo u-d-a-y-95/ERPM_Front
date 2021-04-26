@@ -1,15 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from "react-redux"
 import { Redirect } from "react-router-dom"
 import avaterLogo from "../../assets/image/avaterLogo.png"
-import { setLoginDataToState } from "../../main/state/actions/auth-action"
+import { setLogoutDataToState } from "../../main/state/actions/auth-action"
 import "../../assets/css/header.css"
 import MasterButton from '../common/base-component/master-button'
-
+import ls from '../services/local-storage'
 
 function Header(props) {
 
-    // const dispatch = useDispatch();
+    const [isLogOutBoxOpen, setLogOutBoxOpen] = useState(false)
+    const dispatch = useDispatch();
 
     // function headerRightClicked(e) {
     //     document.getElementsByClassName('header-right-overley')[0].style.display = document.getElementsByClassName('header-right-overley')[0].style.display ? "" : "flex"
@@ -17,13 +18,22 @@ function Header(props) {
     // }
     // function logOutBtnClicked(e) {
     //     document.getElementsByClassName('header-right-overley')[0].style.display = ""
-    //     dispatch(setLoginDataToState({
-    //         userName: "",
-    //         password: "",
-    //         isAuth: false
-    //     }))
+    //    
 
     // }
+    function logOutModel() {
+        setLogOutBoxOpen(prevState => {
+            return !prevState
+        })
+    }
+    function logout() {
+        dispatch(setLogoutDataToState({
+            userName: "",
+            password: "",
+            isAuth: false
+        }))
+        ls.removeData('user')
+    }
     return (
         <div className="header d-flex justify-content-between">
             <div className="ml-4">
@@ -56,22 +66,38 @@ function Header(props) {
 
                 />
             </div>
-            <div className="mr-3 d-flex justify-content-center align-items-center">
-                <div className="avater">
+            <div className="mr-3 d-flex justify-content-center align-items-center position-relative">
+                <div className="avater" onClick={logOutModel}>
                     <img
                         src={avaterLogo}
                         alt="avater"
                     />
                 </div>
                 <div className="ml-3 ">
+
                     <p className="my-0 font-weight-bold">Saiful Islam Uday</p>
-                    <p 
+                    <p
                         className="my-0 text-left"
                         style={{
-                            fontSize:".7rem"
+                            fontSize: ".7rem"
                         }}
                     >Marketing</p>
                 </div>
+                {
+                    isLogOutBoxOpen &&
+                    <div className="shadow-sm" style={{
+                        width: "100%",
+                        height: "70px",
+                        position: "absolute",
+                        background: "white",
+                        bottom: "-90px",
+                        padding: "10px"
+                    }}>
+                        <button className="btn btn-danger w-100 " onClick={logout}>Log Out</button>
+                    </div>
+
+                }
+
             </div>
 
         </div>

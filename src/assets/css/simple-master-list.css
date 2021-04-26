@@ -11,6 +11,16 @@
     background-color: #121E43;
     color: white;
 }
+.simple-master-table thead th  {
+        background-color: #121E43;
+    position:sticky;
+    top:0
+    
+}
+.master-list {
+  height: 400px;
+    overflow-y: scroll;
+}
 .simple-master-table {
     border-collapse:separate; 
     border-spacing: 0 1em;

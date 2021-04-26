@@ -4,10 +4,24 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux'
+import { store, persistor } from './main/state/store'
+import { PersistGate } from "redux-persist/integration/react";
+import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter as Router } from "react-router-dom"
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <App />
+        </Router>
+      </PersistGate>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

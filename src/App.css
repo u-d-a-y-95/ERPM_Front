@@ -1,7 +1,20 @@
-.base-color{
-background-color: #121E43;;
+.base-color {
+  background-color: #121e43;
 }
-
+.global-loading-css {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000000000;
+  background: white;
+  opacity: .8;
+}
 .login-form-field {
   display: flex;
   flex-direction: column;
@@ -26,6 +39,13 @@ background-color: #121E43;;
   border: 0;
   box-shadow: none;
   outline: none;
+  /* color: #b8b8b8; */
+  color: black !important;
+}
+.login-form-field i {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
   color: #b8b8b8;
 }
 .login-form-field i {
@@ -34,27 +54,204 @@ background-color: #121E43;;
   font-size: 20px;
   color: #b8b8b8;
 }
-
-/* azizul style */
-
-
-
-
-.main-container{
-  background-color:#F8F8FF;
-  width: 100%;
-  height: 100vh;
-  border-top-left-radius: 40px;
-  display: flex;
-  flex-direction: column;
-}
-
-body{
-  background-color: #121E43;
-}
-
 .navigate-link {
   text-decoration: underline;
 }
+
+.app-holder {
+  background: #121e43;
+  width:100vw;
+  height:100vh;
+  display: flex;
+}
+
+
+
+.main-content {
+  background-color: white;
+  border-top-left-radius: 40px;
+  border-bottom-left-radius: 40px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.main-content-body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: calc(100vh - 60px);
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+
+.my-modal {
+  width: 70%  ;  /* Occupy the 90% of the screen width */
+  max-width: 90vw;
+} 
+
+.login-screen {
+  background-image: url(./assets/image/login-background.png);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center center;
+  height: 100vh;
+}
+
+.loginArea {
+  width: 28rem;
+  max-width: 80%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 54px #00000029;
+  border-radius: 33px;
+  opacity: 1;
+  margin-right: 150px;
+  box-shadow: 0px 3px 54px #00000029;
+  z-index: 1;
+}
+
+.welcome-text {
+  font: normal normal bold 36px Raleway;
+}
+.login-text {
+  color: #4d4f5c;
+  opacity: 0.5;
+  font: normal normal normal 13px Avenir;
+}
+.line {
+  background-color: #707070;
+  width: 113px;
+  height: 2px;
+}
+.image-area {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 10px;
+}
+.login-button {
+  width: 12rem;
+  height: 40px;
+  background: #121e43 0% 0% no-repeat padding-box;
+  border: 1px solid #707070;
+  border-radius: 44px;
+  opacity: 1;
+  color: #ffffff;
+}
+
+
+.login-left-decription {
+  padding-top: 300px;
+  color: #ffffff;
+  padding-left: 40px;
+  position: fixed;
+  bottom: 120px;
+  width: 50%;
+}
+
+.iboslogo {
+  position: fixed;
+  top: 50px;
+  left: 30px;
+}
+
+
+
+.menu {
+  color:white;
+  margin-top: 30px;
+  padding: 0;
+  overflow-y: auto;
+  height: auto;
+}
+.sidebar .menu ul li {
+  list-style: none;
+  font-size: 13px;
+  color: #D4D4D4;
+}
+.menu-root {
+  list-style: none;
+  padding:0;
+ 
+}
+.menu-root ul {
+  padding-left: 10px;
+}
+.menu-root > li:hover{
+  border-left: 3px solid #FFFFFF;
+  background: #5A627C;
+}
+
+.sidebar .menu .menu-root-li:hover{
+  border-left: 3px solid #FFFFFF;
+  background: #5A627C;
+}
+.menu-root-li-active  {
+  background: #5A627C;
+  border-left: 3px solid #FFFFFF;
+}
+
+.menu-root-li-active ul {
+  background: #454C63;
+}
+
+.menu-root-li ul {
+  background: #454C63;
+  padding-left: 10px !important;
+}
+
+.current-link {
+  display: flex;
+  padding: 10px;
+  justify-content: flex-start;
+  align-items: center;
+  color: #D4D4D4 !important;
+  text-decoration: none;
+
+}
+.current-link:hover {
+  font-weight: bolder;
+}
+
+
+@media (max-width: 576px) {
+
+  .sign-up-page,.login-screen {
+    background: #ffffff !important;
+  }
+  .sign-up-form {
+    width: 90%;
+    max-width: 90%;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    margin: auto;
+    padding: 50px 10px;
+  }
+  .brandImg img,.login-left-decription,.iboslogo {
+    display: none;
+  }
+  .sign_up_button,
+  .logIn-button {
+    width: 11rem;
+  }
+
+  .horizontarRow {
+    width: 8rem;
+    height: 3px;
+    background: #707070;
+    margin: 0 auto;
+    margin-bottom: 40px !important;
+  }
+  
+
+  .login-screen {
+    display: flex;
+    justify-content: center !important;
+    margin: 0;
+  }
+  .loginArea {
+    margin: 0;
+  }
+
+}
+
 
 

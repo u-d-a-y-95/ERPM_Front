@@ -1,29 +1,66 @@
-import React from 'react'
-import Link from './link'
+import React, { useState } from 'react'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
-function NavLink({ className, items }) {
-    function onClickHandler(e) {
-        if (e.target.nextElementSibling) {
-          e.target.nextElementSibling.style.display = e.target.nextElementSibling.style.display ? "" : "block"
+function NavLink({ className, items, root }) {
+    const [url, setUrl] = useState("")
+    function expand(e) {
+        if (url == e) {
+            setUrl("")
+        } else {
+            setUrl(e)
         }
-      }
+    }
+    function isActive(currentUrl, level) {
+        return url == currentUrl && level == 1 ? "menu-root-li-active" : ""
+    }
     return (
-        <div className="menu-sub">
+        <ul className={root}>
             {
-                items.map((item, index) => {
-                    return (<div className="menu-sub-li">
-                        <span className="menu-li-link" onClick={onClickHandler}>
-                            <i className={`${item.icon} mr-2`}></i>
-                            {item.label}</span>
+                items.map((item, index) => (
+                    item.children?.length > 0 &&
+                    <li
+                        key={item.url}
+                        className={`${isActive(item.url, item.level)}`}
+                    >
+                        <a
+                            className="current-link"
+                            onClick={() => expand(item.url)}
+                        >
+                            {/* <FontAwesomeIcon icon="coffee" /> */}
+                            {item.name}
+
+                        </a>
                         {
-                            item.children && <NavLink items={item.children} />
+                            url == item.url &&
+                            <NavLink
+                                items={item.children}
+                            />
+
                         }
-                    </div>)
-                })
+
+                    </li>
+                    ||
+                    <li key={item.url} className={`${isActive(item.url, item.level)}`}
+                    >
+                        <Link to={item.url}>
+                            <a className="current-link"
+                                onClick={() => expand(item.url)}
+                            >
+
+                                {item.name}
+                            </a>
+                        </Link>
+                    </li>
+                )
+                )
             }
-        </div>
+        </ul>
     );
 }
-
 
 export default NavLink;

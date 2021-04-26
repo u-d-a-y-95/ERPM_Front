@@ -8,9 +8,9 @@ function MasterInput(props) {
       <input
         name={props.name}
         type={props.type}
-        className="form-control"
+        className='form-control'
         id={props.name}
-        placeholder={props.placeHolder}
+        placeholder={props.placeholder}
         value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}

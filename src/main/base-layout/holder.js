@@ -1,11 +1,47 @@
-import React from 'react'
+import React from "react";
+import ItemCategory from "../module/Configaration/item-management/Item-Category/ItemCategory";
+import ItemProfile from "../module/Configaration/item-management/Item-Profile/ItemProfile";
+import ItemSubCategory from "../module/Configaration/item-management/Item-Sub-Category/ItemSubCategory";
+import BusinessUnit from "../module/Configaration/basic-configuration/Business-Unit/BusinessUnit";
+import Customer from "../module/Sales-Management/Configuration/Customer/Customer";
+import Supplier from "../module/Procurement/Configuration/Supplier/Supplier";
+// import User from "../module/Configaration/basic-configuration/User";
+import {
+  Switch,
+  Route,
+} from "react-router-dom";
 
-import '../../assets/css/holder.css'
-function Holder (){
-    return (
-        <div className="holder h-100">
-        </div>
-    )
+function Holder() {
+  return (
+    <>
+      <Switch>
+        <Route path="/configuration-management/basic/business-unit">
+          <BusinessUnit />
+        </Route>
+        {/* <Route path="/configuration-management/basic/user">
+          <User />
+        </Route> */}
+        <Route path="/configuration-management/item-management/item-category">
+          <ItemCategory />
+        </Route>
+        <Route path="/configuration-management/item-management/item-subcategory">
+          <ItemSubCategory />
+        </Route>
+        <Route path="/configuration-management/item-management/item-profile">
+          <ItemProfile />
+        </Route>
+        <Route path="/procurement-management/configuration/supplier">
+          <Supplier />
+        </Route>
+        <Route path="/sales-management/configuration/customer">
+          <Customer />
+        </Route>
+        {/* <Route path="/">
+          <Home />
+        </Route> */}
+      </Switch>
+    </>
+  );
 }
 
-export default Holder
+export default Holder;
