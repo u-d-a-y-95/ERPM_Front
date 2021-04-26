@@ -5,18 +5,15 @@ import MasterInput from "../../../common/base-component/master-input";
 import MasterErrorText from "../../../common/base-component/master-errortext";
 import FormikSaveButton from "../../../common/composite-component/formik-save-button";
 import FormikResetButton from "../../../common/composite-component/formik-reset-button";
-import {
-  createSupplier,
-  updateSupplier,
-  supplierDropdownListAction,
-} from "./http";
+import { supplierDropdownListAction } from "./http";
 import MasterSelect from "../../../common/base-component/master-select";
 
 const BusinessUnitForm = ({
-  populateTable,
   updateFormData,
   setUpdateFormData,
   isDisabled,
+  submitBtnClick,
+  setLoading,
 }) => {
   const [supplierDropdownList, setSupplierDropdownList] = useState([]);
   const formik = useFormik({
@@ -24,15 +21,12 @@ const BusinessUnitForm = ({
     initialValues: updateFormData || initialValues,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      if (updateFormData?.supplierId) {
-        return updateSupplier(values, formik, populateTable, setUpdateFormData);
-      }
-      return createSupplier(values, formik, populateTable, setUpdateFormData);
+      submitBtnClick(values, formik);
     },
   });
 
   useEffect(() => {
-    supplierDropdownListAction(setSupplierDropdownList);
+    supplierDropdownListAction(setSupplierDropdownList, setLoading);
   }, []);
 
   return (
@@ -167,14 +161,18 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.licenseNo} />
           )}
         </div>
-        <div className='col-md-12 mt-3 text-left'>
-          <FormikSaveButton id={updateFormData?.supplierId} formik={formik} />
-          <FormikResetButton
-            className='ml-2'
-            formik={formik}
-            formikData={setUpdateFormData}
-          />
-        </div>
+        <div className='col-12 mt-2'></div>
+        {!isDisabled && (
+          <div className='col-md-12 mt-3 text-right'>
+            <FormikSaveButton id={updateFormData?.supplierId} formik={formik} />
+            <FormikResetButton
+              className='ml-2'
+              formik={formik}
+              formikData={setUpdateFormData}
+            />
+          </div>
+        )}
+        <div className='col-12 mb-2'></div>
       </div>
     </>
   );

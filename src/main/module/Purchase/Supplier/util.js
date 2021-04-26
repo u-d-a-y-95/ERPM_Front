@@ -66,6 +66,7 @@ export const tableConfig = {
 };
 
 export const supplierViewUpdatePayloadData = (value) => {
+  // console.log(value)
   const payload = {
     accountId: 1,
     actionBy: 0,

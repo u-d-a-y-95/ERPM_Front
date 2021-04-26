@@ -2,9 +2,10 @@ import React from "react";
 import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
 import { tableConfig, itemProfileViewUpdatePayloadData } from "./util";
 
-const ItemProfileTable = ({viewData, updateToTable, data}) => {
+const ItemProfileTable = ({viewData, updateToTable, data, createEvent}) => {
   const config = tableConfig;
   config.data = data;
+  config.create = createEvent
   config.action = [    
     {
       icon: "fa fa-edit",

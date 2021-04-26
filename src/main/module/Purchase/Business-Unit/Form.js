@@ -5,27 +5,14 @@ import MasterInput from "../../../common/base-component/master-input";
 import MasterErrorText from "../../../common/base-component/master-errortext";
 import FormikSaveButton from "../../../common/composite-component/formik-save-button";
 import FormikResetButton from "../../../common/composite-component/formik-reset-button";
-import {
-  currencyDropdownListAction,
-} from "./http";
-import MasterSelect from "../../../common/base-component/master-select";
 
-const BusinessUnitForm = ({
-  formData,
-  isDisabled,
-  submitBtnClick
-}) => {
-  const [currencyDropdownList, setCurrencyDropdownList] = useState([]);
-  useEffect(() => {
-    currencyDropdownListAction(setCurrencyDropdownList);
-  }, []);
-
+const BusinessUnitForm = ({ updateFormData, isDisabled, submitBtnClick }) => {
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: formData,
+    initialValues: updateFormData,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      submitBtnClick(values, formik)
+      submitBtnClick(values, formik);
     },
   });
 
@@ -104,23 +91,21 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors?.baseCurrency} />
           )}
         </div> */}
-        <div className="col-12 mt-5"></div>
-        {
-
-          !isDisabled &&
-
+        <div className='col-12 mt-3'></div>
+        {!isDisabled && (
           <div className='col-md-12 text-right'>
             <FormikSaveButton
-              id={formData?.businessUnitId}
+              id={updateFormData?.businessUnitId}
               formik={formik}
             />
             <FormikResetButton
               className='ml-2'
               formik={formik}
-              formikData={formData}
+              formikData={updateFormData}
             />
           </div>
-        }
+        )}
+        <div className='col-12 mb-2'></div>
       </div>
     </>
   );

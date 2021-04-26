@@ -2,16 +2,17 @@ import React from "react";
 import { customerViewUpdatePayloadData, tableConfig } from "./util";
 import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
 
-const CustomerTable = (props) => {
+const CustomerTable = ({ data, viewData, updateToTable, createEvent }) => {
   const config = tableConfig;
-  config.data = props.data;
+  config.data = data;
+  config.create = createEvent;
   config.action = [
     {
       icon: "fa fa-eye",
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
         const newData = customerViewUpdatePayloadData(row);
-        props.viewData(newData);
+        viewData(newData);
       },
     },
     {
@@ -19,7 +20,7 @@ const CustomerTable = (props) => {
       className: "btn btn-sm btn-primary text-white",
       event: (row) => {
         const newData = customerViewUpdatePayloadData(row);
-        props.updateToTable(newData);
+        updateToTable(newData);
       },
     },
     // {

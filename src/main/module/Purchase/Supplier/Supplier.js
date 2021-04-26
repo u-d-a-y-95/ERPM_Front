@@ -2,7 +2,10 @@
 import React, { useState, useEffect } from "react";
 import SupplierForm from "./Form";
 import SupplierTable from "./Table";
-import { getList } from "./http";
+import { createSupplier, getList, updateSupplier } from "./http";
+import { initialValues } from "./util";
+import ModalComponent from "../../../common/composite-component/modal";
+import Loading from "../../../common/composite-component/loading";
 
 const Supplier = () => {
   const accId = 1;
@@ -13,35 +16,92 @@ const Supplier = () => {
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
     populateTable();
   }, []);
+
   const populateTable = () => {
-    getList(accId, pageNo, pageSize, setTableData, businessUnitId, searchTerm);
+    getList(
+      accId,
+      pageNo,
+      pageSize,
+      setTableData,
+      businessUnitId,
+      searchTerm,
+      setLoading
+    );
+  };
+
+  const createToTable = () => {
+    setUpdateFormData(initialValues);
+    setIsDisabled(false);
+    setModalOpen(true);
   };
 
   const updateToTable = (row) => {
     setIsDisabled(false);
     setUpdateFormData(row);
+    setModalOpen(true);
   };
   const viewData = (row) => {
     setUpdateFormData(row);
     setIsDisabled(true);
+    setModalOpen(true);
   };
+
+  const submitBtnClick = (values, formik) => {
+    if (updateFormData?.supplierId) {
+      return updateSupplier(
+        values,
+        formik,
+        populateTable,
+        setUpdateFormData,
+        setLoading,
+        closeModal
+      );
+    }
+    return createSupplier(
+      values,
+      formik,
+      populateTable,
+      setLoading,
+      closeModal
+    );
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
-      <h1 className=''>Supplier</h1>
-      <SupplierForm
-        populateTable={populateTable}
-        updateFormData={updateFormData}
-        setUpdateFormData={setUpdateFormData}
-        isDisabled={isDisabled}
-      />
+      {isLoading && <Loading />}
+      <div className='d-flex justify-content-between'>
+        <h3>Supplier</h3>
+      </div>
+
+      <ModalComponent
+        modalSate={isModalOpen}
+        modalClose={closeModal}
+        fixed={true}
+        size='lg'
+        title='Supplier'
+      >
+        <SupplierForm
+          updateFormData={updateFormData}
+          isDisabled={isDisabled}
+          submitBtnClick={submitBtnClick}
+          setLoading={setLoading}
+        />
+      </ModalComponent>
       <SupplierTable
         data={tableData}
-        // deleteFromTable={deleteFromTable}
         updateToTable={updateToTable}
         viewData={viewData}
+        createEvent={createToTable}
       />
     </>
   );
