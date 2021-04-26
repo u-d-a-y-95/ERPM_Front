@@ -1,5 +1,8 @@
 import httpClient from "../../../services/http/http-client";
-import { succesInsertMessage, succesUpdateMessage } from './../../../constant/message.constant';
+import {
+  successInsertMessage,
+  succesUpdateMessage,
+} from "./../../../constant/message.constant";
 import { toast } from "react-toastify";
 
 export const createItemSubCategory = (
@@ -7,7 +10,8 @@ export const createItemSubCategory = (
   formik,
   populateTable,
   onClickClose,
-  setLoading) => {
+  setLoading
+) => {
   onClickClose();
   setLoading(true);
   const obj = createPayloadChange(values);
@@ -18,7 +22,7 @@ export const createItemSubCategory = (
       formik.resetForm();
       populateTable();
       setLoading(false);
-      toast.success(succesInsertMessage);
+      toast.success(successInsertMessage);
     })
     .catch((error) => {
       setLoading(false);
@@ -28,13 +32,13 @@ export const createItemSubCategory = (
 
 //create payload change
 const createPayloadChange = (values) => {
-  console.log(values)
+  console.log(values);
   const payload = {
     accountId: 1,
-    itemSubCategoryName: values.subCategory || 0,    
+    itemSubCategoryName: values.subCategory || 0,
     businessUnitId: 1,
     itemTypeId: 1,
-    itemTypeName: values.itemType.label || "",    
+    itemTypeName: values.itemType.label || "",
     itemCategoryId: 1,
     itemCategoryName: values.category.label || "",
     actionBy: 0,
@@ -49,10 +53,12 @@ export const getList = (
   pageSize,
   setter,
   setLoading
-  ) => {
-    setLoading(true);
+) => {
+  setLoading(true);
   httpClient
-    .getData(`https://demoerpm.ibos.io/domain/ItemSubCategory/GetListPagination?accountId=${accId}&businessUnitId=${businessUnitId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`)
+    .getData(
+      `https://demoerpm.ibos.io/domain/ItemSubCategory/GetListPagination?accountId=${accId}&businessUnitId=${businessUnitId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`
+    )
     .then((res) => {
       setter(res?.data?.data);
       setLoading(false);
@@ -62,8 +68,6 @@ export const getList = (
       toast.error(error?.response?.data?.message);
     });
 };
-
-
 
 // Item Type Drop Down List
 export const getItemTypeDropdownListAction = (setter) => {
@@ -90,12 +94,10 @@ export const getItemCategoryDropdownListAction = (
       `https://demoerpm.ibos.io/domain/ItemSubCategory/GetListByItemCategory?accountId=${accId}&businessUnitId=${businessId}&itemCategoryId=${itemTypeId}`
     )
     .then((res) => {
-      const newData = res?.data?.map(item => (
-        {
-          value: item?.itemSubCategoryId,
-          label: item?.itemSubCategoryName
-        }
-      ))
+      const newData = res?.data?.map((item) => ({
+        value: item?.itemSubCategoryId,
+        label: item?.itemSubCategoryName,
+      }));
       setter(newData);
     })
     .catch((error) => {
@@ -106,11 +108,12 @@ export const getItemCategoryDropdownListAction = (
 
 //update Item Sub Category
 export const updateItemSubCategory = (
-  values, 
-  formik, 
-  populateTable, 
-  setUpdateFormData) => {
-    console.log(values)
+  values,
+  formik,
+  populateTable,
+  setUpdateFormData
+) => {
+  console.log(values);
   const obj = updatePayloadChange(values);
   httpClient
     .putData("/domain/ItemSubCategory/Update", obj)
@@ -120,33 +123,33 @@ export const updateItemSubCategory = (
       populateTable();
     })
     .catch((error) => {
-      console.log('Error: ', error.message)
+      console.log("Error: ", error.message);
     });
 };
 
 // Update Payload Change
 const updatePayloadChange = (values) => {
-  console.log(values)
+  console.log(values);
   const payload = {
     accountId: 1,
-    itemSubCategoryName: values.subCategory || 0,    
+    itemSubCategoryName: values.subCategory || 0,
     businessUnitId: 1,
     itemTypeId: 1,
-    itemTypeName: values.itemType.label || "",    
+    itemTypeName: values.itemType.label || "",
     itemCategoryId: 1,
     itemCategoryName: values.category.label || "",
     actionBy: 0,
   };
-//   sl: 0
-// itemSubCategoryId: 0
-// accountId: 0
-// itemSubCategoryName:"string"
-// businessUnitId: 0
-// itemTypeId: 0
-// itemTypeName:"string"
-// itemCategoryId: 0
-// itemCategoryName:"string"
-// actionBy: 0
+  //   sl: 0
+  // itemSubCategoryId: 0
+  // accountId: 0
+  // itemSubCategoryName:"string"
+  // businessUnitId: 0
+  // itemTypeId: 0
+  // itemTypeName:"string"
+  // itemCategoryId: 0
+  // itemCategoryName:"string"
+  // actionBy: 0
 
   return payload;
 };
