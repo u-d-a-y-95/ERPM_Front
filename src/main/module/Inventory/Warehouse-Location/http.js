@@ -1,5 +1,5 @@
 import httpClient from "../../../services/http/http-client";
-import { succesInsertMessage, succesUpdateMessage } from './../../../constant/message.constant';
+import { succesInsertMessage, succesUpdateMessage } from '../../../constant/message.constant';
 import { toast } from "react-toastify";
 
 //Create Api Call
