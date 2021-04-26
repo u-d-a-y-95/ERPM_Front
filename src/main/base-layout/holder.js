@@ -7,6 +7,7 @@ import Customer from "../module/Purchase/Customer/Customer";
 import PurchaseRequest from "../module/Purchase/Purchase Request/PurchaseRequest";
 import Supplier from "../module/Purchase/Supplier/Supplier";
 import Warehouse from "../module/Purchase/Warehouse/Warehouse";
+import WarehouseLocation from '../module/Inventory/Wirehouse-Location/WarehouseLocation';
 
 function Holder() {
   return (
@@ -20,6 +21,7 @@ function Holder() {
       {/* <ItemSubCategory /> */}
       {/* <PurchaseRequest /> */}
       <Warehouse />
+      <WarehouseLocation />
     </>
   );
 }

@@ -1,13 +1,9 @@
 import * as Yup from "yup";
 
 export const initialValues = {
-  itemName: "",
-  itemCode: "",
-  itemType: "",
-  category: "",
-  subCategory: "",
-  uom: "",
-  partNumber: "",
+  warehouse: "",
+  businessUnit: "",
+  location: "",
 };
 
 export const tableConfig = {
@@ -17,24 +13,16 @@ export const tableConfig = {
       label: "SL",
     },
     {
-      key: "itemCode",
-      label: "Code",
+      key: "location",
+      label: "Location",
     },
     {
-      key: "itemName",
-      label: "Item",
+      key: "warehouse",
+      label: "Warehouse",
     },
     {
-      key: "itemTypeName",
-      label: "Item Type",
-    },
-    {
-      key: "itemCategoryName",
-      label: "Category",
-    },
-    {
-      key: "itemSubCategoryName",
-      label: "Sub-Category",
+      key: "businessUnit",
+      label: "Byusiness Unit",
     },
     {
       key: "status",
@@ -45,20 +33,12 @@ export const tableConfig = {
 };
 
 export const formValidationSchema = Yup.object().shape({
-  itemCode: Yup.string().required("Item Code is Required"),
-  itemName: Yup.string().required("Item Name isRequired"),
-  partNumber: Yup.string().required('Part Number Required'),
-  itemType: Yup.object().shape({
+  location: Yup.string().required('Part Number Required'),
+  warehouse: Yup.object().shape({
     value: Yup.string().required("Item Type is required"),
   }),
-  subCategory: Yup.object().shape({
+  businessUnit: Yup.object().shape({
     value: Yup.string().required("Item Sub Category is required"),
-  }),
-  category: Yup.object().shape({
-    value: Yup.string().required("Item Category is required"),
-  }),
-  uom: Yup.object().shape({
-    value: Yup.string().required("UoM is required"),
   }),
 });
 
