@@ -787,3 +787,44 @@ export const menu = [
         "url": "/financialmanagement"
     }
 ]
+
+
+export const tempMenu = [
+    {
+        "id": 1,
+        "parentId": 0,
+        "level": 1,
+        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+        "name": "PROCUREMENT ",
+        "sl": 1,
+        "to": "/procurement-management",
+        "isRoot": true,
+        "url": "/procurement-management",
+        "children": [
+            {
+                "id": 1,
+                "parentId": 0,
+                "level": 1,
+                "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                "name": "Purchase",
+                "sl": 1,
+                "to": "/procurement-management",
+                "isRoot": true,
+                "url": "/procurement-management",
+                "children": []
+            },
+            {
+                "id": 1,
+                "parentId": 0,
+                "level": 1,
+                "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                "name": "Configuration ",
+                "sl": 1,
+                "to": "/procurement-management",
+                "isRoot": true,
+                "url": "/procurement-management",
+                "children": []
+            }
+        ]
+    }
+]

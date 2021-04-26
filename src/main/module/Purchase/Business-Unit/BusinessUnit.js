@@ -16,7 +16,6 @@ const BusinessUnit = (props) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isloading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-
   useEffect(() => {
     populateTable();
   }, []);

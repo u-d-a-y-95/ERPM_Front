@@ -13,6 +13,10 @@ function Sidebar(props) {
         .then(res => {
             console.log(res)
         })
+    // http.getData('/identity/Menu/GetList')
+    //     .then(res => {
+    //         console.log(res)
+    //     })
 
 
     function onClickHandler(e) {

@@ -73,6 +73,7 @@
   border-bottom-left-radius: 40px;
   height: 100%;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .main-content-body {
@@ -160,7 +161,7 @@
   margin-top: 30px;
   padding: 0;
   overflow-y: auto;
-  height: 100%;
+  height: auto;
 }
 .sidebar .menu ul li {
   list-style: none;

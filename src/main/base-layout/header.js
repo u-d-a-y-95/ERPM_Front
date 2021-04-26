@@ -5,7 +5,7 @@ import avaterLogo from "../../assets/image/avaterLogo.png"
 import { setLogoutDataToState } from "../../main/state/actions/auth-action"
 import "../../assets/css/header.css"
 import MasterButton from '../common/base-component/master-button'
-
+import ls from '../services/local-storage'
 
 function Header(props) {
 
@@ -32,6 +32,7 @@ function Header(props) {
             password: "",
             isAuth: false
         }))
+        ls.removeData('user')
     }
     return (
         <div className="header d-flex justify-content-between">

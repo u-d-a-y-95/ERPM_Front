@@ -3,24 +3,20 @@ import { createSlice } from '@reduxjs/toolkit'
 export const userSlice = createSlice({
     name: "user",
     initialState: {
-        accountEmail: "",
-        accountId: "",
-        accountName: "",
-        token: "",
-        isAuth: false
+        info: {}
     },
     reducers: {
-        setLogin: (state, action) => {
-            state.accountEmail = action.payload.accountEmail;
-            state.accountId = action.payload.accountId;
-            state.accountName = action.payload.accountName;
-            state.token = action.payload.token;
-            state.isAuth = action.payload.isAuth;
+        setUser: (state, action) => {
+            console.log('action', action)
+            return {
+                ...state,
+                info: action.payload.user
+            }
         },
-        setLogout: (state, action) => {
-            state.userName = "";
-            state.password = "";
-            state.isAuth = false;
+        removeUser: (state, action) => {
+            return {
+
+            }
         }
     }
 })

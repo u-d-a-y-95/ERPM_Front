@@ -8,6 +8,7 @@ import http from '../../services/http/http-client'
 import lh from '../../services/local-storage'
 import { useDispatch } from "react-redux";
 import { setLoginDataToState } from '../../state/actions/auth-action'
+import { setUserDataToState } from '../../state/actions/user-action'
 
 function Login() {
   //initialValues;
@@ -37,6 +38,9 @@ function Login() {
           accountName: res.data.accountName,
           token: res.data.auth.token,
           isLogged: true
+        }))
+        dispatch(setUserDataToState({
+          user: res.data
         }))
         lh.setData('user', res.data)
 
