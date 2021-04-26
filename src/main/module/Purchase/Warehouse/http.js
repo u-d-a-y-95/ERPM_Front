@@ -144,7 +144,7 @@ const createPayloadChange = (values) => {
 //update payload change
 const updatePayloadChange = (values) => {
   const payload = {
-    intId: 127,
+    intId: values?.intId,
     intAccountId: 1,
     intBusinessUnitId: 1,
     strWarehouseCode: "string",
