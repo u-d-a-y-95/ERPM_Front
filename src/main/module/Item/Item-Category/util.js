@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const formsInitialValues = {
+export const initialValues = {
   businessUnit: "",
   category: "",
   itemType: "",
@@ -13,18 +13,22 @@ export const tableConfig = {
       label: "SL",
     },
     {
-      key: "category",
+      key: "itemCategoryName",
       label: "Category",
     },
     {
-      key: "itemType",
+      key: "itemTypeName",
       label: "Item Type",
     },
 
     {
-      key: "businessUnit",
+      key: "businessUnitId",
       label: "Business Unit",
     },
+    // {
+    //   key: "status",
+    //   label: "Status",
+    // },
   ],
   isSearchable: true,
 };

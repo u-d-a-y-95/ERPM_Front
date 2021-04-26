@@ -1,23 +1,36 @@
 import httpClient from "../../../services/http/http-client";
+import { succesInsertMessage, succesUpdateMessage } from './../../../constant/message.constant';
+import { toast } from "react-toastify";
 
 //Create Api Call
-export const createItemProfile = (values, formik, populateTable) => {
+export const createItemProfile = (
+  values,
+  formik,
+  populateTable,
+  onClickClose,
+  setLoading
+) => {
+  onClickClose();
+  setLoading(true);
   const obj = createPayloadChange(values);
   httpClient
-    .postData("https://demoerpm.ibos.io/domain/ItemBasicInfo/Create", obj)
+    .postData("/domain/ItemBasicInfo/Create", obj)
     .then((res) => {
       formik.setValues(null);
       formik.resetForm();
       populateTable();
+      setLoading(false);
+      toast.success(succesInsertMessage);
     })
     .catch((error) => {
-      console.log("Error: ", error?.message);
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
     });
 };
 
 //create payload change
 const createPayloadChange = (values) => {
-  console.log(values)
+  console.log(values);
   const payload = {
     accountId: +1,
     itemCode: values?.itemCode || "",
@@ -28,71 +41,100 @@ const createPayloadChange = (values) => {
     itemSubCategoryId: values?.subCategory?.value || +0,
     uom: values?.uom?.value || +0,
     actionBy: +1234,
-
   };
   return payload;
 };
 
 //Landing Api Call
-export const getList = (accId, businessUnitId, pageNo, pageSize, setter) => {
+export const getList = (
+  accId,
+  businessUnitId,
+  pageNo,
+  pageSize,
+  setter,
+  setLoading
+) => {
+  setLoading(true);
   httpClient
     .getData(
       `https://demoerpm.ibos.io/domain/ItemBasicInfo/GetLandingPasignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
     )
     .then((res) => {
       setter(res?.data?.data);
+      setLoading(false);
     })
     .catch((error) => {
-      console.log("Error: ", error?.message);
+      setLoading(false);
+      setter([]);
+      toast.error(error?.response?.data?.message);
     });
 };
 
-// Get Payload Change 
-const getPayloadChange = (values) => {
-  console.log(values)
-  return values?.map((data) => ({
-    sl: data?.sl,
-    // uom: data?.uom?.value,
-    partNumber: data?.value?.partNumber,
-    itemName: data?.itemName,
-    itemCategoryId: data?.itemCategoryId,
-    itemCategoryName: data?.itemCategoryName,
-    itemCode: data?.itemCode,
-    itemSubCategoryId: data?.itemSubCategoryId,
-    itemSubCategoryName: data?.itemSubCategoryName,
-    itemTypeId: data?.itemTypeId,
-    itemTypeName: data?.itemTypeName,
-  }));
-};
-
-
+// Get Payload Change
+// const getPayloadChange = (values) => {
+//   console.log(values)
+//   return values?.map((data) => ({
+//     sl: data?.sl,
+//     // uom: data?.uom?.value,
+//     partNumber: data?.value?.partNumber,
+//     itemName: data?.itemName,
+//     itemCategoryId: data?.itemCategoryId,
+//     itemCategoryName: data?.itemCategoryName,
+//     itemCode: data?.itemCode,
+//     itemSubCategoryId: data?.itemSubCategoryId,
+//     itemSubCategoryName: data?.itemSubCategoryName,
+//     itemTypeId: data?.itemTypeId,
+//     itemTypeName: data?.itemTypeName,
+//   }));
+// };
 
 //update Item Profile
-export const updateItemProfile = (values, formik, populateTable, setUpdateFormData) => {
+export const updateItemProfile = (
+  values,
+  formik,
+  populateTable,
+  formData,
+  setFormData,
+  onClickClose,
+  setLoading
+) => {
+  onClickClose()
+  setLoading(true)
   const obj = updatePayloadChange(values);
   httpClient
-    .putData("https://demoerpm.ibos.io/domain/ItemBasicInfo/Update", obj)
+    .putData("/domain/ItemBasicInfo/Update", obj)
     .then((res) => {
-      setUpdateFormData(null);
+      setFormData(null);
       formik.resetForm();
       populateTable();
+      setLoading(false);
+      toast.success(succesUpdateMessage);
+    })
+    .catch((error) => {
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
     });
 };
 
 // Update Payload Change
 const updatePayloadChange = (values) => {
-  console.log(values)
+  console.log(values);
   const payload = {
-    actionBy: +0,
-    itemId: +0,
+    accountId: 0,
+    actionBy: 0,
+    itemId: 0,
     itemCode: values?.itemCode || "",
     itemName: values?.itemName || "",
     partNumber: values?.partNumber || "",
-    uom: values?.uom?.value,
-    itemTypeId: values?.itemType?.value || 0,
-    itemCategoryId: values?.category?.value || 0,
-    itemSubCategoryId: values?.subCategory?.value || 0,
+    uomId: values?.uom?.value,
+    // itemTypeId: values?.itemType?.value || 0,
+    // itemCategoryId: values?.category?.value || 0,
+    // itemSubCategoryId: values?.subCategory?.value || 0,
+    itemTypeId: 0,
+    itemCategoryId: 0,
+    itemSubCategoryId: 0,
   };
+
   return payload;
 };
 
@@ -116,21 +158,17 @@ export const getItemCategoryDropdownListAction = (
   itemTypeId,
   setter
 ) => {
-  // console.log(itemTypeList.value);
   httpClient
     .getData(
       `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=${itemTypeId}`
     )
     .then((res) => {
-      const newData = res?.data?.map(item => (
-        {
-          value: item?.itemCategoryId,
-          label: item?.itemCategoryName
-        }
-      ))
-      // console.log(res)
+      const newData = res?.data?.map((item) => ({
+        value: item?.itemCategoryId,
+        label: item?.itemCategoryName,
+      }));
       setter(newData);
-      console.log(newData)
+      console.log(newData);
     })
     .catch((error) => {
       setter([]);
@@ -145,21 +183,16 @@ export const getItemSubCategoryDropdownListAction = (
   itemCategoryId,
   setter
 ) => {
-  // console.log(itemCategoryId)
   httpClient
     .getData(
       `https://demoerpm.ibos.io/domain/ItemSubCategory/GetListByItemCategory?accountId=${accId}&businessUnitId=${businessId}&itemCategoryId=${itemCategoryId}`
     )
     .then((res) => {
-      const newData = res?.data?.map(item => (
-        {
-          value: item?.itemSubCategoryId,
-          label: item?.itemSubCategoryName
-        }
-      ))
-      // console.log(res)
+      const newData = res?.data?.map((item) => ({
+        value: item?.itemSubCategoryId,
+        label: item?.itemSubCategoryName,
+      }));
       setter(newData);
-      // setter(res?.data);
     })
     .catch((error) => {
       setter([]);

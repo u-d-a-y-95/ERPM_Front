@@ -37,12 +37,12 @@ const BusinessUnitForm = ({
 
   return (
     <>
-      <div className='row'>
-        <div className='col-md-4 col-lg-3'>
+      <div className="row">
+        <div className="col-md-4 col-lg-3">
           <MasterSelect
-            label='Supplier Type'
-            name='supplierType'
-            placeholder='Supplier Type'
+            label="Supplier Type"
+            name="supplierType"
+            placeholder="Supplier Type"
             data={supplierDropdownList}
             value={formik.values?.supplierType}
             onChange={(value) => formik.setFieldValue("supplierType", value)}
@@ -54,12 +54,12 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors?.supplierType} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className="col-md-4 col-lg-3">
           <MasterInput
-            type='text'
-            label='Supplier Name'
-            placeholder='Supplier name'
-            name='supplierName'
+            type="text"
+            label="Supplier Name"
+            placeholder="Supplier name"
+            name="supplierName"
             value={formik.values?.supplierName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -70,12 +70,12 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors?.supplierName} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className="col-md-4 col-lg-3">
           <MasterInput
-            type='text'
-            label='Contact Number'
-            placeholder='Contact Number'
-            name='contactNumber'
+            type="text"
+            label="Contact Number"
+            placeholder="Contact Number"
+            name="contactNumber"
             value={formik.values?.contactNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -86,12 +86,12 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.contactNumber} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className="col-md-4 col-lg-3">
           <MasterInput
-            type='text'
-            label='Address'
-            placeholder='Address'
-            name='supplierAddress'
+            type="text"
+            label="Address"
+            placeholder="Address"
+            name="supplierAddress"
             value={formik.values?.supplierAddress}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -103,12 +103,12 @@ const BusinessUnitForm = ({
               <MasterErrorText message={formik.errors.supplierAddress} />
             )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className="col-md-4 col-lg-3">
           <MasterInput
-            type='email'
-            label='Email'
-            placeholder='Email'
-            name='email'
+            type="email"
+            label="Email"
+            placeholder="Email"
+            name="email"
             value={formik.values?.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -119,12 +119,12 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.email} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className="col-md-4 col-lg-3">
           <MasterInput
-            type='text'
-            label='NID'
-            placeholder='NID number'
-            name='nid'
+            type="text"
+            label="NID"
+            placeholder="NID number"
+            name="nid"
             value={formik.values?.nid}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -135,12 +135,12 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.nid} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className="col-md-4 col-lg-3">
           <MasterInput
-            type='text'
-            label='BIN'
-            placeholder='BIN'
-            name='bin'
+            type="text"
+            label="BIN"
+            placeholder="BIN"
+            name="bin"
             value={formik.values?.bin}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -151,12 +151,12 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.bin} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className="col-md-4 col-lg-3">
           <MasterInput
-            type='text'
-            label='Licence Number'
-            placeholder='Licence number'
-            name='licenseNo'
+            type="text"
+            label="Licence Number"
+            placeholder="Licence number"
+            name="licenseNo"
             value={formik.values?.licenseNo}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -167,14 +167,16 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.licenseNo} />
           )}
         </div>
-        <div className='col-md-12 mt-3 text-left'>
-          <FormikSaveButton id={updateFormData?.supplierId} formik={formik} />
-          <FormikResetButton
-            className='ml-2'
-            formik={formik}
-            formikData={setUpdateFormData}
-          />
-        </div>
+        {!isDisabled && (
+          <div className="col-md-12 mt-3 text-left">
+            <FormikSaveButton id={updateFormData?.supplierId} formik={formik} />
+            <FormikResetButton
+              className="ml-2"
+              formik={formik}
+              formikData={setUpdateFormData}
+            />
+          </div>
+        )}
       </div>
     </>
   );
