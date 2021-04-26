@@ -5,13 +5,14 @@ import { toast } from "react-toastify";
 //Item Category Create Api Binding
 export const createItemCategory = (
   values,
+  userCurrentInfo,
   formik,
   populateTable,
   onClickClose,
   setLoading) => {
   onClickClose();
   setLoading(true);
-  const obj = createPayloadChange(values);
+  const obj = createPayloadChange(values, userCurrentInfo);
   httpClient
     // .postData("https://demoerpm.ibos.io/domain/ItemCategory/Create", obj)
     .postData("/domain/ItemCategory/Create", obj)
@@ -29,16 +30,16 @@ export const createItemCategory = (
 };
 
 //Create Payload Change
-const createPayloadChange = (values) => {
+const createPayloadChange = (values, userCurrentInfo) => {
   console.log(values)
   const payload = {
-    accountId: 1,
+    accountId: userCurrentInfo?.accountId,
     itemCategoryName: values.category || "",
-    businessUnitId: 1,
+    businessUnitId: userCurrentInfo?.businessUnitId,
     // businessUnit: values.businessUnit,
     itemTypeId: values.itemType.value || 0,
     itemTypeName: values.itemType.label || "",
-    actionBy: +1234,
+    actionBy: userCurrentInfo?.userId,
   };
 
   return payload;
@@ -46,8 +47,7 @@ const createPayloadChange = (values) => {
 
 //Item Category Landing API Binding
 export const getList = (
-  accId,
-  businessUnitId,
+  userCurrentInfo,
   pageNo,
   pageSize,
   setter,
@@ -56,7 +56,7 @@ export const getList = (
   setLoading(true);
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemCategory/GetListPagination?accountId=${accId}&businessUnitId=${businessUnitId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`
+      `https://demoerpm.ibos.io/domain/ItemCategory/GetListPagination?accountId=${userCurrentInfo.accountId}&businessUnitId=${userCurrentInfo.businessUnitId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`
     )
     .then((res) => {
       setter(res?.data.data);

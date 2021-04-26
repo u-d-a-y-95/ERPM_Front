@@ -163,6 +163,9 @@
   overflow-y: auto;
   height: auto;
 }
+.sidebar .branchSelect {
+  color: black !important;
+}
 .sidebar .menu ul li {
   list-style: none;
   font-size: 13px;

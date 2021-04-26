@@ -10,17 +10,6 @@ import MasterCheckBox from "../../common/base-component/master-checkbox";
 import LoginInput from './../../common/base-component/login-input';
 
 function Login() {
-  // http.de('https://jsonplaceholder.typicode.com/todos/1')
-  // .then(res=>{
-  //   console.log(res)
-  // })
-  // ls.setData(TOKEN,'aziz')
-  // const [name, setName] = useState("");
-  // function onChange(e) {
-  //   setName(e.target.value);
-  // }
-
-  //initialValues;
   const initialValues = {
     email: "",
     password: "",

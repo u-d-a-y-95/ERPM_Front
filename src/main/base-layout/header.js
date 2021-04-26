@@ -32,7 +32,7 @@ function Header(props) {
             password: "",
             isAuth: false
         }))
-        ls.removeData('user')
+        ls.clearAllData()
     }
     return (
         <div className="header d-flex justify-content-between">

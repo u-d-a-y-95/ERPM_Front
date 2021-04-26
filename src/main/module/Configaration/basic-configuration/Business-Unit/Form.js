@@ -91,7 +91,7 @@ const BusinessUnitForm = ({ updateFormData, isDisabled, submitBtnClick }) => {
             <MasterErrorText message={formik.errors?.baseCurrency} />
           )}
         </div> */}
-        <div className='col-12 mt-3'></div>
+        <div className='col-12 mt-5'></div>
         {!isDisabled && (
           <div className='col-md-12 text-right'>
             <FormikSaveButton
@@ -105,7 +105,7 @@ const BusinessUnitForm = ({ updateFormData, isDisabled, submitBtnClick }) => {
             />
           </div>
         )}
-        <div className='col-12 mb-2'></div>
+        <div className='col-12 mb-3'></div>
       </div>
     </>
   );

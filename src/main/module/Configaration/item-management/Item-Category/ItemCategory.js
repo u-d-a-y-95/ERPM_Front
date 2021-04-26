@@ -5,10 +5,9 @@ import ItemCategoryTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
 import { initialValues } from './util';
+import { useSelector } from "react-redux";
 
 function ItemCategory() {
-  const accountId = 1;
-  const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
   const [formData, setFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
@@ -16,11 +15,14 @@ function ItemCategory() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isloading, setLoading] = useState(false);
 
+  const userCurrentInfo = useSelector(state => state.currentInfo)
+
   useEffect(() => {
     populateTable();
-  }, []);
+  }, [userCurrentInfo]);
+
   const populateTable = () => {
-    getList(accountId, businessUnitId, pageNo, pageSize, setTableData, setLoading);
+    getList(userCurrentInfo, pageNo, pageSize, setTableData, setLoading);
   };
 
   const createToTable = () => {
@@ -60,7 +62,7 @@ function ItemCategory() {
     //     setLoading
     //   );
     // }
-    createItemCategory(values, formik, populateTable, onClickClose, setLoading);
+    createItemCategory(values, userCurrentInfo, formik, populateTable, onClickClose, setLoading);
   }
   return (
     <>
@@ -79,8 +81,6 @@ function ItemCategory() {
           formData={formData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
-          accountId={accountId}
-          businessUnitId={businessUnitId}
         />
       </ModalComponent>
       <ItemCategoryTable

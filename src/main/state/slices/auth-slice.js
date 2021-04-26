@@ -5,10 +5,11 @@ export const authSlice = createSlice({
     initialState: {
         userName: "",
         password: "",
-        language: "",
         isLogged: false,
         token: "",
-        accountName: ""
+        accountName: "",
+        accountId: "",
+        userId: ""
     },
     reducers: {
         setLogin: (state, action) => {
@@ -17,6 +18,8 @@ export const authSlice = createSlice({
             state.isLogged = action.payload.isLogged;
             state.token = action.payload.token;
             state.accountName = action.payload.accountName;
+            state.accountId = action.payload.accountId;
+            state.userId = action.payload.userId;
         },
         setLogout: (state, action) => {
             state.userName = "";
@@ -24,6 +27,8 @@ export const authSlice = createSlice({
             state.isLogged = false;
             state.token = "";
             state.accountName = "";
+            state.accountId = "";
+            state.userId = "";
         }
     }
 })

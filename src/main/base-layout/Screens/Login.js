@@ -9,6 +9,7 @@ import lh from '../../services/local-storage'
 import { useDispatch } from "react-redux";
 import { setLoginDataToState } from '../../state/actions/auth-action'
 import { setUserDataToState } from '../../state/actions/user-action'
+import { setUserCurrentInfoToState } from '../../state/actions/user-current-info-action'
 
 function Login() {
   //initialValues;
@@ -33,14 +34,21 @@ function Login() {
     http.postData('https://demoerpm.ibos.io/identity/LogIn/UserLogIn', values)
       .then(res => {
         dispatch(setLoginDataToState({
-          accountEmail: res.data.accountEmail,
-          accountId: res.data.accountId,
-          accountName: res.data.accountName,
+          userName: values.userName,
+          password: values.password,
+          isLogged: true,
           token: res.data.auth.token,
-          isLogged: true
+          accountName: res.data.accountName,
+          accountId: res.data.accountId,
+          userId: res.data.userId
         }))
         dispatch(setUserDataToState({
           user: res.data
+        }))
+        dispatch(setUserCurrentInfoToState({
+          userId: res.data.userId,
+          accountId: res.data.accountId,
+          businessUnitId: ""
         }))
         lh.setData('user', res.data)
 
