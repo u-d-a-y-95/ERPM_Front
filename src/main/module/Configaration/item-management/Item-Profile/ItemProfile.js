@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import ItemProfileForm from "./Form";
 import { createItemProfile, getList, updateItemProfile } from "./http";
 import ItemProfileTable from "./Table";
-import ModalComponent from "../../../common/composite-component/modal";
-import Loading from "../../../common/composite-component/loading";
+import ModalComponent from "../../../../common/composite-component/modal";
+import Loading from "../../../../common/composite-component/loading";
 import { initialValues } from './util';
 
 function ItemProfile() {
@@ -67,7 +67,7 @@ function ItemProfile() {
     <>
       {isloading && <Loading />}
       <div className="d-flex justify-content-between">
-        <h3 className="">Business Unit</h3>
+        <h3 className="">Item Profile</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}

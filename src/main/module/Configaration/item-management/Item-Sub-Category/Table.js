@@ -1,31 +1,31 @@
 import React from 'react';
-import SimpleMasterTable from "../../../common/composite-component/simple-master-list"
+import SimpleMasterTable from "../../../../common/composite-component/simple-master-list"
 import { tableConfig } from './util'
 
 
-const ItemSubCategoryTable = ({viewData, updateToTable, data, createEvent}) => {
+const ItemSubCategoryTable = ({ viewData, updateToTable, data, createEvent }) => {
     const config = tableConfig;
-  config.data = data;
-  config.create = createEvent
-  // config.action = [    
-  //   {
-  //     icon: "fa fa-edit",
-  //     className: "btn btn-sm btn-primary text-white",
-  //     event: (row) => {
-  //       // console.log(row)
-  //       // const newData = itemProfileViewUpdatePayloadData(row);
-  //       updateToTable(row);
-  //     },
-  //   },
-  //   {
-  //     icon: "fa fa-eye",
-  //     className: "btn btn-sm btn-primary text-white",
-  //     event: (row) => {
-  //       // const newData = itemProfileViewUpdatePayloadData(row);
-  //       viewData(row);
-  //     },
-  //   },
-  // ];
+    config.data = data;
+    config.create = createEvent
+    // config.action = [    
+    //   {
+    //     icon: "fa fa-edit",
+    //     className: "btn btn-sm btn-primary text-white",
+    //     event: (row) => {
+    //       // console.log(row)
+    //       // const newData = itemProfileViewUpdatePayloadData(row);
+    //       updateToTable(row);
+    //     },
+    //   },
+    //   {
+    //     icon: "fa fa-eye",
+    //     className: "btn btn-sm btn-primary text-white",
+    //     event: (row) => {
+    //       // const newData = itemProfileViewUpdatePayloadData(row);
+    //       viewData(row);
+    //     },
+    //   },
+    // ];
 
     return (
         <>

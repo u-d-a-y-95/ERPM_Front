@@ -1,12 +1,12 @@
 import React from "react";
-import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
+import SimpleMasterTable from "../../../../common/composite-component/simple-master-list";
 import { tableConfig, itemProfileViewUpdatePayloadData } from "./util";
 
-const ItemProfileTable = ({viewData, updateToTable, data, createEvent}) => {
+const ItemProfileTable = ({ viewData, updateToTable, data, createEvent }) => {
   const config = tableConfig;
   config.data = data;
   config.create = createEvent
-  config.action = [    
+  config.action = [
     {
       icon: "fa fa-edit",
       className: "btn btn-sm btn-primary text-white",

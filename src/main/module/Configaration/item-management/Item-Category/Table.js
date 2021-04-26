@@ -1,5 +1,5 @@
 import React from "react";
-import SimpleMasterTable from "../../../common/composite-component/simple-master-list";
+import SimpleMasterTable from "../../../../common/composite-component/simple-master-list";
 import { tableConfig } from "./util";
 
 const ItemCategoryTable = ({ viewData, updateToTable, data, createEvent }) => {

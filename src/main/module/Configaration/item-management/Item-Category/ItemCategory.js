@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import ItemCategoryForm from "./Form";
 import { getList, createItemCategory } from "./http";
 import ItemCategoryTable from "./Table";
-import ModalComponent from "../../../common/composite-component/modal";
-import Loading from "../../../common/composite-component/loading";
+import ModalComponent from "../../../../common/composite-component/modal";
+import Loading from "../../../../common/composite-component/loading";
 import { initialValues } from './util';
 
 function ItemCategory() {
@@ -83,7 +83,7 @@ function ItemCategory() {
           businessUnitId={businessUnitId}
         />
       </ModalComponent>
-       <ItemCategoryTable
+      <ItemCategoryTable
         data={tableData}
         updateToTable={updateToTable}
         viewData={viewData}

@@ -1,10 +1,10 @@
 import React from "react";
-import ItemCategory from "../module/Item/Item-Category/ItemCategory";
-import ItemProfile from "../module/Item/Item-Profile/ItemProfile";
-import ItemSubCategory from "../module/Item/Item-Sub-Category/ItemSubCategory";
-import BusinessUnit from "../module/Purchase/Business-Unit/BusinessUnit";
-import Customer from "../module/Purchase/Customer/Customer";
-import Supplier from "../module/Purchase/Supplier/Supplier";
+import ItemCategory from "../module/Configaration/item-management/Item-Category/ItemCategory";
+import ItemProfile from "../module/Configaration/item-management/Item-Profile/ItemProfile";
+import ItemSubCategory from "../module/Configaration/item-management/Item-Sub-Category/ItemSubCategory";
+import BusinessUnit from "../module/Configaration/basic-configuration/Business-Unit/BusinessUnit";
+import Customer from "../module/Sales-Management/Configuration/Customer/Customer";
+import Supplier from "../module/Procurement/Configuration/Supplier/Supplier";
 // import User from "../module/Configaration/basic-configuration/User";
 import {
   Switch,
@@ -30,17 +30,16 @@ function Holder() {
         <Route path="/configuration-management/item-management/item-profile">
           <ItemProfile />
         </Route>
+        <Route path="/procurement-management/configuration/supplier">
+          <Supplier />
+        </Route>
+        <Route path="/sales-management/configuration/customer">
+          <Customer />
+        </Route>
         {/* <Route path="/">
           <Home />
         </Route> */}
       </Switch>
-      {/* <PurchaseOrder /> */}
-
-      {/* <Supplier /> */}
-      {/* <Customer /> */}
-      {/* <ItemProfile /> */}
-      {/* <ItemCategory /> */}
-
     </>
   );
 }

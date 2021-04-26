@@ -1,14 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
-import BusinessUnitForm from "./Form";
-import BusinessUnitTable from "./Table";
-import { getList, createBusinessUnit, updateBusinessUnit } from "./http";
+import SupplierForm from "./Form";
+import SupplierTable from "./Table";
+import { createSupplier, getList, updateSupplier } from "./http";
+import { initialValues } from "./util";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
-import { initialValues } from "./util";
-const BusinessUnit = (props) => {
+
+const Supplier = () => {
   const accId = 1;
   const searchTerm = "";
+  const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
@@ -16,11 +18,21 @@ const BusinessUnit = (props) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
+
   useEffect(() => {
     populateTable();
   }, []);
+
   const populateTable = () => {
-    getList(accId, pageNo, pageSize, setTableData, searchTerm, setLoading);
+    getList(
+      accId,
+      pageNo,
+      pageSize,
+      setTableData,
+      businessUnitId,
+      searchTerm,
+      setLoading
+    );
   };
 
   const createToTable = () => {
@@ -30,39 +42,45 @@ const BusinessUnit = (props) => {
   };
 
   const updateToTable = (row) => {
-    setUpdateFormData(row);
     setIsDisabled(false);
+    setUpdateFormData(row);
     setModalOpen(true);
   };
-
   const viewData = (row) => {
     setUpdateFormData(row);
     setIsDisabled(true);
     setModalOpen(true);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
-  };
   const submitBtnClick = (values, formik) => {
-    if (updateFormData?.businessUnitId) {
-      return updateBusinessUnit(
+    if (updateFormData?.supplierId) {
+      return updateSupplier(
         values,
         formik,
         populateTable,
-        updateFormData,
         setUpdateFormData,
-        closeModal,
-        setLoading
+        setLoading,
+        closeModal
       );
     }
-    createBusinessUnit(values, formik, populateTable, closeModal, setLoading);
+    return createSupplier(
+      values,
+      formik,
+      populateTable,
+      setLoading,
+      closeModal
+    );
   };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
       {isLoading && <Loading />}
       <div className='d-flex justify-content-between'>
-        <h3>Business Unit</h3>
+        <h3>Supplier</h3>
       </div>
 
       <ModalComponent
@@ -70,15 +88,16 @@ const BusinessUnit = (props) => {
         modalClose={closeModal}
         fixed={true}
         size='lg'
-        title='Busines Unit'
+        title='Supplier'
       >
-        <BusinessUnitForm
+        <SupplierForm
           updateFormData={updateFormData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
+          setLoading={setLoading}
         />
       </ModalComponent>
-      <BusinessUnitTable
+      <SupplierTable
         data={tableData}
         updateToTable={updateToTable}
         viewData={viewData}
@@ -88,4 +107,4 @@ const BusinessUnit = (props) => {
   );
 };
 
-export default BusinessUnit;
+export default Supplier;

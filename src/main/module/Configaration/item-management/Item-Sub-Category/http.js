@@ -1,5 +1,5 @@
-import httpClient from "../../../services/http/http-client";
-import { successInsertMessage, succesUpdateMessage } from './../../../constant/message.constant';
+import httpClient from "../../../../services/http/http-client";
+import { successInsertMessage, succesUpdateMessage } from '../../../../constant/message.constant';
 import { toast } from "react-toastify";
 
 export const createItemSubCategory = (

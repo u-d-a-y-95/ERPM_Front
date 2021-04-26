@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import MasterInput from "../../../common/base-component/master-input";
-import MasterErrorText from "../../../common/base-component/master-errortext";
-import FormikResetButton from "../../../common/composite-component/formik-reset-button";
-import FormikSaveButton from "../../../common/composite-component/formik-save-button";
+import MasterInput from "../../../../common/base-component/master-input";
+import MasterErrorText from "../../../../common/base-component/master-errortext";
+import FormikResetButton from "../../../../common/composite-component/formik-reset-button";
+import FormikSaveButton from "../../../../common/composite-component/formik-save-button";
 
 import { useFormik } from "formik";
 import { formsValidationSchema } from "./util";
@@ -13,7 +13,7 @@ import {
   getItemCategoryDropdownListAction,
   getItemSubCategoryDropdownListAction,
 } from "./http";
-import MasterSelect from "../../../common/base-component/master-select";
+import MasterSelect from "../../../../common/base-component/master-select";
 
 function ItemSubCategoryForm({
   formData,
@@ -43,7 +43,7 @@ function ItemSubCategoryForm({
   return (
     <>
       <div className="row">
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterInput
             label="Business Unit"
             name="businessUnit"
@@ -59,7 +59,7 @@ function ItemSubCategoryForm({
             <MasterErrorText message={formik.errors.businessUnit} />
           )}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterInput
             label="Sub-Category"
             name="subCategory"
@@ -75,7 +75,7 @@ function ItemSubCategoryForm({
             <MasterErrorText message={formik.errors.subCategory} />
           )}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterSelect
             label="Item Type"
             name="itemType"
@@ -97,7 +97,7 @@ function ItemSubCategoryForm({
             placeholder="Select Item Type"
           />
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterSelect
             label="Category"
             name="category"

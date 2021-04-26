@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import ItemSubCategoryForm from "./Form";
 import { createItemSubCategory, getList, updateItemSubCategory } from "./http";
 import ItemSubCategoryTable from "./Table";
-import ModalComponent from "../../../common/composite-component/modal";
-import Loading from "../../../common/composite-component/loading";
+import ModalComponent from "../../../../common/composite-component/modal";
+import Loading from "../../../../common/composite-component/loading";
 import { initialValues } from './util';
 
 function ItemSubCategory() {

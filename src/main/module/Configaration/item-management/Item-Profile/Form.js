@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import MasterInput from "../../../common/base-component/master-input";
-import MasterErrorText from "../../../common/base-component/master-errortext";
-import FormikResetButton from "../../../common/composite-component/formik-reset-button";
+import MasterInput from "../../../../common/base-component/master-input";
+import MasterErrorText from "../../../../common/base-component/master-errortext";
+import FormikResetButton from "../../../../common/composite-component/formik-reset-button";
 
 import { useFormik } from "formik";
 
@@ -13,8 +13,8 @@ import {
   updateItemProfile,
   getUomDropdownListAction,
 } from "./http";
-import MasterSelect from "../../../common/base-component/master-select";
-import FormikSaveButton from "./../../../common/composite-component/formik-save-button";
+import MasterSelect from "../../../../common/base-component/master-select";
+import FormikSaveButton from "../../../../common/composite-component/formik-save-button";
 import { formValidationSchema } from './util';
 
 const ItemProfileForm = ({
@@ -49,7 +49,7 @@ const ItemProfileForm = ({
   return (
     <>
       <div className="row">
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterInput
             label="Item Name"
             name="itemName"
@@ -65,7 +65,7 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik.errors.itemName} />
           )}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterInput
             label="Code"
             name="itemCode"
@@ -81,7 +81,7 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik.errors.itemCode} />
           )}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterSelect
             label="Item Type"
             name="itemType"
@@ -106,7 +106,7 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik?.errors?.itemType} />
           ) : null}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterSelect
             label="Category"
             name="category"
@@ -131,7 +131,7 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik?.errors?.category} />
           ) : null}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterSelect
             label="Sub-Category"
             name="subCategory"
@@ -150,7 +150,7 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik?.errors?.subCategory} />
           ) : null}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterSelect
             label="UOM"
             name="uom"
@@ -170,7 +170,7 @@ const ItemProfileForm = ({
           ) : null}
         </div>
 
-        <div className="col-md-4 col-lg-3">
+        <div className="col-md-4 col-lg-4">
           <MasterInput
             label="Part Number"
             name="partNumber"
