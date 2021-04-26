@@ -1,29 +1,45 @@
 import { toast } from "react-toastify";
 import httpClient from "../../../services/http/http-client";
-import { succesInsertMessage, succesUpdateMessage } from "../../../constant/message.constant"
+import {
+  successInsertMessage,
+  successUpdateMessage,
+} from "../../../constant/message.constant";
 
 //create api call
-export const createBusinessUnit = (values, formik, populateTable, onClickClose, setLoading) => {
+export const createBusinessUnit = (
+  values,
+  formik,
+  populateTable,
+  closeModal,
+  setLoading
+) => {
   const obj = createPayloadChange(values);
-  onClickClose();
-  setLoading(true)
+  closeModal();
+  setLoading(true);
   httpClient
     .postData("/domain/BusinessUnit/Create", obj)
     .then((res) => {
       formik.resetForm();
       populateTable();
-      setLoading(false)
-      toast.success(succesInsertMessage)
+      setLoading(false);
+      toast.success(successInsertMessage);
     })
-    .catch(error => {
-      setLoading(false)
-      toast.error(error.response.data.message)
-    })
+    .catch((error) => {
+      setLoading(false);
+      toast.error(error.response.data.message);
+    });
 };
 
 //landing api call
-export const getList = (accId, pageNo, pageSize, setData, searchTerm, setLoading) => {
-  setLoading(true)
+export const getList = (
+  accId,
+  pageNo,
+  pageSize,
+  setData,
+  searchTerm,
+  setLoading
+) => {
+  setLoading(true);
   httpClient
     .getData(
       searchTerm
@@ -32,7 +48,7 @@ export const getList = (accId, pageNo, pageSize, setData, searchTerm, setLoading
     )
     .then((res) => {
       setData(res?.data?.data);
-      setLoading(false)
+      setLoading(false);
     });
 };
 //get by id for get by id api call
@@ -64,24 +80,25 @@ export const updateBusinessUnit = (
   populateTable,
   updateFormData,
   setUpdateFormData,
-  onClickClose,
+  closeModal,
   setLoading
 ) => {
-  onClickClose()
-  setLoading(true)
-  const obj = updatePayloadChange(values, updateFormData,);
+  closeModal();
+  setLoading(true);
+  const obj = updatePayloadChange(values, updateFormData);
   httpClient
     .putData("/domain/BusinessUnit/Update", obj)
     .then((res) => {
       formik.resetForm();
       setUpdateFormData(null);
       populateTable();
-      setLoading(false)
-      toast.success(succesUpdateMessage)
+      setLoading(false);
+      toast.success(successUpdateMessage);
     })
-    .catch(error => {
-      toast.warn(error.response.data.message)
-    })
+    .catch((error) => {
+      setLoading(false);
+      toast.warn(error.response.data.message);
+    });
 };
 
 //create payload change
