@@ -1,5 +1,8 @@
 import httpClient from "../../../services/http/http-client";
-import { successInsertMessage, successUpdateMessage } from './../../../constant/message.constant';
+import {
+  successInsertMessage,
+  successUpdateMessage,
+} from "./../../../constant/message.constant";
 import { toast } from "react-toastify";
 
 //Create Api Call
@@ -98,8 +101,8 @@ export const updateItemProfile = (
   onClickClose,
   setLoading
 ) => {
-  onClickClose()
-  setLoading(true)
+  onClickClose();
+  setLoading(true);
   const obj = updatePayloadChange(values);
   httpClient
     .putData("/domain/ItemBasicInfo/Update", obj)

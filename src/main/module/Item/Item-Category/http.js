@@ -1,5 +1,5 @@
 import httpClient from "../../../services/http/http-client";
-import { successInsertMessage, successUpdateMessage } from './../../../constant/message.constant';
+import { successInsertMessage, successUpdateMessage } from '../../../../constant/message.constant';
 import { toast } from "react-toastify";
 
 //Item Category Create Api Binding
@@ -8,7 +8,8 @@ export const createItemCategory = (
   formik,
   populateTable,
   onClickClose,
-  setLoading) => {
+  setLoading
+) => {
   onClickClose();
   setLoading(true);
   const obj = createPayloadChange(values);
@@ -30,7 +31,7 @@ export const createItemCategory = (
 
 //Create Payload Change
 const createPayloadChange = (values) => {
-  console.log(values)
+  console.log(values);
   const payload = {
     accountId: 1,
     itemCategoryName: values.category || "",
@@ -185,6 +186,3 @@ export const getItemCategoryDropdownListAction = (
 //   };
 //   return payload;
 // };
-
-
-

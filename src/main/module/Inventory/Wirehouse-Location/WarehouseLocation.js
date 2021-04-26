@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import ItemProfileForm from "./Form";
 import { createItemProfile, getList, updateItemProfile } from "./http";
-import ItemProfileTable from "./Table";
 import ModalComponent from "../../../common/composite-component/modal";
 import Loading from "../../../common/composite-component/loading";
 import { initialValues } from './util';
+import WarehouseLocationForm from './Form';
+import WarehouseLocationTable from "./Table";
 
-function ItemProfile() {
+function WarehouseLocation() {
   const accountId = 1;
   const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
@@ -67,7 +67,7 @@ function ItemProfile() {
     <>
       {isloading && <Loading />}
       <div className="d-flex justify-content-between">
-        <h3 className="">Business Unit</h3>
+        <h3 className="">Warehouse</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}
@@ -76,16 +76,17 @@ function ItemProfile() {
         size="lg"
         title="Item Basic Information"
       >
-        <ItemProfileForm
+        <WarehouseLocationForm
           formData={formData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
           accountId={accountId}
           businessUnitId={businessUnitId}
+          setLoading={setLoading}
         />
       </ModalComponent>
 
-      <ItemProfileTable
+      <WarehouseLocationTable
         data={tableData}
         updateToTable={updateToTable}
         viewData={viewData}
@@ -95,4 +96,4 @@ function ItemProfile() {
   );
 }
 
-export default ItemProfile;
+export default WarehouseLocation;
