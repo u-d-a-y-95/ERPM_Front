@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 export const formsInitialValues = {
-  userName: "",
+  businessUnit: "",
   userType: "",
   loginId: "",
   isSuperUser: "",

@@ -67,7 +67,7 @@ function ItemProfile() {
     <>
       {isloading && <Loading />}
       <div className="d-flex justify-content-between">
-        <h3 className="">Business Unit</h3>
+        <h3 className="">Item Profile</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}
