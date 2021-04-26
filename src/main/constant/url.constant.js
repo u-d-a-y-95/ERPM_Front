@@ -804,27 +804,138 @@ export const tempMenu = [
             {
                 "id": 1,
                 "parentId": 0,
-                "level": 1,
+                "level": 2,
                 "icon": "/media/svg/icons/iBOS/Procurement.svg",
                 "name": "Purchase",
                 "sl": 1,
                 "to": "/procurement-management",
-                "isRoot": true,
+                "isRoot": false,
                 "url": "/procurement-management",
                 "children": []
             },
             {
                 "id": 1,
                 "parentId": 0,
-                "level": 1,
+                "level": 2,
                 "icon": "/media/svg/icons/iBOS/Procurement.svg",
                 "name": "Configuration ",
                 "sl": 1,
                 "to": "/procurement-management",
-                "isRoot": true,
+                "isRoot": false,
                 "url": "/procurement-management",
                 "children": []
             }
         ]
-    }
+    },
+    {
+        "id": 1,
+        "parentId": 0,
+        "level": 1,
+        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+        "name": "Configuration ",
+        "sl": 1,
+        "to": "/configuration-management",
+        "isRoot": true,
+        "url": "/configuration-management",
+        "children": [
+            {
+                "id": 1,
+                "parentId": 0,
+                "level": 2,
+                "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                "name": "Basic Configuration",
+                "sl": 1,
+                "to": "/configuration-management/basic",
+                "isRoot": false,
+                "url": "/configuration-management/basic",
+                "children": [
+                    {
+                        "id": 1,
+                        "parentId": 0,
+                        "level": 3,
+                        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                        "name": "Business Unit ",
+                        "sl": 1,
+                        "to": "/configuration-management/basic/business-unit",
+                        "isRoot": false,
+                        "url": "/configuration-management/basic/business-unit",
+                        "children": []
+                    },
+                    {
+                        "id": 1,
+                        "parentId": 0,
+                        "level": 3,
+                        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                        "name": "User ",
+                        "sl": 1,
+                        "to": "/configuration-management/basic/user",
+                        "isRoot": false,
+                        "url": "/configuration-management/basic/user",
+                        "children": []
+                    },
+                    {
+                        "id": 1,
+                        "parentId": 0,
+                        "level": 3,
+                        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                        "name": "Menu Permission",
+                        "sl": 1,
+                        "to": "/configuration-management/basic/menu-permission",
+                        "isRoot": false,
+                        "url": "/configuration-management/basic/menu-permission",
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "id": 1,
+                "parentId": 0,
+                "level": 2,
+                "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                "name": "Item Management ",
+                "sl": 1,
+                "to": "/configuration-management/item-management",
+                "isRoot": false,
+                "url": "/configuration-management/item-management",
+                "children": [
+                    {
+                        "id": 1,
+                        "parentId": 0,
+                        "level": 3,
+                        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                        "name": "Item Profile ",
+                        "sl": 1,
+                        "to": "/configuration-management/item-management/item-profile",
+                        "isRoot": false,
+                        "url": "/configuration-management/item-management/item-profile",
+                        "children": []
+                    },
+                    {
+                        "id": 1,
+                        "parentId": 0,
+                        "level": 3,
+                        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                        "name": "Item Category ",
+                        "sl": 1,
+                        "to": "/configuration-management/item-management/item-category",
+                        "isRoot": false,
+                        "url": "/configuration-management/item-management/item-category",
+                        "children": []
+                    },
+                    {
+                        "id": 1,
+                        "parentId": 0,
+                        "level": 3,
+                        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                        "name": "Item SubCategory ",
+                        "sl": 1,
+                        "to": "/configuration-management/item-management/item-subcategory",
+                        "isRoot": false,
+                        "url": "/configuration-management/item-management/item-subcategory",
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    },
 ]

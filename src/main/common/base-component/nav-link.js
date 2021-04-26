@@ -47,7 +47,7 @@ function NavLink({ className, items, root }) {
                     ||
                     <li key={item.url} className={`${isActive(item.url, item.level)}`}
                     >
-                        <Link href={item.url}>
+                        <Link to={item.url}>
                             <a className="current-link"
                                 onClick={() => expand(item.url)}
                             >

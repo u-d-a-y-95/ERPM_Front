@@ -1,7 +1,7 @@
 import React from 'react';
 import NavLink from '../common/base-component/nav-link'
 import MasterSelect from '../common/base-component/master-select'
-import { menu } from '../constant/url.constant'
+import { menu, tempMenu } from '../constant/url.constant'
 import '../../assets/css/sidebar.css'
 import logo from "../../assets/image/erp-logo.png"
 import ibosIcon from "../../assets/image/ibosIcon.png"
@@ -58,7 +58,7 @@ function Sidebar(props) {
                 <MasterSelect />
             </div>
             <div className="menu">
-                <NavLink items={menu} root="menu-root" />
+                <NavLink items={tempMenu} root="menu-root" />
             </div>
 
 
