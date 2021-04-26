@@ -161,8 +161,9 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.licenseNo} />
           )}
         </div>
+        <div className='col-12 mt-2'></div>
         {!isDisabled && (
-          <div className='col-md-12 mt-3 text-left'>
+          <div className='col-md-12 mt-3 text-right'>
             <FormikSaveButton id={updateFormData?.supplierId} formik={formik} />
             <FormikResetButton
               className='ml-2'
