@@ -1,5 +1,5 @@
 import httpClient from "../../../services/http/http-client";
-import { successInsertMessage, successUpdateMessage } from './../../../constant/message.constant';
+import { succesInsertMessage, succesUpdateMessage } from '../../../constant/message.constant';
 import { toast } from "react-toastify";
 
 //Create Api Call
@@ -20,7 +20,7 @@ export const createItemProfile = (
       formik.resetForm();
       populateTable();
       setLoading(false);
-      toast.success(successInsertMessage);
+      toast.success(succesInsertMessage);
     })
     .catch((error) => {
       setLoading(false);
@@ -108,7 +108,7 @@ export const updateItemProfile = (
       formik.resetForm();
       populateTable();
       setLoading(false);
-      toast.success(successUpdateMessage);
+      toast.success(succesUpdateMessage);
     })
     .catch((error) => {
       setLoading(false);

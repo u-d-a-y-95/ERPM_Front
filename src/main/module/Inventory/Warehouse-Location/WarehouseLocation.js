@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import ItemSubCategoryForm from "./Form";
-import { createItemSubCategory, getList, updateItemSubCategory } from "./http";
-import ItemSubCategoryTable from "./Table";
+import ItemProfileForm from "./Form";
+import { createItemProfile, getList, updateItemProfile } from "./http";
+import ItemProfileTable from "./Table";
 import ModalComponent from "../../../common/composite-component/modal";
 import Loading from "../../../common/composite-component/loading";
 import { initialValues } from './util';
 
-function ItemSubCategory() {
+function ItemProfile() {
   const accountId = 1;
   const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
@@ -49,8 +49,8 @@ function ItemSubCategory() {
   }
 
   function submitBtnClick(values, formik) {
-    if (formData?.businessId) {
-      return updateItemSubCategory(
+    if (formData?.itemCode) {
+      return updateItemProfile(
         values,
         formik,
         populateTable,
@@ -60,32 +60,32 @@ function ItemSubCategory() {
         setLoading
       );
     }
-    createItemSubCategory(values, formik, populateTable, onClickClose, setLoading);
+    createItemProfile(values, formik, populateTable, onClickClose, setLoading);
   }
 
   return (
     <>
       {isloading && <Loading />}
       <div className="d-flex justify-content-between">
-        <h3 className="">Item Sub Category</h3>
+        <h3 className="">Business Unit</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}
         modalClose={onClickClose}
         fixed={true}
         size="lg"
-        title="New Item Sub Category"
+        title="Item Basic Information"
       >
-        <ItemSubCategoryForm
+        <ItemProfileForm
           formData={formData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
-          setLoading={setLoading}
           accountId={accountId}
           businessUnitId={businessUnitId}
         />
       </ModalComponent>
-      <ItemSubCategoryTable
+
+      <ItemProfileTable
         data={tableData}
         updateToTable={updateToTable}
         viewData={viewData}
@@ -95,4 +95,4 @@ function ItemSubCategory() {
   );
 }
 
-export default ItemSubCategory;
+export default ItemProfile;
