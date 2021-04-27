@@ -77,7 +77,7 @@ function Login() {
         </div>
       </div>
       <div className='login-screen loginPage d-flex justify-content-end align-items-center'>
-        <div className='loginArea px-5'>
+        <div className='loginArea px-5 '>
           <p className='text-center welcome-text pt-5'>Welcome Back!</p>
           <p className='text-center login-text d-flex flex-column justify-content-center align-items-center'>
             Please Log In To Your Account
@@ -87,7 +87,7 @@ function Login() {
           <div className='container'>
             <form onSubmit={formik.handleSubmit}>
               <div className='row'>
-                <div className='col-12 mt-5'>
+                <div className='col-12 mt-4'>
                   <LoginInput
                     name='userName'
                     label='Email'
@@ -124,28 +124,19 @@ function Login() {
                   <p>Forgot Password</p>
                 </div>
               </div>
-              <div
-                style={{
-                  textAlign: "center",
-                  marginTop: "40px",
-                  marginBottom: "30px",
-                  width: "auto",
-                }}
-              >
-                <button className='btn logIn-button' type='submit'>
+              <div className="d-flex flex-column align-items-center mt-3">
+                <button className='login-submit-btn' type='submit'>
                   Login
                 </button>
+                <a
+                  className='navigate-link mt-2 mb-5'
+                  style={{ color: "#46455F" }}
+                  href='#'
+                >
+                  Don't have an account? Sign Up
+              </a>
               </div>
             </form>
-            <div className='text-center mb-5'>
-              <a
-                className='navigate-link'
-                style={{ color: "#46455F" }}
-                href='#'
-              >
-                Don't have an account? Sign Up
-              </a>
-            </div>
           </div>
         </div>
       </div>
