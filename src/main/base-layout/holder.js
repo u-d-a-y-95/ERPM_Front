@@ -4,7 +4,7 @@ import ItemProfile from "../module/Configaration/item-management/Item-Profile/It
 import ItemSubCategory from "../module/Configaration/item-management/Item-Sub-Category/ItemSubCategory";
 import BusinessUnit from "../module/Configaration/basic-configuration/Business-Unit/BusinessUnit";
 import Customer from "../module/Sales-Management/Configuration/Customer/Customer";
-import Supplier from "../module/Procurement/Configuration/Supplier/Supplier";
+import Supplier from "../module/Procurement-Management/Configuration/Supplier/Supplier";
 // import User from "../module/Configaration/basic-configuration/User";
 import {
   Switch,
