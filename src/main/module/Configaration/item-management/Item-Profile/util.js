@@ -51,9 +51,9 @@ export const formValidationSchema = Yup.object().shape({
   itemType: Yup.object().shape({
     value: Yup.string().required("Item Type is required"),
   }),
-  subCategory: Yup.object().shape({
-    value: Yup.string().required("Item Sub Category is required"),
-  }),
+  // subCategory: Yup.object().shape({
+  //   value: Yup.string().required("Item Sub Category is required"),
+  // }),
   category: Yup.object().shape({
     value: Yup.string().required("Item Category is required"),
   }),
@@ -62,31 +62,55 @@ export const formValidationSchema = Yup.object().shape({
   }),
 });
 
-export const itemProfileViewUpdatePayloadData = (value) => {
-  console.log(value)
+export const itemProfileViewUpdatePayloadData = (values) => {
+  
   const payload = {
-    itemName: value?.itemName,
-    partNumber: value?.partNumber,
-    uom: {
-      value: value?.uomId,
-      label: value?.uomName,
+    sl: values?.sl,
+    partNumber: values?.partNumber,
+    itemName: values?.itemName,
+    itemCode: values?.itemCode,
+    itemId: values?.itemId,
+    itemType: {
+      value: values?.itemTypeId,
+      label: values?.itemTypeName,
     },
     category: {
-      value: value?.itemCategoryId,
-      label: value?.itemCategoryName,
+      value: values?.itemCategoryId,
+      label: values?.itemCategoryName,
     },
     subCategory: {
-      value: value?.itemSubCategoryId,
-      label: value?.itemSubCategoryName,
+      value: values?.itemSubCategoryId,
+      label: values?.itemSubCategoryName,
     },
-    itemType: {
-      value: value?.itemTypeId,
-      label: value?.itemTypeName,
-    },
-    itemCode: value?.itemCode,
-    sl: value?.sl,
-
-  };
+    uom: {
+      value: values?.uomId,
+      label: values?.uomName
+    }
+  }
+  
   return payload;
 };
 
+// const payload = {
+//   itemName: value?.itemName,
+//   partNumber: value?.partNumber,
+//   uom: {
+//     value: value?.uomId,
+//     label: value?.uomName,
+//   },
+//   category: {
+//     value: value?.itemCategoryId,
+//     label: value?.itemCategoryName,
+//   },
+//   subCategory: {
+//     value: value?.itemSubCategoryId,
+//     label: value?.itemSubCategoryName,
+//   },
+//   itemType: {
+//     value: value?.itemTypeId,
+//     label: value?.itemTypeName,
+//   },
+//   itemCode: value?.itemCode,
+//   sl: value?.sl,
+
+// };

@@ -2,16 +2,12 @@ import React, { useEffect, useState } from "react";
 import MasterInput from "../../../../common/base-component/master-input";
 import MasterErrorText from "../../../../common/base-component/master-errortext";
 import FormikResetButton from "../../../../common/composite-component/formik-reset-button";
-
 import { useFormik } from "formik";
-
 import {
-  createItemProfile,
-  getItemCategoryDropdownListAction,
-  getItemSubCategoryDropdownListAction,
-  getItemTypeDropdownListAction,
-  updateItemProfile,
-  getUomDropdownListAction,
+  getItemCategoryDropdownList,
+  getItemSubCategoryDropdownList,
+  getItemTypeDropdownList,
+  getUomDropdownList,
 } from "./http";
 import MasterSelect from "../../../../common/base-component/master-select";
 import FormikSaveButton from "../../../../common/composite-component/formik-save-button";
@@ -21,8 +17,7 @@ const ItemProfileForm = ({
   formData,
   isDisabled,
   submitBtnClick,
-  accountId,
-  businessUnitId,
+  userCurrentInfo,
 }) => {
   const [itemTypeDropdownList, setitemTypeDropdownList] = useState([]);
   const [itemCategoryDropdownList, setItemCategoryDropdownList] = useState([]);
@@ -37,14 +32,35 @@ const ItemProfileForm = ({
     initialValues: formData,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
+      // console.log(values)
       submitBtnClick(values, formik);
     },
   });
 
   useEffect(() => {
-    getItemTypeDropdownListAction(setitemTypeDropdownList);
-    getUomDropdownListAction(setUomDropdownList);
+    getItemTypeDropdownList(setitemTypeDropdownList);
+    getUomDropdownList(setUomDropdownList);
   }, []);
+
+  useEffect(() => {
+    if (formik?.values?.itemType?.value) {
+      getItemCategoryDropdownList(
+        userCurrentInfo,
+        formik?.values?.itemType?.value,
+        setItemCategoryDropdownList
+      );
+    }
+  }, [formik?.values?.itemType?.value]);
+
+  useEffect(() => {
+    if (formik?.values?.category?.value) {
+      getItemSubCategoryDropdownList(
+        userCurrentInfo,
+        formik?.values?.category?.value,
+        setItemSubCategoryDropdownList
+      );
+    }
+  }, [formik?.values?.category?.value]);
 
   return (
     <>
@@ -86,12 +102,11 @@ const ItemProfileForm = ({
             label="Item Type"
             name="itemType"
             data={itemTypeDropdownList}
-            value={formik.values?.itemType}
+            value={formik?.values?.itemType}
             onChange={(value) => {
               formik.setFieldValue("itemType", value);
-              getItemCategoryDropdownListAction(
-                accountId,
-                businessUnitId,
+              getItemCategoryDropdownList(
+                userCurrentInfo,
                 value?.value,
                 setItemCategoryDropdownList
               );
@@ -111,12 +126,15 @@ const ItemProfileForm = ({
             label="Category"
             name="category"
             data={itemCategoryDropdownList}
-            value={formik.values?.category}
+            value={formik?.values?.category}
             onChange={(value) => {
+              if(!value){
+                formik.setFieldValue("category", null);
+                return setItemSubCategoryDropdownList([])
+              }
               formik.setFieldValue("category", value);
-              getItemSubCategoryDropdownListAction(
-                accountId,
-                businessUnitId,
+              getItemSubCategoryDropdownList(
+                userCurrentInfo,
                 value?.value,
                 setItemSubCategoryDropdownList
               );
@@ -136,7 +154,7 @@ const ItemProfileForm = ({
             label="Sub-Category"
             name="subCategory"
             data={itemSubCategoryDropdownList}
-            value={formik.values?.subCategory}
+            value={formik?.values?.subCategory}
             onChange={(value) => {
               formik.setFieldValue("subCategory", value);
             }}
@@ -155,7 +173,7 @@ const ItemProfileForm = ({
             label="UOM"
             name="uom"
             data={uomDropdownList}
-            value={formik.values?.uom}
+            value={formik?.values?.uom}
             onChange={(value) => {
               formik.setFieldValue("uom", value);
             }}
@@ -186,9 +204,10 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik.errors.partNumber} />
           )}
         </div>
-
+        
+        <div className="col-12 mt-5"></div>
         {!isDisabled && (
-          <div className="col-md-12 mt-3 text-left">
+          <div className="col-md-12 mt-3 text-right">
             <FormikSaveButton id={formData?.itemCode} formik={formik} />
             <FormikResetButton
               className="ml-2"
@@ -197,6 +216,7 @@ const ItemProfileForm = ({
             />
           </div>
         )}
+        <div className="col-12 mb-3"></div>
       </div>
     </>
   );
