@@ -7,6 +7,16 @@ const BusinessUnitTable = ({ viewData, updateToTable, data, createEvent }) => {
   config.data = data;
   config.create = createEvent;
   config.action = [
+    {
+      icon: "fa fa-eye",
+      className: "btn btn-sm btn-primary text-white",
+      event: viewData,
+    },
+    {
+      icon: "fa fa-edit",
+      className: "btn btn-sm btn-primary text-white",
+      event: updateToTable,
+    },
     // {
     //   icon: "fa fa-trash",
     //   className: "btn btn-sm btn-warning text-white",
@@ -14,16 +24,6 @@ const BusinessUnitTable = ({ viewData, updateToTable, data, createEvent }) => {
     //     // props.deleteFromTable(row.id);
     //   },
     // },
-    {
-      icon: "fa fa-edit",
-      className: "btn btn-sm btn-primary text-white",
-      event: updateToTable,
-    },
-    {
-      icon: "fa fa-eye",
-      className: "btn btn-sm btn-primary text-white",
-      event: viewData,
-    },
   ];
   return (
     <>
