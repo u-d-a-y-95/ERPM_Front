@@ -14,7 +14,6 @@ export const createItemCategory = (
   setLoading(true);
   const obj = createPayloadChange(values, userCurrentInfo);
   httpClient
-    // .postData("https://demoerpm.ibos.io/domain/ItemCategory/Create", obj)
     .postData("/domain/ItemCategory/Create", obj)
     .then((res) => {
       formik.setValues(null);
@@ -31,14 +30,12 @@ export const createItemCategory = (
 
 //Create Payload Change
 const createPayloadChange = (values, userCurrentInfo) => {
-  console.log(values)
+  // console.log(values)
   const payload = {
     accountId: userCurrentInfo?.accountId,
-    itemCategoryName: values.category || "",
-    businessUnitId: userCurrentInfo?.businessUnitId,
-    // businessUnit: values.businessUnit,
-    itemTypeId: values.itemType.value || 0,
-    itemTypeName: values.itemType.label || "",
+    itemCategoryName: values.category || null,
+    itemTypeId: values.itemType.value || null,
+    itemTypeName: values.itemType.label || null,
     actionBy: userCurrentInfo?.userId,
   };
 
@@ -56,7 +53,7 @@ export const getList = (
   setLoading(true);
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemCategory/GetListPagination?accountId=${userCurrentInfo.accountId}&businessUnitId=${userCurrentInfo.businessUnitId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`
+      `/domain/ItemCategory/GetListPagination?accountId=${userCurrentInfo.accountId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`
     )
     .then((res) => {
       setter(res?.data.data);
@@ -68,6 +65,52 @@ export const getList = (
       toast.error(error?.response?.data?.message);
     });
 };
+
+
+//update Item Profile
+export const updateItemCategory = (
+  values,
+  userCurrentInfo,
+  formik,
+  populateTable,
+  formData,
+  setFormData,
+  onClickClose,
+  setLoading,
+  changeData
+        
+) => {
+  onClickClose()
+  setLoading(true)
+  const obj = updatePayloadChange(values, userCurrentInfo, changeData);
+  httpClient
+    .putData("/domain/ItemCategory/Update", obj)
+    .then((res) => {
+      setFormData(null);
+      formik.resetForm();
+      populateTable();
+      setLoading(false);
+      toast.success(successUpdateMessage);
+    })
+    .catch((error) => {
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
+    });
+};
+
+// Update Payload Change
+const updatePayloadChange = (values, userCurrentInfo) => {
+  const payload = {
+    accountId: userCurrentInfo?.accountId,
+    itemTypeId: values?.itemType?.value || 0,
+    itemCategoryId: values?.itemCategoryId,   
+    itemCategoryName: values?.category || "",
+    actionBy: userCurrentInfo?.userId,
+  };
+
+  return payload;
+};
+
 
 // Item Type Drop Down List
 export const getItemTypeDropdownListAction = (setter) => {
@@ -82,24 +125,11 @@ export const getItemTypeDropdownListAction = (setter) => {
     });
 };
 
-// Item Category Drop Down List
-export const getItemCategoryDropdownListAction = (
-  accId,
-  businessId,
-  setter
-) => {
-  httpClient
-    .getData(
-      `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=1`
-    )
-    .then((res) => {
-      setter(res?.data);
-    })
-    .catch((error) => {
-      setter([]);
-      console.log("Error", error?.message);
-    });
-};
+    // accountId: userCurrentInfo?.accountId,
+    // itemTypeId: changeData?.itemType?.value || 0,
+    // itemCategoryId: changeData?.category?.value || 0,   
+    // itemCategoryName: changeData?.category?.label || "",
+    // actionBy: userCurrentInfo?.userId,
 
 // Get By Id For Delete Api Call
 // export const deleteItemCategory = (id, populateTable) => {

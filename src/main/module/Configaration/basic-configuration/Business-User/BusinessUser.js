@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
-import ItemCategoryForm from "./Form";
+import BusinessUserForm from "./Form";
 import { getList, createItemCategory, updateItemCategory } from "./http";
-import ItemCategoryTable from "./Table";
+import BusinessUserTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
-import { initialValues } from "./util";
+import { initialValues, itemCategoryViewUpdatePayloadData } from './util';
 import { useSelector } from "react-redux";
 
-function ItemCategory() {
+function BusinessUser() {
   const [tableData, setTableData] = useState([]);
   const [formData, setFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
@@ -16,7 +16,7 @@ function ItemCategory() {
   const [isloading, setLoading] = useState(false);
   // const [changeData, setChangeData] = useState({})
 
-  const userCurrentInfo = useSelector((state) => state.currentInfo);
+  const userCurrentInfo = useSelector(state => state.currentInfo)
 
   useEffect(() => {
     populateTable();
@@ -52,46 +52,44 @@ function ItemCategory() {
   }
 
   function submitBtnClick(values, formik) {
-    // if (formData?.itemCode) {
-    //   return updateItemProfile(
+    // console.log(values)
+    // if (formData?.itemType) {
+    //   return updateItemCategory(
     //     values,
+    //     userCurrentInfo,
     //     formik,
     //     populateTable,
     //     formData,
     //     setFormData,
     //     onClickClose,
-    //     setLoading
+    //     setLoading,
+    //     // changeData,
     //   );
     // }
-    createItemCategory(
-      values,
-      userCurrentInfo,
-      formik,
-      populateTable,
-      onClickClose,
-      setLoading
-    );
+    createItemCategory(values, userCurrentInfo, formik, populateTable, onClickClose, setLoading);
   }
   return (
     <>
       {isloading && <Loading />}
-      <div className='d-flex justify-content-between'>
-        <h3 className=''>Item Category</h3>
+      <div className="d-flex justify-content-between">
+        <h3 className="">Item Category</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}
         modalClose={onClickClose}
         fixed={true}
-        size='lg'
-        title='New Item Category'
+        size="lg"
+        title="New Item Category"
       >
-        <ItemCategoryForm
+        <BusinessUserForm
           formData={formData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
+          userCurrentInfo={userCurrentInfo}
+          setLoading={setLoading}
         />
       </ModalComponent>
-      <ItemCategoryTable
+      <BusinessUserTable
         data={tableData}
         updateToTable={updateToTable}
         viewData={viewData}
@@ -101,4 +99,4 @@ function ItemCategory() {
   );
 }
 
-export default ItemCategory;
+export default BusinessUser;

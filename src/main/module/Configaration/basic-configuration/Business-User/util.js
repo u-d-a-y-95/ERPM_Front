@@ -31,17 +31,20 @@ export const formsValidationSchema = Yup.object().shape({
 });
 
 
-export const itemCategoryViewUpdatePayloadData = (values) => {
+export const itemCategoryViewUpdatePayloadData = (value) => {
+  console.log(value)
   const payload = {
-    accountId: values?.accountId,
-    actionBy: values?.actionBy,
-    sl: values?.sl,
+    accountId: value?.accountId,
+    actionBy: value?.actionBy,
+    sl: value?.sl,
     itemType: {
-      value : values?.itemTypeId,
-      label : values?.itemTypeName
+      value : value?.itemTypeId,
+      label : value?.itemTypeName
     },   
-    category: values?.itemCategoryName,
-    itemCategoryId: values?.itemCategoryId,  
+    category: {
+      value: value?.itemCategoryId,
+      label: value?.itemCategoryName,
+    },   
   };
   return payload;
 };

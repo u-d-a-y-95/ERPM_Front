@@ -4,11 +4,11 @@ import { createItemProfile, getList, updateItemProfile } from "./http";
 import ItemProfileTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
-import { initialValues } from './util';
+import { initialValues, itemProfileViewUpdatePayloadData } from './util';
+import { useSelector } from 'react-redux';
 
 function ItemProfile() {
-  const accountId = 1;
-  const businessUnitId = 1;
+  const searchTerm = "";
   const [tableData, setTableData] = useState([]);
   const [formData, setFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
@@ -16,11 +16,13 @@ function ItemProfile() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isloading, setLoading] = useState(false);
 
+  const userCurrentInfo = useSelector(state => state.currentInfo)
+
   useEffect(() => {
     populateTable();
   }, []);
   const populateTable = () => {
-    getList(accountId, businessUnitId, pageNo, pageSize, setTableData, setLoading);
+    getList(userCurrentInfo, pageNo, pageSize, setTableData, setLoading, searchTerm);
   };
 
   const createToTable = () => {
@@ -30,13 +32,15 @@ function ItemProfile() {
   };
 
   const updateToTable = (row) => {
-    setFormData(row);
+    const data = itemProfileViewUpdatePayloadData(row)
+    setFormData(data);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const viewData = (row) => {
-    setFormData(row);
+    const data = itemProfileViewUpdatePayloadData(row)
+    setFormData(data);
     setIsDisabled(true);
     setModalOpen(true);
   };
@@ -44,14 +48,14 @@ function ItemProfile() {
   const [isModalOpen, setModalOpen] = useState(false);
   function onClickClose() {
     setModalOpen(false);
-    // business
-    // mail .....
   }
 
   function submitBtnClick(values, formik) {
+    // console.log(values)
     if (formData?.itemCode) {
       return updateItemProfile(
         values,
+        userCurrentInfo,
         formik,
         populateTable,
         formData,
@@ -60,7 +64,7 @@ function ItemProfile() {
         setLoading
       );
     }
-    createItemProfile(values, formik, populateTable, onClickClose, setLoading);
+    createItemProfile(values, userCurrentInfo, formik, populateTable, onClickClose, setLoading);
   }
 
   return (
@@ -80,8 +84,7 @@ function ItemProfile() {
           formData={formData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
-          accountId={accountId}
-          businessUnitId={businessUnitId}
+          userCurrentInfo={userCurrentInfo}
         />
       </ModalComponent>
 
