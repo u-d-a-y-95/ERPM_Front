@@ -11,10 +11,11 @@ export const createSupplier = (
   formik,
   populateTable,
   setLoading,
-  closeModal
+  closeModal,
+  userCurrentInfo
 ) => {
   setLoading(true);
-  const obj = createPayloadChange(values);
+  const obj = createPayloadChange(values, userCurrentInfo);
   closeModal();
   httpClient
     .postData("/domain/Supplier/Create", obj)
@@ -33,20 +34,19 @@ export const createSupplier = (
 
 //landing api call not done
 export const getList = (
-  accId,
   pageNo,
   pageSize,
   setter,
-  businessUnitId,
   searchTerm,
-  setLoading
+  setLoading,
+  userCurrentInfo
 ) => {
   setLoading(true);
   httpClient
     .getData(
       searchTerm
-        ? `/domain/Supplier/GetList?search=${searchTerm}&accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
-        : `/domain/Supplier/GetList?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        ? `/domain/Supplier/GetList?search=${searchTerm}&accountId=${userCurrentInfo?.accountId}&businessUnitId=${userCurrentInfo?.businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
+        : `/domain/Supplier/GetList?accountId=${userCurrentInfo?.accountId}&businessUnitId=${userCurrentInfo?.businessUnitId}&viewOrder=desc&PageNo=${pageNo}&PageSize=${pageSize}`
     )
     .then((res) => {
       setter(res?.data?.data);
@@ -59,23 +59,6 @@ export const getList = (
     });
 };
 
-// get by id api call
-// export const getRowById = (id, populateTable, setter) => {
-//   httpClient
-//     .getData(
-//       `/domain/Supplier/GetById?supplierId=${id}`
-//     )
-//     .then((res) => {
-//       const payload = getByIdPayloadChange(res?.data);
-//       setter(payload);
-//       populateTable();
-//     })
-//     .catch((err) => {
-//       setter({});
-//      toast.error(error?.response?.data?.message);
-//     });
-// };
-
 //update business unit
 export const updateSupplier = (
   values,
@@ -83,10 +66,11 @@ export const updateSupplier = (
   populateTable,
   setUpdateFormData,
   setLoading,
-  closeModal
+  closeModal,
+  userCurrentInfo
 ) => {
   setLoading(true);
-  const obj = updatePayloadChange(values);
+  const obj = updatePayloadChange(values, userCurrentInfo);
   closeModal();
   httpClient
     .putData("/domain/Supplier/Update", obj)
@@ -120,11 +104,11 @@ export const supplierDropdownListAction = (setter, setLoading) => {
 };
 
 //create payload change
-const createPayloadChange = (values) => {
+const createPayloadChange = (values, userCurrentInfo) => {
   const payload = {
-    accountId: +1,
-    businessUnitId: +1,
-    actionBy: +0,
+    accountId: userCurrentInfo?.accountId,
+    businessUnitId: userCurrentInfo?.businessUnitId,
+    actionBy: userCurrentInfo?.userId,
     supplierName: values?.supplierName || "",
     supplierAddress: values?.supplierAddress || "",
     contactNumber: values?.contactNumber || "",
@@ -138,7 +122,7 @@ const createPayloadChange = (values) => {
 };
 
 //update payload change
-const updatePayloadChange = (values) => {
+const updatePayloadChange = (values, userCurrentInfo) => {
   const payload = {
     supplierId: values?.supplierId,
     supplierName: values?.supplierName || "",
@@ -148,23 +132,8 @@ const updatePayloadChange = (values) => {
     licenseNo: values?.licenseNo || "",
     email: values?.email || "",
     nid: values?.nid || "",
+    actionBy: userCurrentInfo?.userId,
+    supplierTypeId: values?.supplierType?.value,
   };
   return payload;
 };
-
-// get by id api call
-// export const getRowById = (id, populateTable, setter) => {
-//   httpClient
-//     .getData(
-//       `https://demoerpm.ibos.io/domain/Supplier/GetById?supplierId=${id}`
-//     )
-//     .then((res) => {
-//       const payload = getByIdPayloadChange(res?.data);
-//       setter(payload);
-//       populateTable();
-//     })
-//     .catch((err) => {
-//       setter({});
-//       console.log(err?.message);
-//     });
-// };

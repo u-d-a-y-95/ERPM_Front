@@ -4,85 +4,91 @@ import { createItemSubCategory, getList, updateItemSubCategory } from "./http";
 import ItemSubCategoryTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
-import { initialValues } from './util';
+import { initialValues, itemSubCategoryViewUpdatePayloadData } from "./util";
+import { useSelector } from "react-redux";
 
 function ItemSubCategory() {
-  const accountId = 1;
-  const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
-  const [formData, setFormData] = useState({});
+  const [updateFormData, setUpdateFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [isloading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+  const [isModalOpen, setModalOpen] = useState(false);
 
+  const userCurrentInfo = useSelector((state) => state.currentInfo);
+
+  const populateTable = () => {
+    getList(pageNo, pageSize, setTableData, setLoading, userCurrentInfo);
+  };
   useEffect(() => {
     populateTable();
-  }, []);
-  const populateTable = () => {
-    getList(accountId, businessUnitId, pageNo, pageSize, setTableData, setLoading);
-  };
+  }, [userCurrentInfo]);
 
   const createToTable = () => {
-    setFormData(initialValues);
+    setUpdateFormData(initialValues);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const updateToTable = (row) => {
-    setFormData(row);
+    const data = itemSubCategoryViewUpdatePayloadData(row);
+    setUpdateFormData(data);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const viewData = (row) => {
-    setFormData(row);
+    const data = itemSubCategoryViewUpdatePayloadData(row);
+    setUpdateFormData(data);
     setIsDisabled(true);
     setModalOpen(true);
   };
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  function onClickClose() {
+  function closeModal() {
     setModalOpen(false);
-    // business
-    // mail .....
   }
-
   function submitBtnClick(values, formik) {
-    // if (formData?.itemTypeId) {
-    //   return updateItemSubCategory(
-    //     values,
-    //     formik,
-    //     populateTable,
-    //     formData,
-    //     setFormData,
-    //     onClickClose,
-    //     setLoading
-    //   );
-    // }
-    createItemSubCategory(values, formik, populateTable, onClickClose, setLoading);
+    if (updateFormData?.itemSubCategoryId) {
+      return updateItemSubCategory(
+        values,
+        formik,
+        populateTable,
+        closeModal,
+        setUpdateFormData,
+        setLoading,
+        userCurrentInfo
+      );
+    }
+    return createItemSubCategory(
+      values,
+      userCurrentInfo,
+      formik,
+      populateTable,
+      closeModal,
+      setLoading
+    );
   }
 
   return (
     <>
-      {isloading && <Loading />}
-      <div className="d-flex justify-content-between">
-        <h3 className="">Item Sub Category</h3>
+      {isLoading && <Loading />}
+      <div className='d-flex justify-content-between'>
+        <h3 className=''>Item Sub Category</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}
-        modalClose={onClickClose}
+        modalClose={closeModal}
         fixed={true}
-        size="lg"
-        title="New Item Sub Category"
+        size='lg'
+        title='Item Sub Category'
       >
         <ItemSubCategoryForm
-          formData={formData}
+          updateFormData={updateFormData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
           setLoading={setLoading}
-          accountId={accountId}
-          businessUnitId={businessUnitId}
+          userCurrentInfo={userCurrentInfo}
         />
       </ModalComponent>
       <ItemSubCategoryTable

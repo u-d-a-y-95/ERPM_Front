@@ -1,5 +1,5 @@
 import React from "react";
-import { supplierViewUpdatePayloadData, tableConfig } from "./util";
+import { tableConfig } from "./util";
 import SimpleMasterTable from "../../../../common/composite-component/simple-master-list";
 
 const BusinessUnitTable = ({ viewData, updateToTable, data, createEvent }) => {
@@ -15,20 +15,14 @@ const BusinessUnitTable = ({ viewData, updateToTable, data, createEvent }) => {
     //   },
     // },
     {
-      icon: "fa fa-eye",
-      className: "btn btn-sm btn-primary text-white",
-      event: (row) => {
-        const newData = supplierViewUpdatePayloadData(row);
-        viewData(newData);
-      },
-    },
-    {
       icon: "fa fa-edit",
       className: "btn btn-sm btn-primary text-white",
-      event: (row) => {
-        const newData = supplierViewUpdatePayloadData(row);
-        updateToTable(newData);
-      },
+      event: updateToTable,
+    },
+    {
+      icon: "fa fa-eye",
+      className: "btn btn-sm btn-primary text-white",
+      event: viewData,
     },
   ];
   return (

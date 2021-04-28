@@ -6,7 +6,6 @@ function FormikSaveButton(props) {
     <>
       <MasterButton
         label={props?.id ? "Update" : "Create"}
-        // label='Create'
         className={`${props.className} + btn btn-primary btn-sm`}
         onClick={props.formik.submitForm}
         disabled={!props.formik.isValid || !props.formik.dirty}

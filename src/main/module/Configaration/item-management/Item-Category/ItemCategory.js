@@ -4,7 +4,7 @@ import { getList, createItemCategory } from "./http";
 import ItemCategoryTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
-import { initialValues } from './util';
+import { initialValues } from "./util";
 import { useSelector } from "react-redux";
 
 function ItemCategory() {
@@ -15,7 +15,7 @@ function ItemCategory() {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isloading, setLoading] = useState(false);
 
-  const userCurrentInfo = useSelector(state => state.currentInfo)
+  const userCurrentInfo = useSelector((state) => state.currentInfo);
 
   useEffect(() => {
     populateTable();
@@ -62,20 +62,27 @@ function ItemCategory() {
     //     setLoading
     //   );
     // }
-    createItemCategory(values, userCurrentInfo, formik, populateTable, onClickClose, setLoading);
+    createItemCategory(
+      values,
+      userCurrentInfo,
+      formik,
+      populateTable,
+      onClickClose,
+      setLoading
+    );
   }
   return (
     <>
       {isloading && <Loading />}
-      <div className="d-flex justify-content-between">
-        <h3 className="">Item Category</h3>
+      <div className='d-flex justify-content-between'>
+        <h3 className=''>Item Category</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}
         modalClose={onClickClose}
         fixed={true}
-        size="lg"
-        title="New Item Category"
+        size='lg'
+        title='New Item Category'
       >
         <ItemCategoryForm
           formData={formData}
