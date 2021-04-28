@@ -4,7 +4,7 @@ import { getList, createItemCategory, updateItemCategory } from "./http";
 import ItemCategoryTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
-import { initialValues } from "./util";
+import { initialValues, itemCategoryViewUpdatePayloadData } from "./util";
 import { useSelector } from "react-redux";
 
 function ItemCategory() {
@@ -52,17 +52,18 @@ function ItemCategory() {
   }
 
   function submitBtnClick(values, formik) {
-    // if (formData?.itemCode) {
-    //   return updateItemProfile(
-    //     values,
-    //     formik,
-    //     populateTable,
-    //     formData,
-    //     setFormData,
-    //     onClickClose,
-    //     setLoading
-    //   );
-    // }
+    if (formData?.itemCategoryId) {
+      return updateItemCategory(
+        values,
+        userCurrentInfo,
+        formik,
+        populateTable,
+        formData,
+        setFormData,
+        onClickClose,
+        setLoading
+      );
+    }
     createItemCategory(
       values,
       userCurrentInfo,

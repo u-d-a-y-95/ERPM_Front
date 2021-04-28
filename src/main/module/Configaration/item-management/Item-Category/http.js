@@ -76,13 +76,11 @@ export const updateItemCategory = (
   formData,
   setFormData,
   onClickClose,
-  setLoading,
-  changeData
-        
+  setLoading,        
 ) => {
   onClickClose()
   setLoading(true)
-  const obj = updatePayloadChange(values, userCurrentInfo, changeData);
+  const obj = updatePayloadChange(values, userCurrentInfo);
   httpClient
     .putData("/domain/ItemCategory/Update", obj)
     .then((res) => {
@@ -124,97 +122,3 @@ export const getItemTypeDropdownListAction = (setter) => {
       console.log("Error", error?.message);
     });
 };
-
-    // accountId: userCurrentInfo?.accountId,
-    // itemTypeId: changeData?.itemType?.value || 0,
-    // itemCategoryId: changeData?.category?.value || 0,   
-    // itemCategoryName: changeData?.category?.label || "",
-    // actionBy: userCurrentInfo?.userId,
-
-// Get By Id For Delete Api Call
-// export const deleteItemCategory = (id, populateTable) => {
-//   httpClient
-//     .deleteData(`https://demoerpm.ibos.io/domain/ItemCategory/GetById/${id}`)
-//     .then((res) => {
-//       populateTable();
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-
-// Get By Id For Single Item Category Data View Api Call
-// export const singleItemCategoryById = (id, setter) => {
-//   httpClient
-//     .getData(`https://demoerpm.ibos.io/domain/ItemCategory/GetById/${id}`)
-//     .then((res) => {
-//       setter(res?.data);
-//     })
-//     .catch((err) => {
-//       console.log("Error: ", err?.message);
-//     });
-// };
-
-// Get By Id For Single Item Category Data Edit Api Call
-// export const singleItemCategoryEditById = (id, populateTable, setter) => {
-//   httpClient
-//     .getData(`https://demoerpm.ibos.io/domain/ItemCategory/GetById/${id}`)
-//     .then((res) => {
-//       const payload = getByIdPayloadChange(res?.data);
-//       setter(payload);
-//       populateTable();
-//     })
-//     .catch((err) => {
-//       setter({});
-//       console.log(err?.message);
-//     });
-// };
-
-// Get By Id Payload Change
-// const getByIdPayloadChange = (values) => {
-//   const payload = {
-//     sl: values?.sl,
-//     itemCategory: values?.itemCategoryId,
-//     businessUnitId: values.businessUnit,
-//     itemTypeId: values.itemType,
-
-//     // accountId: 1,
-//     // businessUnitId: 1,
-//     // supplierTypeId: 3,
-//     // actionBy: 0,
-//   };
-//   return payload;
-// };
-
-//Update Item Category Item Binding
-
-// export const updateItemCategory = (values, formik, populateTable) => {
-//   const obj = updatePayloadChange(values);
-//   httpClient
-//     .putData("https://demoerpm.ibos.io/domain/ItemCategory/Update", obj)
-//     .then((res) => {
-//       formik.resetForm();
-//       populateTable();
-//     });
-// };
-
-// Update Payload Change
-// const updatePayloadChange = (values) => {
-//   // console.log(values)
-//   const payload = {
-//     sl: values.sl,
-//     itemCategory: values.itemCategoryId
-//       ? { value: values.itemCategoryId, label: values.itemCategoryName }
-//       : "",
-//     accountId: 1,
-//     businessUnitId: values.businessUnitId || 0,
-//     itemTypeId: values.itemTypeId
-//     ? { value: values.itemTypeId, label: values.itemTypeName }
-//     : "",
-//     actionBy: 1234,
-//   };
-//   return payload;
-// };
-
-
-

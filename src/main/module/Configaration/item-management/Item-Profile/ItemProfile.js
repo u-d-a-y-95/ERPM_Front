@@ -52,7 +52,7 @@ function ItemProfile() {
 
   function submitBtnClick(values, formik) {
     // console.log(values)
-    if (formData?.itemCode) {
+    if (formData?.itemId) {
       return updateItemProfile(
         values,
         userCurrentInfo,
