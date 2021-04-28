@@ -73,27 +73,27 @@ export const tableConfig = {
   isSearchable: true,
 };
 
-export const customerViewUpdatePayloadData = (value) => {
+export const customerViewUpdatePayloadData = (values) => {
   const payload = {
-    accountId: 1,
-    address: value?.address,
-    billingAddress: value?.billingAddress,
-    billingName: value?.billingName,
-    bin: value?.bin,
-    businessUnitId: value?.businessUnitId,
-    contactNumber: value?.contactNumber,
-    customerAddress: value?.customerAddress,
-    customerCode: value?.customerCode,
-    customerEmail: value?.customerEmail,
-    customerId: value?.customerId,
-    customerName: value?.customerName,
+    accountId: values?.accountId,
+    address: values?.address,
+    billingAddress: values?.billingAddress,
+    billingName: values?.billingName,
+    bin: values?.bin,
+    businessUnitId: values?.businessUnitId,
+    contactNumber: values?.contactNumber,
+    customerAddress: values?.customerAddress,
+    customerCode: values?.customerCode,
+    customerEmail: values?.customerEmail,
+    customerId: values?.customerId,
+    customerName: values?.customerName,
     customerType: {
-      value: value?.customerTypeId,
-      label: value?.customerTypeName,
+      value: values?.customerTypeId,
+      label: values?.customerTypeName,
     },
-    licenseNo: value?.licenseNo,
-    nid: value?.nid,
-    sl: value?.sl,
+    licenseNo: values?.licenseNo,
+    nid: values?.nid,
+    sl: values?.sl,
   };
   return payload;
 };

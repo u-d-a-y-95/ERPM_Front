@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
-import { initialValues, formValidationSchema } from "./util";
+import { formValidationSchema } from "./util";
 import MasterInput from "../../../../common/base-component/master-input";
 import MasterErrorText from "../../../../common/base-component/master-errortext";
 import FormikSaveButton from "../../../../common/composite-component/formik-save-button";
@@ -18,7 +18,7 @@ const BusinessUnitForm = ({
   const [supplierDropdownList, setSupplierDropdownList] = useState([]);
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: updateFormData || initialValues,
+    initialValues: updateFormData,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
       submitBtnClick(values, formik);
@@ -32,7 +32,7 @@ const BusinessUnitForm = ({
   return (
     <>
       <div className='row'>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterSelect
             label='Supplier Type'
             name='supplierType'
@@ -48,7 +48,7 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors?.supplierType} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Supplier Name'
@@ -64,7 +64,7 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors?.supplierName} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Contact Number'
@@ -80,7 +80,7 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.contactNumber} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Address'
@@ -97,7 +97,7 @@ const BusinessUnitForm = ({
               <MasterErrorText message={formik.errors.supplierAddress} />
             )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='email'
             label='Email'
@@ -113,7 +113,7 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.email} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='NID'
@@ -129,7 +129,7 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.nid} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='BIN'
@@ -145,7 +145,7 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.bin} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Licence Number'
@@ -161,7 +161,7 @@ const BusinessUnitForm = ({
             <MasterErrorText message={formik.errors.licenseNo} />
           )}
         </div>
-        <div className='col-12 mt-2'></div>
+        <div className='col-12 mt-5'></div>
         {!isDisabled && (
           <div className='col-md-12 mt-3 text-right'>
             <FormikSaveButton id={updateFormData?.supplierId} formik={formik} />
@@ -172,7 +172,7 @@ const BusinessUnitForm = ({
             />
           </div>
         )}
-        <div className='col-12 mb-2'></div>
+        <div className='col-12 mb-3'></div>
       </div>
     </>
   );

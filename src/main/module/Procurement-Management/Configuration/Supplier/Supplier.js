@@ -3,14 +3,13 @@ import React, { useState, useEffect } from "react";
 import SupplierForm from "./Form";
 import SupplierTable from "./Table";
 import { createSupplier, getList, updateSupplier } from "./http";
-import { initialValues } from "./util";
+import { initialValues, supplierViewUpdatePayloadData } from "./util";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
+import { useSelector } from "react-redux";
 
 const Supplier = () => {
-  const accId = 1;
   const searchTerm = "";
-  const businessUnitId = 1;
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
@@ -19,19 +18,20 @@ const Supplier = () => {
   const [isLoading, setLoading] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
 
+  const userCurrentInfo = useSelector((state) => state.currentInfo);
+
   useEffect(() => {
     populateTable();
-  }, []);
+  }, [userCurrentInfo]);
 
   const populateTable = () => {
     getList(
-      accId,
       pageNo,
       pageSize,
       setTableData,
-      businessUnitId,
       searchTerm,
-      setLoading
+      setLoading,
+      userCurrentInfo
     );
   };
 
@@ -42,12 +42,14 @@ const Supplier = () => {
   };
 
   const updateToTable = (row) => {
+    const data = supplierViewUpdatePayloadData(row);
+    setUpdateFormData(data);
     setIsDisabled(false);
-    setUpdateFormData(row);
     setModalOpen(true);
   };
   const viewData = (row) => {
-    setUpdateFormData(row);
+    const data = supplierViewUpdatePayloadData(row);
+    setUpdateFormData(data);
     setIsDisabled(true);
     setModalOpen(true);
   };
@@ -60,7 +62,8 @@ const Supplier = () => {
         populateTable,
         setUpdateFormData,
         setLoading,
-        closeModal
+        closeModal,
+        userCurrentInfo
       );
     }
     return createSupplier(
@@ -68,7 +71,8 @@ const Supplier = () => {
       formik,
       populateTable,
       setLoading,
-      closeModal
+      closeModal,
+      userCurrentInfo
     );
   };
 

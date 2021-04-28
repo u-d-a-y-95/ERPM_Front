@@ -65,25 +65,24 @@ export const tableConfig = {
   isSearchable: true,
 };
 
-export const supplierViewUpdatePayloadData = (value) => {
-  // console.log(value)
+export const supplierViewUpdatePayloadData = (values) => {
   const payload = {
-    accountId: 1,
-    actionBy: 0,
-    bin: value?.bin,
-    businessUnitId: value?.businessUnitId,
-    contactNumber: value?.contactNumber,
-    email: value?.email,
-    licenseNo: value?.licenseNo,
-    nid: value?.nid,
-    sl: value?.sl,
-    supplierAddress: value?.supplierAddress,
-    supplierCode: value?.supplierCode,
-    supplierId: value?.supplierId,
-    supplierName: value?.supplierName,
+    accountId: values?.accountId,
+    actionBy: values?.userId,
+    bin: values?.bin,
+    businessUnitId: values?.businessUnitId,
+    contactNumber: values?.contactNumber,
+    email: values?.email,
+    licenseNo: values?.licenseNo,
+    nid: values?.nid,
+    sl: values?.sl,
+    supplierAddress: values?.supplierAddress,
+    supplierCode: values?.supplierCode,
+    supplierId: values?.supplierId,
+    supplierName: values?.supplierName,
     supplierType: {
-      value: value?.supplierTypeId,
-      label: value?.supplierTypeName,
+      value: values?.supplierTypeId,
+      label: values?.supplierTypeName,
     },
   };
   return payload;

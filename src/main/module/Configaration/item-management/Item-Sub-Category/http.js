@@ -1,16 +1,21 @@
 import httpClient from "../../../../services/http/http-client";
-import { successInsertMessage, succesUpdateMessage } from '../../../../constant/message.constant';
+import {
+  successInsertMessage,
+  successUpdateMessage,
+} from "../../../../constant/message.constant";
 import { toast } from "react-toastify";
 
 export const createItemSubCategory = (
   values,
+  userCurrentInfo,
   formik,
   populateTable,
-  onClickClose,
-  setLoading) => {
-  onClickClose();
+  closeModal,
+  setLoading
+) => {
+  closeModal();
   setLoading(true);
-  const obj = createPayloadChange(values);
+  const obj = createPayloadChange(values, userCurrentInfo);
   httpClient
     .postData("/domain/ItemSubCategory/Create", obj)
     .then((res) => {
@@ -26,81 +31,69 @@ export const createItemSubCategory = (
     });
 };
 
-//create payload change
-const createPayloadChange = (values) => {
-  console.log(values)
-  const payload = {
-    accountId: 1,
-    itemSubCategoryName: values.subCategory || 0,
-    businessUnitId: 1,
-    itemTypeId: 1,
-    itemTypeName: values.itemType.label || "",
-    itemCategoryId: 1,
-    itemCategoryName: values.category.label || "",
-    actionBy: 0,
-  };
-  return payload;
-};
-
 export const getList = (
-  accId,
-  businessUnitId,
   pageNo,
   pageSize,
   setter,
-  setLoading
+  setLoading,
+  userCurrentInfo
 ) => {
   setLoading(true);
   httpClient
-    .getData(`https://demoerpm.ibos.io/domain/ItemSubCategory/GetListPagination?accountId=${accId}&businessUnitId=${businessUnitId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`)
+    .getData(
+      `/domain/ItemSubCategory/GetListPagination?accountId=${userCurrentInfo?.accountId}&pageNo=${pageNo}&pageSize=${pageSize}&viewOrder=desc`
+    )
     .then((res) => {
       setter(res?.data?.data);
       setLoading(false);
     })
     .catch((error) => {
+      setLoading(false);
       setter([]);
       toast.error(error?.response?.data?.message);
     });
 };
 
-
-
 // Item Type Drop Down List
-export const getItemTypeDropdownListAction = (setter) => {
+export const getItemTypeDropdownList = (setter, setLoading) => {
+  setLoading(true);
   httpClient
-    .getData("https://demoerpm.ibos.io/domain/ItemType/GetList")
+    .getData("/domain/ItemType/GetList")
     .then((res) => {
       setter(res?.data);
+      setLoading(false);
     })
     .catch((error) => {
+      setLoading(false);
       setter([]);
-      console.log("Error", error?.message);
+      toast.error(error?.response?.data?.message);
     });
 };
 
-// Item Category Drop Down List
-export const getItemCategoryDropdownListAction = (
-  accId,
-  businessId,
-  itemTypeId,
-  setter
+// Item Type Drop Down List
+export const getItemCategoryDropdownList = (
+  setter,
+  setLoading,
+  userCurrentInfo,
+  id
 ) => {
+  setLoading(true);
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemSubCategory/GetListByItemCategory?accountId=${accId}&businessUnitId=${businessId}&itemCategoryId=${itemTypeId}`
+      `/domain/ItemCategory/GetListByItemType?accountId=${userCurrentInfo?.accountId}&itemTypeId=${id}`
     )
     .then((res) => {
-      const newData = res?.data?.map(item => (
-        {
-          value: item?.itemSubCategoryId,
-          label: item?.itemSubCategoryName
-        }
-      ))
+      const newData = res?.data?.map((item) => ({
+        label: item?.itemCategoryName,
+        value: item?.itemCategoryId,
+      }));
       setter(newData);
+      setLoading(false);
     })
     .catch((error) => {
+      setLoading(false);
       setter([]);
-      console.log("Error", error?.message);
+      toast.error(error?.response?.data?.message);
     });
 };
 
@@ -109,62 +102,52 @@ export const updateItemSubCategory = (
   values,
   formik,
   populateTable,
-  setUpdateFormData) => {
-  console.log(values)
-  const obj = updatePayloadChange(values);
+  closeModal,
+  setUpdateFormData,
+  setLoading,
+  userCurrentInfo
+) => {
+  closeModal();
+  setLoading(true);
+  const obj = updatePayloadChange(values, userCurrentInfo);
   httpClient
     .putData("/domain/ItemSubCategory/Update", obj)
     .then((res) => {
       setUpdateFormData(null);
       formik.resetForm();
       populateTable();
+      setLoading(false);
+      toast.success(successUpdateMessage);
     })
     .catch((error) => {
-      console.log('Error: ', error.message)
+      setLoading(false);
+      toast.error(error?.response?.data?.message);
     });
 };
 
-// Update Payload Change
-const updatePayloadChange = (values) => {
-  console.log(values)
+//create payload change
+const createPayloadChange = (values, userCurrentInfo) => {
   const payload = {
-    accountId: 1,
+    actionBy: userCurrentInfo?.userId,
+    accountId: userCurrentInfo?.accountId,
     itemSubCategoryName: values.subCategory || 0,
-    businessUnitId: 1,
-    itemTypeId: 1,
+    itemTypeId: values?.itemType?.value || 0,
     itemTypeName: values.itemType.label || "",
-    itemCategoryId: 1,
-    itemCategoryName: values.category.label || "",
-    actionBy: 0,
+    itemCategoryId: values?.itemCategory?.value || 0,
+    itemCategoryName: values.itemCategory.label || "",
   };
-  //   sl: 0
-  // itemSubCategoryId: 0
-  // accountId: 0
-  // itemSubCategoryName:"string"
-  // businessUnitId: 0
-  // itemTypeId: 0
-  // itemTypeName:"string"
-  // itemCategoryId: 0
-  // itemCategoryName:"string"
-  // actionBy: 0
-
   return payload;
 };
 
-// export const getItemCategoryDropdownListAction = (
-//   accId,
-//   businessId,
-//   setter
-// ) => {
-//   httpClient
-//     .getData(
-//       `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=1`
-//     )
-//     .then((res) => {
-//       setter(res?.data);
-//     })
-//     .catch((error) => {
-//       setter([]);
-//       console.log("Error", error?.message);
-//     });
-// };
+// Update Payload Change
+const updatePayloadChange = (values, userCurrentInfo) => {
+  const payload = {
+    itemSubCategoryId: values?.itemSubCategoryId,
+    itemSubCategoryName: values?.subCategory || "",
+    itemTypeId: values?.itemType?.value || 0,
+    itemCategoryId: values?.itemCategory?.value || 0,
+    actionBy: userCurrentInfo?.userId,
+  };
+
+  return payload;
+};
