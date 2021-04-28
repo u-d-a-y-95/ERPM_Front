@@ -2,6 +2,7 @@ import React from "react";
 import ItemCategory from "../module/Configaration/item-management/Item-Category/ItemCategory";
 import ItemProfile from "../module/Configaration/item-management/Item-Profile/ItemProfile";
 import ItemSubCategory from "../module/Configaration/item-management/Item-Sub-Category/ItemSubCategory";
+import UOM from "../module/Configaration/item-management/UOM/UnitOfMeasurement";
 import BusinessUnit from "../module/Configaration/basic-configuration/Business-Unit/BusinessUnit";
 import Customer from "../module/Sales-Management/Configuration/Customer/Customer";
 import Supplier from "../module/Procurement-Management/Configuration/Supplier/Supplier";
@@ -35,6 +36,9 @@ function Holder() {
         </Route>
         <Route path="/sales-management/configuration/customer">
           <Customer />
+        </Route>
+        <Route path="/configuration-management/item-management/uom">
+          <UOM />
         </Route>
         {/* <Route path="/">
           <Home />
