@@ -21,8 +21,8 @@ function ItemSubCategoryForm({
   const [itemCategoryDropdownList, setItemCategoryDropdownList] = useState([]);
 
   const formik = useFormik({
-    enableReinitialize: false,
-    // initialValues: updateFormData,
+    enableReinitialize: true,
+    initialValues: updateFormData,
     validationSchema: formsValidationSchema,
     onSubmit: (values) => {
       submitBtnClick(values, formik);
