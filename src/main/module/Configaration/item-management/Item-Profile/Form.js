@@ -42,6 +42,26 @@ const ItemProfileForm = ({
     getUomDropdownList(setUomDropdownList);
   }, []);
 
+  useEffect(() => {
+    if (formik?.values?.itemType?.value) {
+      getItemCategoryDropdownList(
+        userCurrentInfo,
+        formik?.values?.itemType?.value,
+        setItemCategoryDropdownList
+      );
+    }
+  }, [formik?.values?.itemType?.value]);
+
+  useEffect(() => {
+    if (formik?.values?.category?.value) {
+      getItemSubCategoryDropdownList(
+        userCurrentInfo,
+        formik?.values?.category?.value,
+        setItemSubCategoryDropdownList
+      );
+    }
+  }, [formik?.values?.category?.value]);
+
   return (
     <>
       <div className="row">
