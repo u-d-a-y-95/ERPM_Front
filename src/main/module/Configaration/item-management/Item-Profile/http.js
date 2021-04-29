@@ -258,6 +258,10 @@ export const getItemById = (id, setter) => {
         label: res?.data['itemBasic']['itemSubCategoryName'],
         value: res?.data['itemBasic']['itemSubCategoryId']
       }
+      res.data['itemConfig']['uom'] = {
+        label: res?.data['itemBasic']['uomName'],
+        value: res?.data['itemBasic']['uomId']
+      }
 
       setter(res?.data);
     })
