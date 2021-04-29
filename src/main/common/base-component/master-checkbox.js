@@ -7,7 +7,7 @@ function MasterCheckBox(props) {
       <MasterLabel {...props} />
       <div onChange={props.onChange} onBlur={props.onBlur} value={props.value}>
         {props.data.map((item, index) => {
-          const id = item.label + new Date().getTime().toString();
+          const id = item.value + new Date().getTime().toString();
           return (
             <div
               className={

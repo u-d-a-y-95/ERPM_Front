@@ -3,6 +3,7 @@ import {
   tableConfig,
   tableFormExportValues,
   tableFormValidationSchema,
+
 } from "./util";
 import SimpleMasterTable from "../../../../common/composite-component/simple-master-list";
 import { useFormik } from "formik";
@@ -43,65 +44,69 @@ const UserTable = ({ data, viewData, updateToTable, createEvent }) => {
   });
   return (
     <>
-      <form onSubmit={formik?.handleSubmit}>
-        <div className='row'>
-          <div className='col-md-4 col-lg-3'>
-            <MasterSelect
-              label='User Type'
-              name='userType'
-              data={[
-                { value: "chocolate", label: "Chocolate" },
-                { value: "strawberry", label: "Strawberry" },
-                { value: "vanilla", label: "Vanilla" },
-              ]}
-              value={formik.values?.userType}
-              onChange={(value) => {
-                formik.setFieldValue("userType", value);
-              }}
-              onBlur={formik.handleBlur}
-              // disabled={isDisabled}
-              required={true}
-              placeholder='Select User Type'
-            />
+      <div className="card">
+        <form onSubmit={formik?.handleSubmit}>
 
-            {formik?.errors?.userType && formik?.touched?.userType ? (
-              <MasterErrorText message={formik?.errors?.userType} />
-            ) : null}
-          </div>
-          <div className='col-md-4 col-lg-3'>
-            <MasterSelect
-              label='Status'
-              name='status'
-              data={[
-                { value: "chocolate", label: "Chocolate" },
-                { value: "strawberry", label: "Strawberry" },
-                { value: "vanilla", label: "Vanilla" },
-              ]}
-              value={formik.values?.status}
-              onChange={(value) => {
-                formik.setFieldValue("status", value);
-              }}
-              onBlur={formik.handleBlur}
-              // disabled={isDisabled}
-              required={true}
-              placeholder='Select User Type'
-            />
+          <div className='row mb-3'>
+            <div className='col-md-4 col-lg-3'>
+              <MasterSelect
+                label='User Type'
+                name='userType'
+                data={[
+                  { value: "chocolate", label: "Chocolate" },
+                  { value: "strawberry", label: "Strawberry" },
+                  { value: "vanilla", label: "Vanilla" },
+                ]}
+                value={formik.values?.userType}
+                onChange={(value) => {
+                  formik.setFieldValue("userType", value);
+                }}
+                onBlur={formik.handleBlur}
+                // disabled={isDisabled}
+                required={true}
+                placeholder='Select User Type'
+              />
 
-            {formik?.errors?.status && formik?.touched?.status ? (
-              <MasterErrorText message={formik?.errors?.status} />
-            ) : null}
-          </div>
-          <div className='com-md-12' style={{ marginTop: "33px" }}>
-            <button
-              className='btn btn-primary btn-sm'
-              type='submit'
-              onClick={formik?.submitForm}
-            >
-              Add
+              {formik?.errors?.userType && formik?.touched?.userType ? (
+                <MasterErrorText message={formik?.errors?.userType} />
+              ) : null}
+            </div>
+            <div className='col-md-4 col-lg-3'>
+              <MasterSelect
+                label='Status'
+                name='status'
+                data={[
+                  { value: "chocolate", label: "Chocolate" },
+                  { value: "strawberry", label: "Strawberry" },
+                  { value: "vanilla", label: "Vanilla" },
+                ]}
+                value={formik.values?.status}
+                onChange={(value) => {
+                  formik.setFieldValue("status", value);
+                }}
+                onBlur={formik.handleBlur}
+                // disabled={isDisabled}
+                required={true}
+                placeholder='Select User Type'
+              />
+
+              {formik?.errors?.status && formik?.touched?.status ? (
+                <MasterErrorText message={formik?.errors?.status} />
+              ) : null}
+            </div>
+            <div className='com-md-12' style={{ marginTop: "33px" }}>
+              <button
+                className='btn btn-primary btn-sm'
+                type='submit'
+                onClick={formik?.submitForm}
+              >
+                Add
             </button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+
+      </div>
 
       <SimpleMasterTable config={config} />
     </>

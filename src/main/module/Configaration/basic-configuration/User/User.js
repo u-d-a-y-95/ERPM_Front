@@ -9,7 +9,7 @@ import { formsInitialValues } from "./util";
 
 function User() {
   const [tableData, setTableData] = useState([]);
-  const [updateFormData, setUpdateFormData] = useState({});
+  const [formData, setFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
@@ -27,15 +27,15 @@ function User() {
   const updateToTable = (row) => {
     console.log(row);
     setIsDisabled(false);
-    setUpdateFormData(row);
+    setFormData(row);
   };
   const viewData = (row) => {
-    setUpdateFormData(row);
+    setFormData(row);
     setIsDisabled(true);
   };
 
   const createToTable = () => {
-    setUpdateFormData(formsInitialValues);
+    setFormData(formsInitialValues);
     setIsDisabled(false);
     setModalOpen(true);
   };
@@ -47,7 +47,7 @@ function User() {
 
   //submit button click;
   const submitBtnClick = (values, formik) => {
-    return createUser(values, formik, populateTable, setUpdateFormData);
+    return createUser(values, formik, populateTable, setFormData);
   };
   return (
     <>
@@ -64,7 +64,7 @@ function User() {
         title='Customer'
       >
         <UserForm
-          updateFormData={updateFormData}
+          formData={formData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
           setLoading={setLoading}

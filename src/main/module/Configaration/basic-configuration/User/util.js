@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 
 export const formsInitialValues = {
-  userName: "",
   userType: "",
+  userName: "",
   loginId: "",
-  isSuperUser: "",
+  isSuperUser: false,
 };
 
 export const tableConfig = {
@@ -26,8 +26,8 @@ export const tableConfig = {
       label: "Login Id",
     },
     {
-      key: "isSupperId",
-      label: "Is Supper User?",
+      key: "isSuperUser",
+      label: "Is Super User?",
     },
     {
       key: "createdBy",
@@ -44,6 +44,40 @@ export const tableConfig = {
   ],
   isSearchable: true,
 };
+export const AddUsertableConfig = {
+  headers: [
+    {
+      key: "sl",
+      label: "SL",
+    },
+    {
+      key: "userType",
+      label: "User Type",
+    },
+    {
+      key: "userName",
+      label: "User Name",
+    },
+    {
+      key: "loginId",
+      label: "Login Id",
+    },
+    {
+      key: "isSuperUser",
+      label: "Is Supper User?",
+    },
+    {
+      key: "",
+      label: "Actions",
+    },
+  ],
+};
+
+export const isSuperUserCheckboxData = [
+  {
+    value: false,
+  },
+]
 
 export const formsValidationSchema = Yup.object().shape({
   userName: Yup.string().required("User Name is Required"),
@@ -51,9 +85,9 @@ export const formsValidationSchema = Yup.object().shape({
   userType: Yup.object().shape({
     value: Yup.string().required("Item Type is required"),
   }),
-  isSuperUser: Yup.object().shape({
-    value: Yup.string().required("User Status is required"),
-  }),
+  // isSuperUser: Yup.object().shape({
+  //   value: Yup.string().required("User Status is required"),
+  // }),
 });
 
 export const tableFormExportValues = { userType: "", status: "" };
