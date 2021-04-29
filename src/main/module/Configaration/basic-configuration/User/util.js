@@ -5,6 +5,7 @@ export const formsInitialValues = {
   userName: "",
   loginId: "",
   isSuperUser: false,
+  createdDate: "",
 };
 
 export const tableConfig = {
@@ -67,6 +68,10 @@ export const AddUsertableConfig = {
       label: "Is Supper User?",
     },
     {
+      key: "createdDate",
+      label: "Created Date",
+    },
+    {
       key: "",
       label: "Actions",
     },
@@ -77,7 +82,7 @@ export const isSuperUserCheckboxData = [
   {
     value: false,
   },
-]
+];
 
 export const formsValidationSchema = Yup.object().shape({
   userName: Yup.string().required("User Name is Required"),
