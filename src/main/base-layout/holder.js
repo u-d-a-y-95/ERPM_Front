@@ -6,7 +6,7 @@ import UOM from "../module/Configaration/item-management/UOM/UnitOfMeasurement";
 import BusinessUnit from "../module/Configaration/basic-configuration/Business-Unit/BusinessUnit";
 import Customer from "../module/Sales-Management/Configuration/Customer/Customer";
 import Supplier from "../module/Procurement-Management/Configuration/Supplier/Supplier";
-// import User from "../module/Configaration/basic-configuration/User";
+import User from "../module/Configaration/basic-configuration/User/User";
 import {
   Switch,
   Route,
@@ -19,9 +19,9 @@ function Holder() {
         <Route path="/configuration-management/basic/business-unit">
           <BusinessUnit />
         </Route>
-        {/* <Route path="/configuration-management/basic/user">
+        <Route path="/configuration-management/basic/user">
           <User />
-        </Route> */}
+        </Route>
         <Route path="/configuration-management/item-management/item-category">
           <ItemCategory />
         </Route>

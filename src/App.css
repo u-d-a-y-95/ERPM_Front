@@ -223,6 +223,16 @@
   font-weight: bolder;
 }
 
+.modal-xl {
+  width:100%
+}
+.modal-75 {
+  width:75%
+}
+.modal-50 {
+  width:50%
+}
+
 
 @media (max-width: 576px) {
 

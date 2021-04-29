@@ -1,4 +1,4 @@
-import httpClient from "../../../services/http/http-client";
+import httpClient from "../../../../services/http/http-client";
 
 //Create Api Call
 export const createUser = (values, formik, populateTable) => {
@@ -66,13 +66,13 @@ const getPayloadChange = (values) => {
 
 // Item UOM Drop Down List
 export const getUserDropdownListAction = (setter) => {
-    httpClient
-      .getData(`https://demoerpm.ibos.io/domain/UserType/GetList`)
-      .then((res) => {
-        setter(res?.data);
-      })
-      .catch((error) => {
-        setter([]);
-        console.log("Error", error?.message);
-      });
-  };
+  httpClient
+    .getData(`https://demoerpm.ibos.io/domain/UserType/GetList`)
+    .then((res) => {
+      setter(res?.data);
+    })
+    .catch((error) => {
+      setter([]);
+      console.log("Error", error?.message);
+    });
+};

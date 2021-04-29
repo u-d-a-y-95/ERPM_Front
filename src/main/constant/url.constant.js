@@ -795,7 +795,7 @@ export const tempMenu = [
         "parentId": 0,
         "level": 1,
         "icon": "/media/svg/icons/iBOS/Procurement.svg",
-        "name": "PROCUREMENT ",
+        "name": "Procurement ",
         "sl": 1,
         "to": "/procurement-management",
         "isRoot": true,

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import MasterInput from "../../../common/base-component/master-input";
-import MasterErrorText from "../../../common/base-component/master-errortext";
-import FormikResetButton from "../../../common/composite-component/formik-reset-button";
+import MasterInput from "../../../../common/base-component/master-input";
+import MasterErrorText from "../../../../common/base-component/master-errortext";
+import FormikResetButton from "../../../../common/composite-component/formik-reset-button";
 
 import { useFormik } from "formik";
 import { formsInitialValues, formsValidationSchema } from "./util";
 
-import MasterSelect from "../../../common/base-component/master-select";
-import FormikSaveButton from "./../../../common/composite-component/formik-save-button";
+import MasterSelect from "../../../../common/base-component/master-select";
+import FormikSaveButton from "../../../../common/composite-component/formik-save-button";
 import { getUserDropdownListAction, createUser } from './http';
 
 const UserForm = ({
@@ -26,14 +26,14 @@ const UserForm = ({
     // initialValues: formsInitialValues,
     validationSchema: formsValidationSchema,
     onSubmit: (values) => {
-    //   if (updateFormData?.itemCode) {
-    //     return updateUser(
-    //       values,
-    //       formik,
-    //       populateTable,
-    //       setUpdateFormData
-    //     );
-    //   }
+      //   if (updateFormData?.itemCode) {
+      //     return updateUser(
+      //       values,
+      //       formik,
+      //       populateTable,
+      //       setUpdateFormData
+      //     );
+      //   }
       return createUser(
         values,
         formik,
@@ -68,7 +68,7 @@ const UserForm = ({
       )} */}
       <div className="row">
         <div className="col-md-4 col-lg-3">
-        <MasterSelect
+          <MasterSelect
             label="User Type"
             name="userType"
             data={userDropdownList}
@@ -103,7 +103,7 @@ const UserForm = ({
           )}
         </div>
         <div className="col-md-4 col-lg-3">
-        <MasterInput
+          <MasterInput
             label="User/Login Id"
             name="loginId"
             type="text"
@@ -126,7 +126,7 @@ const UserForm = ({
             // data={categotyDDL}
             value={formik.values?.isSuperUser}
             onChange={(value) => {
-              formik.setFieldValue("isSuperUser", value);             
+              formik.setFieldValue("isSuperUser", value);
             }}
             onBlur={formik.handleBlur}
             required={true}
