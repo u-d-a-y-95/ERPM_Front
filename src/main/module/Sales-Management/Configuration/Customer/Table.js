@@ -10,18 +10,12 @@ const CustomerTable = ({ data, viewData, updateToTable, createEvent }) => {
     {
       icon: "fa fa-eye",
       className: "btn btn-sm btn-primary text-white",
-      event: (row) => {
-        const newData = customerViewUpdatePayloadData(row);
-        viewData(newData);
-      },
+      event: viewData,
     },
     {
       icon: "fa fa-edit",
       className: "btn btn-sm btn-primary text-white",
-      event: (row) => {
-        const newData = customerViewUpdatePayloadData(row);
-        updateToTable(newData);
-      },
+      event: updateToTable,
     },
     // {
     //   icon: "fa fa-trash",

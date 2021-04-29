@@ -2,7 +2,7 @@ import React from "react";
 import SimpleMasterTable from "../../../../common/composite-component/simple-master-list";
 import { itemCategoryViewUpdatePayloadData, tableConfig } from "./util";
 
-const ItemCategoryTable = ({ viewData, updateToTable, data, createEvent }) => {
+const BusinessUserTable = ({ viewData, updateToTable, data, createEvent }) => {
   const config = tableConfig;
   config.data = data;
   config.create = createEvent;
@@ -26,4 +26,4 @@ const ItemCategoryTable = ({ viewData, updateToTable, data, createEvent }) => {
   );
 };
 
-export default ItemCategoryTable;
+export default BusinessUserTable;

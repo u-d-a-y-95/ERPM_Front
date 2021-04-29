@@ -4,7 +4,7 @@ export const menu = [
         "parentId": 0,
         "level": 1,
         "icon": "/media/svg/icons/iBOS/Procurement.svg",
-        "name": "PROCUREMENT ",
+        "name": "Procurement ",
         "sl": 1,
         "to": "/mngProcurement",
         "isRoot": true,
@@ -795,7 +795,7 @@ export const tempMenu = [
         "parentId": 0,
         "level": 1,
         "icon": "/media/svg/icons/iBOS/Procurement.svg",
-        "name": "PROCUREMENT ",
+        "name": "Procurement ",
         "sl": 1,
         "to": "/procurement-management",
         "isRoot": true,
@@ -1007,6 +1007,18 @@ export const tempMenu = [
                         "to": "/configuration-management/item-management/item-subcategory",
                         "isRoot": false,
                         "url": "/configuration-management/item-management/item-subcategory",
+                        "children": []
+                    },
+                    {
+                        "id": 1,
+                        "parentId": 0,
+                        "level": 3,
+                        "icon": "/media/svg/icons/iBOS/Procurement.svg",
+                        "name": "uom",
+                        "sl": 1,
+                        "to": "/configuration-management/item-management/uom",
+                        "isRoot": false,
+                        "url": "/configuration-management/item-management/uom",
                         "children": []
                     }
                 ]

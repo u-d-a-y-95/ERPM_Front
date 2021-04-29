@@ -11,10 +11,11 @@ export const createCustomer = (
   formik,
   populateTable,
   setLoading,
-  closeModal
+  closeModal,
+  userCurrentInfo
 ) => {
   setLoading(true);
-  const obj = createPayloadChange(values);
+  const obj = createPayloadChange(values, userCurrentInfo);
   closeModal();
   httpClient
     .postData("/domain/Customer/Create", obj)
@@ -33,11 +34,10 @@ export const createCustomer = (
 
 //landing api call
 export const getList = (
-  accId,
+  userCurrentInfo,
   pageNo,
   pageSize,
   setter,
-  businessUnitId,
   searchTerm,
   setLoading
 ) => {
@@ -45,8 +45,8 @@ export const getList = (
   httpClient
     .getData(
       searchTerm
-        ? `/domain/Customer/GetList?search=${searchTerm}&accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
-        : `/domain/Customer/GetList?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
+        ? `/domain/Customer/GetList?search=${searchTerm}&accountId=${userCurrentInfo?.accountId}&businessUnitId=${userCurrentInfo?.businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
+        : `/domain/Customer/GetList?accountId=${userCurrentInfo?.accountId}&businessUnitId=${userCurrentInfo?.businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
     )
     .then((res) => {
       const values = getPayloadChange(res?.data?.data);
@@ -60,18 +60,6 @@ export const getList = (
     });
 };
 
-//get by id for get by id api call
-// export const businessUnitDeleteData = (id, populateTable) => {
-//   httpClient
-//     .deleteData(`/domain/Customer/GetById/${id}`)
-//     .then((res) => {
-//       populateTable();
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//     });
-// };
-
 //update business unit
 export const updateCustomer = (
   values,
@@ -79,10 +67,11 @@ export const updateCustomer = (
   populateTable,
   setUpdateFormData,
   setLoading,
-  closeModal
+  closeModal,
+  userCurrentInfo
 ) => {
   setLoading(true);
-  const obj = updatePayloadChange(values);
+  const obj = updatePayloadChange(values, userCurrentInfo);
   closeModal();
   httpClient
     .putData("/domain/Customer/Update", obj)
@@ -139,11 +128,10 @@ const getPayloadChange = (values) => {
 };
 
 //create payload change
-const createPayloadChange = (values) => {
+const createPayloadChange = (values, userCurrentInfo) => {
   const payload = {
-    // login theke asbe
-    accountId: +1,
-    businessUnitId: +1,
+    accountId: userCurrentInfo?.accountId,
+    businessUnitId: userCurrentInfo?.businessUnitId,
     customerName: values?.customerName || "",
     customerAddress: values?.customerAddress || "",
     contactNumber: values?.contactNumber || "",
@@ -154,13 +142,13 @@ const createPayloadChange = (values) => {
     nid: values?.nid || "",
     bin: values?.bin || "",
     licenseNo: values?.licenseNo || "",
-    intActionBy: values?.intActionBy || +0,
+    intActionBy: userCurrentInfo?.userId,
   };
   return payload;
 };
 
 //update payload change
-const updatePayloadChange = (values) => {
+const updatePayloadChange = (values, userCurrentInfo) => {
   const payload = {
     customerId: values?.customerId,
     customerName: values?.customerName || "",
@@ -172,7 +160,8 @@ const updatePayloadChange = (values) => {
     nid: values?.nid || "",
     bin: values?.bin || "",
     licenseNo: values?.licenseNo || "",
-    intActionBy: values?.intActionBy || +0,
+    intActionBy: userCurrentInfo?.userId,
+    customerTypeId: values?.customerType?.value,
   };
   return payload;
 };

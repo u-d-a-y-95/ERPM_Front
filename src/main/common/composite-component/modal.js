@@ -10,11 +10,11 @@ function ModalComponent(props) {
     return (
         <>
             <Modal
-                size={props.size || "md"}
+                // size={props.size || "md"}
                 show={props.modalSate}
                 onHide={props.modalClose}
                 backdrop={props.fixed ? "static" : ""}
-            // dialogClassName="w-100"
+                dialogClassName="modal-xl"
             >
                 <Modal.Header closeButton>
                     <Modal.Title >

@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 //Create Api Call
 export const createItemProfile = (
   values,
+  userCurrentInfo,
   formik,
   populateTable,
   onClickClose,
@@ -12,9 +13,9 @@ export const createItemProfile = (
 ) => {
   onClickClose();
   setLoading(true);
-  const obj = createPayloadChange(values);
+  const obj = createPayloadChange(values, userCurrentInfo);
   httpClient
-    .postData("/domain/ItemBasicInfo/Create", obj)
+    .postData("/domain/ItemBusinessUnitConfig/Create", obj)
     .then((res) => {
       formik.setValues(null);
       formik.resetForm();
@@ -29,35 +30,40 @@ export const createItemProfile = (
 };
 
 //create payload change
-const createPayloadChange = (values) => {
+const createPayloadChange = (values, userCurrentInfo) => {
   console.log(values);
   const payload = {
-    accountId: +1,
-    itemCode: values?.itemCode || "",
-    itemName: values?.itemName || "",
-    partNumber: values?.partNumber || "",
-    itemTypeId: values?.itemType?.value || +0,
-    itemCategoryId: values?.category?.value || +0,
-    itemSubCategoryId: values?.subCategory?.value || +0,
-    uom: values?.uom?.value || +0,
-    actionBy: +1234,
+    itemConfig: {
+      accountId: userCurrentInfo?.accountId,
+      itemCode: values?.itemConfig?.itemCode || "",
+      itemName: values?.itemConfig?.itemName || "",
+      partNumber: values?.itemConfig?.partNumber || "",
+      itemTypeId: values?.itemConfig?.itemType?.value || 0,
+      itemCategoryId: values?.itemConfig?.category?.value || 0,
+      itemSubCategoryId: values?.itemConfig?.subCategory?.value || 211,
+      uom: values?.itemConfig?.uom?.value || 0,
+      actionBy: userCurrentInfo?.userId,
+    },
+    businessUnitList: values?.businessUnitList || []
+
   };
   return payload;
 };
 
 //Landing Api Call
 export const getList = (
-  accId,
-  businessUnitId,
+  userCurrentInfo,
   pageNo,
   pageSize,
   setter,
-  setLoading
+  setLoading,
+  searchTerm
 ) => {
   setLoading(true);
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemBasicInfo/GetLandingPasignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
+      // `https://demoerpm.ibos.io/domain/ItemBasicInfo/GetLandingPasignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
+      `/domain/ItemBasicInfo/GetLandingPasignation?searchTerm=${searchTerm}&accountId=${userCurrentInfo?.accountId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
     )
     .then((res) => {
       setter(res?.data?.data);
@@ -91,6 +97,7 @@ export const getList = (
 //update Item Profile
 export const updateItemProfile = (
   values,
+  userCurrentInfo,
   formik,
   populateTable,
   formData,
@@ -100,7 +107,7 @@ export const updateItemProfile = (
 ) => {
   onClickClose()
   setLoading(true)
-  const obj = updatePayloadChange(values);
+  const obj = updatePayloadChange(values, userCurrentInfo);
   httpClient
     .putData("/domain/ItemBasicInfo/Update", obj)
     .then((res) => {
@@ -117,31 +124,38 @@ export const updateItemProfile = (
 };
 
 // Update Payload Change
-const updatePayloadChange = (values) => {
-  console.log(values);
+const updatePayloadChange = (values, userCurrentInfo) => {
+  // console.log(values);
   const payload = {
     accountId: 0,
-    actionBy: 0,
-    itemId: 0,
+    actionBy: userCurrentInfo?.userId,
+    itemId: values?.itemId,
     itemCode: values?.itemCode || "",
     itemName: values?.itemName || "",
     partNumber: values?.partNumber || "",
     uomId: values?.uom?.value,
-    // itemTypeId: values?.itemType?.value || 0,
-    // itemCategoryId: values?.category?.value || 0,
-    // itemSubCategoryId: values?.subCategory?.value || 0,
-    itemTypeId: 0,
-    itemCategoryId: 0,
-    itemSubCategoryId: 0,
+    itemTypeId: values?.itemType?.value || 0,
+    itemCategoryId: values?.category?.value || 0,
+    itemSubCategoryId: values?.subCategory?.value || 0,
+
+    //   "itemId": 0,
+    //   "itemCode": "string",
+    //   "itemName": "string",
+    //   "partNumber": "string",
+    //   "itemTypeId": 0,
+    //   "itemCategoryId": 0,
+    //   "itemSubCategoryId": 0,
+    //   "uomId": 0,
+    //   "actionBy": 0
   };
 
   return payload;
 };
 
 // Item Type Drop Down List
-export const getItemTypeDropdownListAction = (setter) => {
+export const getItemTypeDropdownList = (setter) => {
   httpClient
-    .getData("https://demoerpm.ibos.io/domain/ItemType/GetList")
+    .getData("/domain/ItemType/GetList")
     .then((res) => {
       setter(res?.data);
     })
@@ -152,15 +166,14 @@ export const getItemTypeDropdownListAction = (setter) => {
 };
 
 // Item Category Drop Down List
-export const getItemCategoryDropdownListAction = (
-  accId,
-  businessId,
+export const getItemCategoryDropdownList = (
+  userCurrentInfo,
   itemTypeId,
   setter
 ) => {
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemCategory/GetListByItemType?accountId=${accId}&businessUnitId=${businessId}&itemTypeId=${itemTypeId}`
+      `/domain/ItemCategory/GetListByItemType?accountId=${userCurrentInfo?.accountId}&itemTypeId=${itemTypeId}`
     )
     .then((res) => {
       const newData = res?.data?.map((item) => ({
@@ -168,7 +181,7 @@ export const getItemCategoryDropdownListAction = (
         label: item?.itemCategoryName,
       }));
       setter(newData);
-      console.log(newData);
+      // console.log(newData);
     })
     .catch((error) => {
       setter([]);
@@ -177,15 +190,14 @@ export const getItemCategoryDropdownListAction = (
 };
 
 // Item Sub Category Drop Down List
-export const getItemSubCategoryDropdownListAction = (
-  accId,
-  businessId,
+export const getItemSubCategoryDropdownList = (
+  userCurrentInfo,
   itemCategoryId,
   setter
 ) => {
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemSubCategory/GetListByItemCategory?accountId=${accId}&businessUnitId=${businessId}&itemCategoryId=${itemCategoryId}`
+      `/domain/ItemSubCategory/GetListByItemCategory?accountId=${userCurrentInfo?.accountId}&itemCategoryId=${itemCategoryId}`
     )
     .then((res) => {
       const newData = res?.data?.map((item) => ({
@@ -201,9 +213,9 @@ export const getItemSubCategoryDropdownListAction = (
 };
 
 // Item UOM Drop Down List
-export const getUomDropdownListAction = (setter) => {
+export const getUomDropdownList = (setter) => {
   httpClient
-    .getData(`https://demoerpm.ibos.io/domain/DDL/GetUOMDDL`)
+    .getData(`/domain/DDL/GetUOMDDL`)
     .then((res) => {
       setter(res?.data);
     })
@@ -212,3 +224,45 @@ export const getUomDropdownListAction = (setter) => {
       console.log("Error", error?.message);
     });
 };
+export const getBusinessDropDownList = (userCurrentInfo, setter) => {
+  httpClient
+    .getData(`/domain/BusinessUnit/GetListByAccountId/${userCurrentInfo.accountId}`)
+    .then((res) => {
+      res?.data?.forEach(item => {
+        item['value'] = item?.businessUnitId;
+        item['label'] = item?.businessUnitName;
+      });
+      setter(res?.data);
+    })
+    .catch((error) => {
+      setter([]);
+      console.log("Error", error?.message);
+    });
+};
+
+
+export const getItemById = (id, setter) => {
+  httpClient
+    .getData(`/domain/ItemBasicInfo/GetById/${id}`)
+    .then((res) => {
+      res.data['itemConfig'] = res?.data['itemBasic']
+      res.data['itemConfig']['itemType'] = {
+        label: res?.data['itemBasic']['itemTypeName'],
+        value: res?.data['itemBasic']['itemTypeId']
+      }
+      res.data['itemConfig']['category'] = {
+        label: res?.data['itemBasic']['itemCategoryName'],
+        value: res?.data['itemBasic']['itemCategoryId']
+      }
+      res.data['itemConfig']['subCategory'] = {
+        label: res?.data['itemBasic']['itemSubCategoryName'],
+        value: res?.data['itemBasic']['itemSubCategoryId']
+      }
+
+      setter(res?.data);
+    })
+    .catch((error) => {
+      setter([]);
+      console.log("Error", error?.message);
+    });
+}

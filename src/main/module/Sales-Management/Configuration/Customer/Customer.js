@@ -3,14 +3,14 @@ import React, { useState, useEffect } from "react";
 import CustomerForm from "./Form";
 import CustomerTable from "./Table";
 import { createCustomer, getList, updateCustomer } from "./http";
-import { initialValues } from "./util";
+import { customerViewUpdatePayloadData, initialValues } from "./util";
 import Loading from "../../../../common/composite-component/loading";
 import ModalComponent from "../../../../common/composite-component/modal";
+import { useSelector } from "react-redux";
 
 const Customer = () => {
-  const accId = 1;
-  const businessUnitId = 1;
   const searchTerm = "";
+  const userCurrentInfo = useSelector((state) => state.currentInfo);
 
   const [tableData, setTableData] = useState([]);
   const [updateFormData, setUpdateFormData] = useState({});
@@ -22,15 +22,14 @@ const Customer = () => {
 
   useEffect(() => {
     populateTable();
-  }, []);
+  }, [userCurrentInfo]);
 
   const populateTable = () => {
     getList(
-      accId,
+      userCurrentInfo,
       pageNo,
       pageSize,
       setTableData,
-      businessUnitId,
       searchTerm,
       setLoading
     );
@@ -43,13 +42,15 @@ const Customer = () => {
   };
 
   const updateToTable = (row) => {
-    setUpdateFormData(row);
+    const data = customerViewUpdatePayloadData(row);
+    setUpdateFormData(data);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const viewData = (row) => {
-    setUpdateFormData(row);
+    const data = customerViewUpdatePayloadData(row);
+    setUpdateFormData(data);
     setIsDisabled(true);
     setModalOpen(true);
   };
@@ -63,7 +64,8 @@ const Customer = () => {
         populateTable,
         setUpdateFormData,
         setLoading,
-        closeModal
+        closeModal,
+        userCurrentInfo
       );
     }
     return createCustomer(
@@ -71,7 +73,8 @@ const Customer = () => {
       formik,
       populateTable,
       setLoading,
-      closeModal
+      closeModal,
+      userCurrentInfo
     );
   };
 

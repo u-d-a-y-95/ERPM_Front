@@ -1,50 +1,47 @@
 import React, { useState, useEffect } from "react";
-import ItemProfileForm from "./Form";
-import { createItemProfile, getList, updateItemProfile, getItemById } from "./http";
-import ItemProfileTable from "./Table";
+import BusinessUserForm from "./Form";
+import { getList, createItemCategory, updateItemCategory } from "./http";
+import BusinessUserTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
-import { initialValues, itemProfileViewUpdatePayloadData } from './util';
-import { useSelector } from 'react-redux';
+import { initialValues, itemCategoryViewUpdatePayloadData } from './util';
+import { useSelector } from "react-redux";
 
-function ItemProfile() {
-  const searchTerm = "";
+function BusinessUser() {
   const [tableData, setTableData] = useState([]);
   const [formData, setFormData] = useState({});
   const [pageNo, setPageNo] = useState(0);
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isloading, setLoading] = useState(false);
+  // const [changeData, setChangeData] = useState({})
 
   const userCurrentInfo = useSelector(state => state.currentInfo)
 
   useEffect(() => {
     populateTable();
-  }, []);
+  }, [userCurrentInfo]);
+
   const populateTable = () => {
-    getList(userCurrentInfo, pageNo, pageSize, setTableData, setLoading, searchTerm);
+    getList(userCurrentInfo, pageNo, pageSize, setTableData, setLoading);
   };
 
   const createToTable = () => {
-    setFormData({
-      itemConfig: initialValues,
-      businessUnitList: []
-    });
+    setFormData(initialValues);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const updateToTable = (row) => {
-    const data = itemProfileViewUpdatePayloadData(row)
+    const data=itemCategoryViewUpdatePayloadData(row);
     setFormData(data);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const viewData = (row) => {
-    getItemById(row.itemId, setFormData)
-    // const data = itemProfileViewUpdatePayloadData(row)
-    // setFormData(data);
+    const data=itemCategoryViewUpdatePayloadData(row)
+    setFormData(data);
     setIsDisabled(true);
     setModalOpen(true);
   };
@@ -55,44 +52,44 @@ function ItemProfile() {
   }
 
   function submitBtnClick(values, formik) {
-    console.log(values)
-    if (formData?.itemId) {
-      return updateItemProfile(
-        values,
-        userCurrentInfo,
-        formik,
-        populateTable,
-        formData,
-        setFormData,
-        onClickClose,
-        setLoading
-      );
-    }
-    createItemProfile(values, userCurrentInfo, formik, populateTable, onClickClose, setLoading);
+    // console.log(values)
+    // if (formData?.itemType) {
+    //   return updateItemCategory(
+    //     values,
+    //     userCurrentInfo,
+    //     formik,
+    //     populateTable,
+    //     formData,
+    //     setFormData,
+    //     onClickClose,
+    //     setLoading,
+    //     // changeData,
+    //   );
+    // }
+    createItemCategory(values, userCurrentInfo, formik, populateTable, onClickClose, setLoading);
   }
-
   return (
     <>
       {isloading && <Loading />}
       <div className="d-flex justify-content-between">
-        <h3 className="">Item Profile</h3>
+        <h3 className="">Item Category</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}
         modalClose={onClickClose}
         fixed={true}
         size="lg"
-        title="Item Basic Information"
+        title="New Item Category"
       >
-        <ItemProfileForm
+        <BusinessUserForm
           formData={formData}
           isDisabled={isDisabled}
           submitBtnClick={submitBtnClick}
           userCurrentInfo={userCurrentInfo}
+          setLoading={setLoading}
         />
       </ModalComponent>
-
-      <ItemProfileTable
+      <BusinessUserTable
         data={tableData}
         updateToTable={updateToTable}
         viewData={viewData}
@@ -102,4 +99,4 @@ function ItemProfile() {
   );
 }
 
-export default ItemProfile;
+export default BusinessUser;

@@ -1,11 +1,11 @@
-import httpClient from "../../../services/http/http-client";
+import { toast } from "react-toastify";
+import httpClient from "../../../../services/http/http-client";
 
 //Create Api Call
 export const createUser = (values, formik, populateTable) => {
   const obj = createPayloadChange(values);
   httpClient
-    // .postData("https://localhost:44339/domain/User/Create", obj)
-    .postData("https://demoerpm.ibos.io/domain/User/Create", obj)
+    .postData("/domain/User/Create", obj)
     .then((res) => {
       formik.setValues(null);
       formik.resetForm();
@@ -18,7 +18,7 @@ export const createUser = (values, formik, populateTable) => {
 
 //create payload change
 const createPayloadChange = (values) => {
-  console.log(values)
+  console.log(values);
   const payload = {
     accountId: 0,
     actionBy: 0,
@@ -34,7 +34,7 @@ const createPayloadChange = (values) => {
 export const getList = (accId, businessUnitId, pageNo, pageSize, setter) => {
   httpClient
     .getData(
-      `https://demoerpm.ibos.io/domain/ItemBasicInfo/GetLandingPasignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
+      `/domain/ItemBasicInfo/GetLandingPasignation?accountId=${accId}&businessUnitId=${businessUnitId}&viewOrder=desc&pageNo=${pageNo}&pageSize=${pageSize}`
     )
     .then((res) => {
       setter(res?.data?.data);
@@ -44,9 +44,9 @@ export const getList = (accId, businessUnitId, pageNo, pageSize, setter) => {
     });
 };
 
-// Get Payload Change 
+// Get Payload Change
 const getPayloadChange = (values) => {
-  console.log(values)
+  console.log(values);
   return values?.map((data) => ({
     sl: data?.sl,
     // uom: data?.uom?.value,
@@ -59,20 +59,36 @@ const getPayloadChange = (values) => {
     itemSubCategoryName: data?.itemSubCategoryName,
     itemTypeId: data?.itemTypeId,
     itemTypeName: data?.itemTypeName,
-
   }));
 };
 
-
 // Item UOM Drop Down List
-export const getUserDropdownListAction = (setter) => {
-    httpClient
-      .getData(`https://demoerpm.ibos.io/domain/UserType/GetList`)
-      .then((res) => {
-        setter(res?.data);
-      })
-      .catch((error) => {
-        setter([]);
-        console.log("Error", error?.message);
-      });
-  };
+export const getUserDropdownList = (setter, setLoading) => {
+  setLoading(true);
+  httpClient
+    .getData(`/domain/UserType/GetList`)
+    .then((res) => {
+      setter(res?.data);
+      setLoading(false);
+    })
+    .catch((error) => {
+      setLoading(false);
+      setter([]);
+      toast.error(error?.response?.data?.message);
+    });
+};
+
+export const getUserAvailable = (loginId, setLoading, setter) => {
+  setLoading(true);
+  httpClient
+    .getData(`/domain/User/GetUserAvailability?loginId=${loginId}`)
+    .then((res) => {
+      setLoading(false);
+      setter(res?.data?.isAvailable);
+    })
+    .catch((error) => {
+      setLoading(false);
+      setter([]);
+      toast.error(error?.response?.data?.message);
+    });
+};

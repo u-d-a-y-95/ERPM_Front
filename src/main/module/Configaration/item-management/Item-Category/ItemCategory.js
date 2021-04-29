@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ItemCategoryForm from "./Form";
-import { getList, createItemCategory } from "./http";
+import { getList, createItemCategory, updateItemCategory } from "./http";
 import ItemCategoryTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
-import { initialValues } from './util';
+import { initialValues, itemCategoryViewUpdatePayloadData } from "./util";
 import { useSelector } from "react-redux";
 
 function ItemCategory() {
@@ -14,8 +14,9 @@ function ItemCategory() {
   const [pageSize, setPageSize] = useState(50);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isloading, setLoading] = useState(false);
+  // const [changeData, setChangeData] = useState({})
 
-  const userCurrentInfo = useSelector(state => state.currentInfo)
+  const userCurrentInfo = useSelector((state) => state.currentInfo);
 
   useEffect(() => {
     populateTable();
@@ -32,13 +33,15 @@ function ItemCategory() {
   };
 
   const updateToTable = (row) => {
-    setFormData(row);
+    const data=itemCategoryViewUpdatePayloadData(row);
+    setFormData(data);
     setIsDisabled(false);
     setModalOpen(true);
   };
 
   const viewData = (row) => {
-    setFormData(row);
+    const data=itemCategoryViewUpdatePayloadData(row)
+    setFormData(data);
     setIsDisabled(true);
     setModalOpen(true);
   };
@@ -46,36 +49,42 @@ function ItemCategory() {
   const [isModalOpen, setModalOpen] = useState(false);
   function onClickClose() {
     setModalOpen(false);
-    // business
-    // mail .....
   }
 
   function submitBtnClick(values, formik) {
-    // if (formData?.itemCode) {
-    //   return updateItemProfile(
-    //     values,
-    //     formik,
-    //     populateTable,
-    //     formData,
-    //     setFormData,
-    //     onClickClose,
-    //     setLoading
-    //   );
-    // }
-    createItemCategory(values, userCurrentInfo, formik, populateTable, onClickClose, setLoading);
+    if (formData?.itemCategoryId) {
+      return updateItemCategory(
+        values,
+        userCurrentInfo,
+        formik,
+        populateTable,
+        formData,
+        setFormData,
+        onClickClose,
+        setLoading
+      );
+    }
+    createItemCategory(
+      values,
+      userCurrentInfo,
+      formik,
+      populateTable,
+      onClickClose,
+      setLoading
+    );
   }
   return (
     <>
       {isloading && <Loading />}
-      <div className="d-flex justify-content-between">
-        <h3 className="">Item Category</h3>
+      <div className='d-flex justify-content-between'>
+        <h3 className=''>Item Category</h3>
       </div>
       <ModalComponent
         modalSate={isModalOpen}
         modalClose={onClickClose}
         fixed={true}
-        size="lg"
-        title="New Item Category"
+        size='lg'
+        title='New Item Category'
       >
         <ItemCategoryForm
           formData={formData}

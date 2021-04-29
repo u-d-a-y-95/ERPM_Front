@@ -117,24 +117,25 @@ function SimpleMasterList(props) {
                 }}
                 onClick={onSearch}
               />
-
             </div>
-            <div className="col-md-4 text-right">
-              {
-                props.config.create &&
+            <div className='col-md-4 text-right'>
+              {props.config.create && (
                 <MasterButton
-                  label="new"
-                  className="btn base-color text-white"
+                  label='new'
+                  className='btn base-color text-white'
                   onClick={props.config.create}
                 />
-              }
-
+              )}
             </div>
           </div>
         </div>
       ) : null}
 
-      <div className='master-list'>
+      <div className='master-list' style={props?.config?.height ? {
+        height: `${props.config.height}px`
+      } : {
+        height: `400px`
+      }}>
         <table className='table table-borderless simple-master-table'>
           <thead>
             <tr key={"_index"}>

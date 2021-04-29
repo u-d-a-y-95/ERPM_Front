@@ -1,10 +1,11 @@
 import * as Yup from "yup";
 
 export const formsInitialValues = {
-  userName: "",
   userType: "",
+  userName: "",
   loginId: "",
-  isSuperUser: "",
+  isSuperUser: false,
+  createdDate: "",
 };
 
 export const tableConfig = {
@@ -14,32 +15,74 @@ export const tableConfig = {
       label: "SL",
     },
     {
-      key: "itemCode",
-      label: "Code",
+      key: "userId",
+      label: "User Id",
     },
     {
-      key: "itemName",
-      label: "Item",
+      key: "userName",
+      label: "User Name",
     },
     {
-      key: "itemTypeName",
-      label: "Item Type",
+      key: "loginId",
+      label: "Login Id",
     },
     {
-      key: "itemCategoryName",
-      label: "Category",
+      key: "isSuperUser",
+      label: "Is Super User?",
     },
     {
-      key: "itemSubCategoryName",
-      label: "Sub-Category",
+      key: "createdBy",
+      label: "Created By",
     },
     {
-      key: "status",
-      label: "Status",
+      key: "createdDate",
+      label: "Created Date",
+    },
+    {
+      key: "",
+      label: "Actions",
     },
   ],
   isSearchable: true,
 };
+export const AddUsertableConfig = {
+  headers: [
+    {
+      key: "sl",
+      label: "SL",
+    },
+    {
+      key: "userType",
+      label: "User Type",
+    },
+    {
+      key: "userName",
+      label: "User Name",
+    },
+    {
+      key: "loginId",
+      label: "Login Id",
+    },
+    {
+      key: "isSuperUser",
+      label: "Is Supper User?",
+    },
+    {
+      key: "createdDate",
+      label: "Created Date",
+    },
+    {
+      key: "",
+      label: "Actions",
+    },
+  ],
+};
+
+export const isSuperUserCheckboxData = [
+  {
+    value: false,
+  },
+];
 
 export const formsValidationSchema = Yup.object().shape({
   userName: Yup.string().required("User Name is Required"),
@@ -47,8 +90,19 @@ export const formsValidationSchema = Yup.object().shape({
   userType: Yup.object().shape({
     value: Yup.string().required("Item Type is required"),
   }),
-  isSuperUser: Yup.object().shape({
-    value: Yup.string().required("User Status is required"),
+  // isSuperUser: Yup.object().shape({
+  //   value: Yup.string().required("User Status is required"),
+  // }),
+});
+
+export const tableFormExportValues = { userType: "", status: "" };
+
+export const tableFormValidationSchema = Yup.object().shape({
+  userType: Yup.object().shape({
+    value: Yup.string().required("User Type is required"),
+  }),
+  status: Yup.object().shape({
+    value: Yup.string().required("Status is required"),
   }),
 });
 
@@ -76,5 +130,3 @@ export const itemProfileViewUpdatePayloadData = (value) => {
   };
   return payload;
 };
-
-

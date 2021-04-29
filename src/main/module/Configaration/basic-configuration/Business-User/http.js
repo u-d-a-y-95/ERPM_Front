@@ -33,9 +33,9 @@ const createPayloadChange = (values, userCurrentInfo) => {
   // console.log(values)
   const payload = {
     accountId: userCurrentInfo?.accountId,
-    itemCategoryName: values.category || null,
-    itemTypeId: values.itemType.value || null,
-    itemTypeName: values.itemType.label || null,
+    itemCategoryName: values.category || "",
+    itemTypeId: values.itemType.value || 0,
+    itemTypeName: values.itemType.label || "",
     actionBy: userCurrentInfo?.userId,
   };
 
@@ -76,11 +76,14 @@ export const updateItemCategory = (
   formData,
   setFormData,
   onClickClose,
-  setLoading,        
+  setLoading,
+  changeData
+        
 ) => {
+  console.log(values)
   onClickClose()
   setLoading(true)
-  const obj = updatePayloadChange(values, userCurrentInfo);
+  const obj = updatePayloadChange(values, userCurrentInfo, changeData);
   httpClient
     .putData("/domain/ItemCategory/Update", obj)
     .then((res) => {
@@ -98,10 +101,12 @@ export const updateItemCategory = (
 
 // Update Payload Change
 const updatePayloadChange = (values, userCurrentInfo) => {
+  // console.log(values);
+  console.log(values)
   const payload = {
     accountId: userCurrentInfo?.accountId,
     itemTypeId: values?.itemType?.value || 0,
-    itemCategoryId: values?.itemCategoryId,   
+    // itemCategoryId: 1,   
     itemCategoryName: values?.category || "",
     actionBy: userCurrentInfo?.userId,
   };
@@ -110,15 +115,29 @@ const updatePayloadChange = (values, userCurrentInfo) => {
 };
 
 
-// Item Type Drop Down List
-export const getItemTypeDropdownListAction = (setter) => {
+// Business Uint Dropdown List list
+export const getBusinessUintDropdownListAction = (setter, setLoading, userCurrentInfo) => {
+  setLoading(true);
   httpClient
-    .getData("https://demoerpm.ibos.io/domain/ItemType/GetList")
+    .getData(`/domain/BusinessUnit/GetListByAccountId?accountId=${userCurrentInfo?.accountId}`)
     .then((res) => {
-      setter(res?.data);
+      const newData = businessUnitDropdownListPayloadChange(res?.data);
+      setter(newData);
+      setLoading(false);
     })
-    .catch((error) => {
+    .catch((err) => {
+      setLoading(false);
       setter([]);
-      console.log("Error", error?.message);
+      toast.error(err?.response?.data?.message);
     });
+};
+
+//Business Unt dropdownn list payload change;
+const businessUnitDropdownListPayloadChange = (values) => {
+  const payload = values.map((item) => ({
+    label: item?.businessUnitName,
+    value: item.businessUnitId,
+    code: item.businessUnitCode,
+  }));
+  return payload;
 };

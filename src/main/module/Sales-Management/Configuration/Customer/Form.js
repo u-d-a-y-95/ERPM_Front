@@ -31,7 +31,7 @@ const CustomerForm = ({
   return (
     <>
       <div className='row'>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterSelect
             label='Customer Type'
             name='customerType'
@@ -47,7 +47,7 @@ const CustomerForm = ({
             <MasterErrorText message={formik.errors?.customerType} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Customer Name'
@@ -63,7 +63,7 @@ const CustomerForm = ({
             <MasterErrorText message={formik.errors?.customerName} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Address'
@@ -80,7 +80,7 @@ const CustomerForm = ({
               <MasterErrorText message={formik.errors.customerAddress} />
             )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='email'
             label='Email'
@@ -95,7 +95,7 @@ const CustomerForm = ({
             <MasterErrorText message={formik.errors.customerEmail} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Billing Name'
@@ -111,7 +111,7 @@ const CustomerForm = ({
             <MasterErrorText message={formik.errors.billingName} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Billing Address'
@@ -123,11 +123,12 @@ const CustomerForm = ({
             required={true}
             disabled={isDisabled}
           />
-          {formik.errors?.billingAddress && formik.touched?.billingAddress && (
-            <MasterErrorText message={formik.errors.billingAddress} />
-          )}
+          {formik.errors?.billingAddress &&
+            formik.touched?.billingAddress && (
+              <MasterErrorText message={formik.errors.billingAddress} />
+            )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Contact Number'
@@ -143,7 +144,7 @@ const CustomerForm = ({
             <MasterErrorText message={formik.errors.contactNumber} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='NID'
@@ -159,7 +160,7 @@ const CustomerForm = ({
             <MasterErrorText message={formik.errors.nid} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='BIN'
@@ -174,7 +175,7 @@ const CustomerForm = ({
             <MasterErrorText message={formik.errors.bin} />
           )}
         </div>
-        <div className='col-md-4 col-lg-3'>
+        <div className='col-md-4 col-lg-4'>
           <MasterInput
             type='text'
             label='Licence Number'
@@ -192,8 +193,11 @@ const CustomerForm = ({
         </div>
         <div className='col-12 mt-2'></div>
         {!isDisabled && (
-          <div className='col-md-12 mt-3 text-right'>
-            <FormikSaveButton id={updateFormData?.customerId} formik={formik} />
+          <div className='col-md-12 mt-5 text-right'>
+            <FormikSaveButton
+              id={updateFormData?.customerId}
+              formik={formik}
+            />
             <FormikResetButton
               className='ml-2'
               formik={formik}
@@ -201,7 +205,7 @@ const CustomerForm = ({
             />
           </div>
         )}
-        <div className='col-12 mb-2'></div>
+        <div className='col-12 mb-3'></div>
       </div>
     </>
   );
