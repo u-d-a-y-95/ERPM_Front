@@ -131,7 +131,11 @@ function SimpleMasterList(props) {
         </div>
       ) : null}
 
-      <div className='master-list'>
+      <div className='master-list' style={props?.config?.height ? {
+        height: `${props.config.height}px`
+      } : {
+        height: `400px`
+      }}>
         <table className='table table-borderless simple-master-table'>
           <thead>
             <tr key={"_index"}>

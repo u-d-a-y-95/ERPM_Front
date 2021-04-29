@@ -47,77 +47,75 @@ function ItemSubCategoryForm({
 
   return (
     <>
-      <form>
-        <div className='row'>
-          <div className='col-md-4 col-lg-4'>
-            <MasterSelect
-              label='Item Type'
-              name='itemType'
-              data={itemTypeDropdownList}
-              value={formik.values?.itemType}
-              onChange={(value) => {
-                formik.setFieldValue("itemType", value);
-                getItemCategoryDropdownList(
-                  setItemCategoryDropdownList,
-                  setLoading,
-                  userCurrentInfo,
-                  value?.value
-                );
-              }}
-              onBlur={formik.handleBlur}
-              disabled={isDisabled}
-              required={true}
-              placeholder='Select Item Type'
-            />
-          </div>
-          <div className='col-md-4 col-lg-4'>
-            <MasterSelect
-              label='Category'
-              name='itemCategory'
-              data={itemCategoryDropdownList}
-              value={formik.values?.itemCategory}
-              onChange={(value) => {
-                formik.setFieldValue("itemCategory", value);
-              }}
-              onBlur={formik.handleBlur}
-              disabled={!formik?.values?.itemType || isDisabled}
-              required={true}
-              placeholder='Select Item itemCategory'
-            />
-          </div>
-          <div className='col-md-4 col-lg-4'>
-            <MasterInput
-              label='Sub-Category'
-              name='subCategory'
-              type='text'
-              required={true}
-              value={formik.values?.subCategory}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              placeholder='Enter Sub Category'
-              disabled={!formik?.values?.itemCategory || isDisabled}
-            />
-            {formik.errors?.subCategory && formik.touched.subCategory && (
-              <MasterErrorText message={formik.errors.subCategory} />
-            )}
-          </div>
-          <div className='col-12 mt-5'></div>
-          {!isDisabled && (
-            <div className='col-md-12 mt-3 text-right'>
-              <FormikSaveButton
-                id={updateFormData?.itemSubCategoryId}
-                formik={formik}
-              />
-              <FormikResetButton
-                className='ml-2'
-                formik={formik}
-                formikData={updateFormData}
-              />
-            </div>
-          )}
-          <div className='col-12 mb-3'></div>
+      <div className='row'>
+        <div className='col-md-4 col-lg-4'>
+          <MasterSelect
+            label='Item Type'
+            name='itemType'
+            data={itemTypeDropdownList}
+            value={formik.values?.itemType}
+            onChange={(value) => {
+              formik.setFieldValue("itemType", value);
+              getItemCategoryDropdownList(
+                setItemCategoryDropdownList,
+                setLoading,
+                userCurrentInfo,
+                value?.value
+              );
+            }}
+            onBlur={formik.handleBlur}
+            disabled={isDisabled}
+            required={true}
+            placeholder='Select Item Type'
+          />
         </div>
-      </form>
+        <div className='col-md-4 col-lg-4'>
+          <MasterSelect
+            label='Category'
+            name='itemCategory'
+            data={itemCategoryDropdownList}
+            value={formik.values?.itemCategory}
+            onChange={(value) => {
+              formik.setFieldValue("itemCategory", value);
+            }}
+            onBlur={formik.handleBlur}
+            disabled={!formik?.values?.itemType || isDisabled}
+            required={true}
+            placeholder='Select Item itemCategory'
+          />
+        </div>
+        <div className='col-md-4 col-lg-4'>
+          <MasterInput
+            label='Sub-Category'
+            name='subCategory'
+            type='text'
+            required={true}
+            value={formik.values?.subCategory}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            placeholder='Enter Sub Category'
+            disabled={!formik?.values?.itemCategory || isDisabled}
+          />
+          {formik.errors?.subCategory && formik.touched.subCategory && (
+            <MasterErrorText message={formik.errors.subCategory} />
+          )}
+        </div>
+        <div className='col-12 mt-5'></div>
+        {!isDisabled && (
+          <div className='col-md-12 mt-3 text-right'>
+            <FormikSaveButton
+              id={updateFormData?.itemSubCategoryId}
+              formik={formik}
+            />
+            <FormikResetButton
+              className='ml-2'
+              formik={formik}
+              formikData={updateFormData}
+            />
+          </div>
+        )}
+        <div className='col-12 mb-3'></div>
+      </div>
     </>
   );
 }

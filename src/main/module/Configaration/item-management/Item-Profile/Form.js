@@ -8,10 +8,14 @@ import {
   getItemSubCategoryDropdownList,
   getItemTypeDropdownList,
   getUomDropdownList,
+  getBusinessDropDownList
 } from "./http";
 import MasterSelect from "../../../../common/base-component/master-select";
 import FormikSaveButton from "../../../../common/composite-component/formik-save-button";
-import { formValidationSchema } from './util';
+import { formValidationSchema, businessUnitTable } from './util';
+import SimpleMasterTable from "../../../../common/composite-component/simple-master-list";
+import MasterButton from "../../../../common/base-component/master-button";
+import { useSelector } from "react-redux";
 
 const ItemProfileForm = ({
   formData,
@@ -22,24 +26,27 @@ const ItemProfileForm = ({
   const [itemTypeDropdownList, setitemTypeDropdownList] = useState([]);
   const [itemCategoryDropdownList, setItemCategoryDropdownList] = useState([]);
   const [uomDropdownList, setUomDropdownList] = useState([]);
-  const [
-    itemSubCategoryDropdownList,
-    setItemSubCategoryDropdownList,
-  ] = useState([]);
+  const [itemSubCategoryDropdownList, setItemSubCategoryDropdownList] = useState([]);
+  const [businessUnitList, setBusinessUnitList] = useState([])
+  const [addbusinessUnitList, setAddBusinessUnitList] = useState([])
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: formData,
+    initialValues: formData.itemConfig,
     validationSchema: formValidationSchema,
     onSubmit: (values) => {
-      // console.log(values)
-      submitBtnClick(values, formik);
+      const obj = {
+        itemConfig: values,
+        businessUnitList: addbusinessUnitList
+      }
+      submitBtnClick(obj, formik);
     },
   });
 
   useEffect(() => {
     getItemTypeDropdownList(setitemTypeDropdownList);
     getUomDropdownList(setUomDropdownList);
+    getBusinessDropDownList(userCurrentInfo, setBusinessUnitList)
   }, []);
 
   useEffect(() => {
@@ -51,6 +58,9 @@ const ItemProfileForm = ({
       );
     }
   }, [formik?.values?.itemType?.value]);
+  useEffect(() => {
+    setAddBusinessUnitList(formData.businessUnitList)
+  }, [formData.businessUnitList]);
 
   useEffect(() => {
     if (formik?.values?.category?.value) {
@@ -61,6 +71,35 @@ const ItemProfileForm = ({
       );
     }
   }, [formik?.values?.category?.value]);
+
+  const config = businessUnitTable;
+  config.data = addbusinessUnitList;
+  config.action = !isDisabled && [
+    {
+      icon: "fa fa-trash",
+      className: "btn btn-sm btn-primary text-white",
+      event: deleteFromtable,
+    },
+  ] || []
+
+  function deleteFromtable(row) {
+    const businessUnits = addbusinessUnitList.filter(item => item != row)
+    setAddBusinessUnitList(businessUnits)
+  }
+  function addBusinessUnit(row) {
+    setAddBusinessUnitList(prevState => {
+      const obj = {
+        sl: addbusinessUnitList.length + 1,
+        businessUnitName: formik.values.businessUnit.label,
+        businessUnitId: formik.values.businessUnit.value,
+      }
+      if (prevState.find(item => item.businessUnitId == obj.businessUnitId)) {
+        return prevState
+      }
+      return [...prevState, obj]
+
+    })
+  }
 
   return (
     <>
@@ -128,7 +167,7 @@ const ItemProfileForm = ({
             data={itemCategoryDropdownList}
             value={formik?.values?.category}
             onChange={(value) => {
-              if(!value){
+              if (!value) {
                 formik.setFieldValue("category", null);
                 return setItemSubCategoryDropdownList([])
               }
@@ -187,7 +226,6 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik?.errors?.uom} />
           ) : null}
         </div>
-
         <div className="col-md-4 col-lg-4">
           <MasterInput
             label="Part Number"
@@ -204,7 +242,43 @@ const ItemProfileForm = ({
             <MasterErrorText message={formik.errors.partNumber} />
           )}
         </div>
-        
+        <div className="col-md-4 col-lg-4 d-flex align-items-center">
+          <div className="w-90">
+            <MasterSelect
+              label="Business Unit"
+              name="businessUnit"
+              data={businessUnitList}
+              value={formik?.values?.businessUnit}
+              onChange={(value) => {
+                if (!value) {
+                  return formik.setFieldValue("businessUnit", null);
+                }
+                formik.setFieldValue("businessUnit", value);
+              }}
+              onBlur={formik.handleBlur}
+              required={true}
+              placeholder="Select Business Unit"
+              disabled={isDisabled}
+            />
+
+            {formik?.errors?.businessUnit && formik?.touched?.businessUnit ? (
+              <MasterErrorText message={formik?.errors?.businessUnit} />
+            ) : null}
+          </div>
+          <div className="w-10 mt-4 ml-2 text-right">
+            <MasterButton
+              icon="fa fa-plus"
+              label="Add"
+              className="btn btn-sm btn-info"
+              onClick={addBusinessUnit}
+              disabled={isDisabled}
+            />
+          </div>
+
+        </div>
+        <div className="col-md-12">
+          <SimpleMasterTable config={config} />
+        </div>
         <div className="col-12 mt-5"></div>
         {!isDisabled && (
           <div className="col-md-12 mt-3 text-right">
@@ -217,6 +291,9 @@ const ItemProfileForm = ({
           </div>
         )}
         <div className="col-12 mb-3"></div>
+      </div>
+      <div className="row">
+
       </div>
     </>
   );

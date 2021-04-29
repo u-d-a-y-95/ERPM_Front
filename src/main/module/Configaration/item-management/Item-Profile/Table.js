@@ -7,11 +7,11 @@ const ItemProfileTable = ({ viewData, updateToTable, data, createEvent }) => {
   config.data = data;
   config.create = createEvent
   config.action = [
-    {
-      icon: "fa fa-edit",
-      className: "btn btn-sm btn-primary text-white",
-      event: updateToTable
-    },
+    // {
+    //   icon: "fa fa-edit",
+    //   className: "btn btn-sm btn-primary text-white",
+    //   event: updateToTable
+    // },
     {
       icon: "fa fa-eye",
       className: "btn btn-sm btn-primary text-white",

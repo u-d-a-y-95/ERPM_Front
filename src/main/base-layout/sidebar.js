@@ -6,25 +6,27 @@ import '../../assets/css/sidebar.css'
 import logo from "../../assets/image/erp-logo.png"
 import ibosIcon from "../../assets/image/ibosIcon.png"
 import http from "../services/http/http-client"
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch, shallowEqual } from 'react-redux'
 import { dataToDropdownData } from "../services/util/dropDownList"
 import { setUserCurrentInfoBusinessUnitToState } from "../state/actions/user-current-info-action"
 
 function Sidebar(props) {
     const dispatch = useDispatch()
-    const { accountId, userId } = useSelector(state => state.currentInfo)
+    const { accountId, userId } = useSelector(state => state.currentInfo, shallowEqual)
     const [businessUnitList, setBusinessUnitList] = useState([])
     const [selectedBusinessUnit, setSelectedBusinessUnit] = useState({})
-    http.getData('/identity/Menu/GetList')
-        .then(res => {
-            // console.log(res)
-        })
+
     useEffect(() => {
+        // http.getData('/identity/Menu/GetList')
+        //     .then(res => {
+        //         // console.log(res)
+        //     })
+        console.log('test')
         http.getData(`/domain/BusinessUnit/GetListByAccountId/${accountId}/byUserId/${userId}`)
             .then(res => {
                 setBusinessUnitList(dataToDropdownData(res.data, 'businessUnitId', 'businessUnitName'))
             })
-    }, [accountId, userId])
+    }, [])
 
 
 

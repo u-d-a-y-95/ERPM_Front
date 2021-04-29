@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ItemProfileForm from "./Form";
-import { createItemProfile, getList, updateItemProfile } from "./http";
+import { createItemProfile, getList, updateItemProfile, getItemById } from "./http";
 import ItemProfileTable from "./Table";
 import ModalComponent from "../../../../common/composite-component/modal";
 import Loading from "../../../../common/composite-component/loading";
@@ -26,7 +26,10 @@ function ItemProfile() {
   };
 
   const createToTable = () => {
-    setFormData(initialValues);
+    setFormData({
+      itemConfig: initialValues,
+      businessUnitList: []
+    });
     setIsDisabled(false);
     setModalOpen(true);
   };
@@ -39,8 +42,9 @@ function ItemProfile() {
   };
 
   const viewData = (row) => {
-    const data = itemProfileViewUpdatePayloadData(row)
-    setFormData(data);
+    getItemById(row.itemId, setFormData)
+    // const data = itemProfileViewUpdatePayloadData(row)
+    // setFormData(data);
     setIsDisabled(true);
     setModalOpen(true);
   };
@@ -51,7 +55,7 @@ function ItemProfile() {
   }
 
   function submitBtnClick(values, formik) {
-    // console.log(values)
+    console.log(values)
     if (formData?.itemId) {
       return updateItemProfile(
         values,

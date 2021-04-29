@@ -43,6 +43,24 @@ export const tableConfig = {
   ],
   isSearchable: true,
 };
+export const businessUnitTable = {
+  height: 200,
+  headers: [
+    {
+      key: "sl",
+      label: "SL",
+    },
+
+    {
+      key: "businessUnitName",
+      label: "Business Unit Name",
+    },
+    {
+      key: "action",
+      label: "Action",
+    },
+  ],
+};
 
 export const formValidationSchema = Yup.object().shape({
   itemCode: Yup.string().required("Item Code is Required"),
@@ -63,7 +81,7 @@ export const formValidationSchema = Yup.object().shape({
 });
 
 export const itemProfileViewUpdatePayloadData = (values) => {
-  
+
   const payload = {
     sl: values?.sl,
     partNumber: values?.partNumber,
@@ -87,7 +105,7 @@ export const itemProfileViewUpdatePayloadData = (values) => {
       label: values?.uomName
     }
   }
-  
+
   return payload;
 };
 

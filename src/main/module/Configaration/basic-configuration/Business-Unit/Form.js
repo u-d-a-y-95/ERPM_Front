@@ -18,60 +18,59 @@ const BusinessUnitForm = ({ updateFormData, isDisabled, submitBtnClick }) => {
 
   return (
     <>
-      <form>
-        <div className='row'>
-          <div className='col-12 col-md-4 col-lg-4'>
-            <MasterInput
-              type='text'
-              label='Enter Business Unit'
-              name='businessUnitName'
-              placeholder='Business Unit'
-              value={formik.values?.businessUnitName}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              required={true}
-              disabled={isDisabled}
-            />
-            {formik.errors?.businessUnitName &&
-              formik.touched?.businessUnitName && (
-                <MasterErrorText message={formik.errors?.businessUnitName} />
-              )}
-          </div>
-          <div className='col-md-4 col-lg-4'>
-            <MasterInput
-              type='text'
-              label='Enter code'
-              placeholder='Code'
-              name='businessUnitCode'
-              value={formik.values?.businessUnitCode}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              required={true}
-              disabled={isDisabled}
-            />
-            {formik.errors?.businessUnitCode &&
-              formik.touched?.businessUnitCode && (
-                <MasterErrorText message={formik.errors?.businessUnitCode} />
-              )}
-          </div>
-          <div className='col-md-4 col-lg-4'>
-            <MasterInput
-              type='text'
-              label='Enter Address'
-              placeholder='Address'
-              name='businessUnitAddress'
-              value={formik.values?.businessUnitAddress}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              required={true}
-              disabled={isDisabled}
-            />
-            {formik.errors?.businessUnitAddress &&
-              formik.touched?.businessUnitAddress && (
-                <MasterErrorText message={formik.errors.businessUnitAddress} />
-              )}
-          </div>
-          {/* <div className='col-md-4 col-lg-3'>
+      <div className='row'>
+        <div className='col-12 col-md-4 col-lg-4'>
+          <MasterInput
+            type='text'
+            label='Enter Business Unit'
+            name='businessUnitName'
+            placeholder='Business Unit'
+            value={formik.values?.businessUnitName}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            required={true}
+            disabled={isDisabled}
+          />
+          {formik.errors?.businessUnitName &&
+            formik.touched?.businessUnitName && (
+              <MasterErrorText message={formik.errors?.businessUnitName} />
+            )}
+        </div>
+        <div className='col-md-4 col-lg-4'>
+          <MasterInput
+            type='text'
+            label='Enter code'
+            placeholder='Code'
+            name='businessUnitCode'
+            value={formik.values?.businessUnitCode}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            required={true}
+            disabled={isDisabled}
+          />
+          {formik.errors?.businessUnitCode &&
+            formik.touched?.businessUnitCode && (
+              <MasterErrorText message={formik.errors?.businessUnitCode} />
+            )}
+        </div>
+        <div className='col-md-4 col-lg-4'>
+          <MasterInput
+            type='text'
+            label='Enter Address'
+            placeholder='Address'
+            name='businessUnitAddress'
+            value={formik.values?.businessUnitAddress}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            required={true}
+            disabled={isDisabled}
+          />
+          {formik.errors?.businessUnitAddress &&
+            formik.touched?.businessUnitAddress && (
+              <MasterErrorText message={formik.errors.businessUnitAddress} />
+            )}
+        </div>
+        {/* <div className='col-md-4 col-lg-3'>
           <MasterSelect
             label='Base Currency'
             name='baseCurrency'
@@ -92,23 +91,22 @@ const BusinessUnitForm = ({ updateFormData, isDisabled, submitBtnClick }) => {
             <MasterErrorText message={formik.errors?.baseCurrency} />
           )}
         </div> */}
-          <div className='col-12 mt-5'></div>
-          {!isDisabled && (
-            <div className='col-md-12 text-right'>
-              <FormikSaveButton
-                id={updateFormData?.businessUnitId}
-                formik={formik}
-              />
-              <FormikResetButton
-                className='ml-2'
-                formik={formik}
-                formikData={updateFormData}
-              />
-            </div>
-          )}
-          <div className='col-12 mb-3'></div>
-        </div>
-      </form>
+        <div className='col-12 mt-5'></div>
+        {!isDisabled && (
+          <div className='col-md-12 text-right'>
+            <FormikSaveButton
+              id={updateFormData?.businessUnitId}
+              formik={formik}
+            />
+            <FormikResetButton
+              className='ml-2'
+              formik={formik}
+              formikData={updateFormData}
+            />
+          </div>
+        )}
+        <div className='col-12 mb-3'></div>
+      </div>
     </>
   );
 };

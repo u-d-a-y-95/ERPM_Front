@@ -15,7 +15,7 @@ export const createItemProfile = (
   setLoading(true);
   const obj = createPayloadChange(values, userCurrentInfo);
   httpClient
-    .postData("/domain/ItemBasicInfo/Create", obj)
+    .postData("/domain/ItemBusinessUnitConfig/Create", obj)
     .then((res) => {
       formik.setValues(null);
       formik.resetForm();
@@ -33,15 +33,18 @@ export const createItemProfile = (
 const createPayloadChange = (values, userCurrentInfo) => {
   console.log(values);
   const payload = {
-    accountId: userCurrentInfo?.accountId,
-    itemCode: values?.itemCode || "",
-    itemName: values?.itemName || "",
-    partNumber: values?.partNumber || "",
-    itemTypeId: values?.itemType?.value || 0,
-    itemCategoryId: values?.category?.value || 0,
-    itemSubCategoryId: values?.subCategory?.value || 211,
-    uom: values?.uom?.value || 0,
-    actionBy: userCurrentInfo?.userId,
+    itemConfig: {
+      accountId: userCurrentInfo?.accountId,
+      itemCode: values?.itemConfig?.itemCode || "",
+      itemName: values?.itemConfig?.itemName || "",
+      partNumber: values?.itemConfig?.partNumber || "",
+      itemTypeId: values?.itemConfig?.itemType?.value || 0,
+      itemCategoryId: values?.itemConfig?.category?.value || 0,
+      itemSubCategoryId: values?.itemConfig?.subCategory?.value || 211,
+      uom: values?.itemConfig?.uom?.value || 0,
+      actionBy: userCurrentInfo?.userId,
+    },
+    businessUnitList: values?.businessUnitList || []
 
   };
   return payload;
@@ -53,7 +56,7 @@ export const getList = (
   pageNo,
   pageSize,
   setter,
-  setLoading, 
+  setLoading,
   searchTerm
 ) => {
   setLoading(true);
@@ -135,15 +138,15 @@ const updatePayloadChange = (values, userCurrentInfo) => {
     itemCategoryId: values?.category?.value || 0,
     itemSubCategoryId: values?.subCategory?.value || 0,
 
-//   "itemId": 0,
-//   "itemCode": "string",
-//   "itemName": "string",
-//   "partNumber": "string",
-//   "itemTypeId": 0,
-//   "itemCategoryId": 0,
-//   "itemSubCategoryId": 0,
-//   "uomId": 0,
-//   "actionBy": 0
+    //   "itemId": 0,
+    //   "itemCode": "string",
+    //   "itemName": "string",
+    //   "partNumber": "string",
+    //   "itemTypeId": 0,
+    //   "itemCategoryId": 0,
+    //   "itemSubCategoryId": 0,
+    //   "uomId": 0,
+    //   "actionBy": 0
   };
 
   return payload;
@@ -194,7 +197,7 @@ export const getItemSubCategoryDropdownList = (
 ) => {
   httpClient
     .getData(
-        `/domain/ItemSubCategory/GetListByItemCategory?accountId=${userCurrentInfo?.accountId}&itemCategoryId=${itemCategoryId}`
+      `/domain/ItemSubCategory/GetListByItemCategory?accountId=${userCurrentInfo?.accountId}&itemCategoryId=${itemCategoryId}`
     )
     .then((res) => {
       const newData = res?.data?.map((item) => ({
@@ -221,3 +224,45 @@ export const getUomDropdownList = (setter) => {
       console.log("Error", error?.message);
     });
 };
+export const getBusinessDropDownList = (userCurrentInfo, setter) => {
+  httpClient
+    .getData(`/domain/BusinessUnit/GetListByAccountId/${userCurrentInfo.accountId}`)
+    .then((res) => {
+      res?.data?.forEach(item => {
+        item['value'] = item?.businessUnitId;
+        item['label'] = item?.businessUnitName;
+      });
+      setter(res?.data);
+    })
+    .catch((error) => {
+      setter([]);
+      console.log("Error", error?.message);
+    });
+};
+
+
+export const getItemById = (id, setter) => {
+  httpClient
+    .getData(`/domain/ItemBasicInfo/GetById/${id}`)
+    .then((res) => {
+      res.data['itemConfig'] = res?.data['itemBasic']
+      res.data['itemConfig']['itemType'] = {
+        label: res?.data['itemBasic']['itemTypeName'],
+        value: res?.data['itemBasic']['itemTypeId']
+      }
+      res.data['itemConfig']['category'] = {
+        label: res?.data['itemBasic']['itemCategoryName'],
+        value: res?.data['itemBasic']['itemCategoryId']
+      }
+      res.data['itemConfig']['subCategory'] = {
+        label: res?.data['itemBasic']['itemSubCategoryName'],
+        value: res?.data['itemBasic']['itemSubCategoryId']
+      }
+
+      setter(res?.data);
+    })
+    .catch((error) => {
+      setter([]);
+      console.log("Error", error?.message);
+    });
+}
