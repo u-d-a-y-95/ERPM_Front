@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import httpClient from "../../../../services/http/http-client";
 
 //Create Api Call
@@ -62,14 +63,32 @@ const getPayloadChange = (values) => {
 };
 
 // Item UOM Drop Down List
-export const getUserDropdownListAction = (setter) => {
+export const getUserDropdownList = (setter, setLoading) => {
+  setLoading(true);
   httpClient
     .getData(`/domain/UserType/GetList`)
     .then((res) => {
       setter(res?.data);
+      setLoading(false);
     })
     .catch((error) => {
+      setLoading(false);
       setter([]);
-      console.log("Error", error?.message);
+      toast.error(error?.response?.data?.message);
+    });
+};
+
+export const getUserAvailable = (loginId, setLoading, setter) => {
+  setLoading(true);
+  httpClient
+    .getData(`/domain/User/GetUserAvailability?loginId=${loginId}`)
+    .then((res) => {
+      setLoading(false);
+      setter(res?.data?.isAvailable);
+    })
+    .catch((error) => {
+      setLoading(false);
+      setter([]);
+      toast.error(error?.response?.data?.message);
     });
 };
