@@ -14,28 +14,32 @@ export const tableConfig = {
       label: "SL",
     },
     {
-      key: "itemCode",
-      label: "Code",
+      key: "userId",
+      label: "User Id",
     },
     {
-      key: "itemName",
-      label: "Item",
+      key: "userName",
+      label: "User Name",
     },
     {
-      key: "itemTypeName",
-      label: "Item Type",
+      key: "loginId",
+      label: "Login Id",
     },
     {
-      key: "itemCategoryName",
-      label: "Category",
+      key: "isSupperId",
+      label: "Is Supper User?",
     },
     {
-      key: "itemSubCategoryName",
-      label: "Sub-Category",
+      key: "createdBy",
+      label: "Created By",
     },
     {
-      key: "status",
-      label: "Status",
+      key: "createdDate",
+      label: "Created Date",
+    },
+    {
+      key: "",
+      label: "Actions",
     },
   ],
   isSearchable: true,
@@ -49,6 +53,17 @@ export const formsValidationSchema = Yup.object().shape({
   }),
   isSuperUser: Yup.object().shape({
     value: Yup.string().required("User Status is required"),
+  }),
+});
+
+export const tableFormExportValues = { userType: "", status: "" };
+
+export const tableFormValidationSchema = Yup.object().shape({
+  userType: Yup.object().shape({
+    value: Yup.string().required("User Type is required"),
+  }),
+  status: Yup.object().shape({
+    value: Yup.string().required("Status is required"),
   }),
 });
 
@@ -76,5 +91,3 @@ export const itemProfileViewUpdatePayloadData = (value) => {
   };
   return payload;
 };
-
-
