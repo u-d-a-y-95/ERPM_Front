@@ -12,40 +12,24 @@ import { getUserDropdownListAction, createUser } from './http';
 
 const UserForm = ({
   updateFormData,
-  populateTable,
-  isDisabled,
   setUpdateFormData,
-  accountId,
-  businessUnitId,
+  isDisabled,
+  submitBtnClick,
+  setLoading,
 }) => {
   const [userDropdownList, setUserDropdownList] = useState([]);
 
   const formik = useFormik({
     enableReinitialize: true,
-    initialValues: updateFormData || formsInitialValues,
-    // initialValues: formsInitialValues,
+    initialValues: updateFormData,
     validationSchema: formsValidationSchema,
     onSubmit: (values) => {
-      //   if (updateFormData?.itemCode) {
-      //     return updateUser(
-      //       values,
-      //       formik,
-      //       populateTable,
-      //       setUpdateFormData
-      //     );
-      //   }
-      return createUser(
-        values,
-        formik,
-        populateTable,
-        setUpdateFormData
-      );
+      submitBtnClick(values, formik);
     },
   });
 
   useEffect(() => {
     getUserDropdownListAction(setUserDropdownList);
-
   }, []);
 
   const isSupperUser = [
@@ -61,16 +45,11 @@ const UserForm = ({
 
   return (
     <>
-      {/* {updateFromData ? (
-        <h3>Edit Item Basic Information</h3>
-      ) : (
-        <h3>Create Item Basic Information</h3>
-      )} */}
-      <div className="row">
-        <div className="col-md-4 col-lg-3">
+      <div className='row'>
+        <div className='col-md-4 col-lg-3'>
           <MasterSelect
-            label="User Type"
-            name="userType"
+            label='User Type'
+            name='userType'
             data={userDropdownList}
             value={formik.values?.userType}
             onChange={(value) => {
@@ -79,74 +58,56 @@ const UserForm = ({
             onBlur={formik.handleBlur}
             disabled={isDisabled}
             required={true}
-            placeholder="Select User Type"
+            placeholder='Select User Type'
           />
 
           {formik?.errors?.userType && formik?.touched?.userType ? (
             <MasterErrorText message={formik?.errors?.userType} />
           ) : null}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className='col-md-4 col-lg-3'>
           <MasterInput
-            label="User Name"
-            name="userName"
-            type="text"
+            label='User Name'
+            name='userName'
+            type='text'
             required={true}
             value={formik.values?.userName}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Enter User Name"
+            placeholder='Enter User Name'
             disabled={isDisabled}
           />
           {formik.errors?.userName && formik.touched.userName && (
             <MasterErrorText message={formik.errors.userName} />
           )}
         </div>
-        <div className="col-md-4 col-lg-3">
+        <div className='col-md-4 col-lg-3'>
           <MasterInput
-            label="User/Login Id"
-            name="loginId"
-            type="text"
+            label='User/Login Id'
+            name='loginId'
+            type='text'
             required={true}
             value={formik.values?.loginId}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            placeholder="Enter User/Log Id"
+            placeholder='Enter User/Log Id'
             disabled={isDisabled}
           />
           {formik.errors?.loginId && formik.touched.loginId && (
             <MasterErrorText message={formik.errors.loginId} />
           )}
         </div>
-        <div className="col-md-4 col-lg-3">
-          <MasterSelect
-            label="Is Super User"
-            name="isSuperUser"
-            data={isSupperUser}
-            // data={categotyDDL}
-            value={formik.values?.isSuperUser}
-            onChange={(value) => {
-              formik.setFieldValue("isSuperUser", value);
-            }}
-            onBlur={formik.handleBlur}
-            required={true}
-            placeholder="Select User Status"
-          />
+        <div className='col-md-4 col-lg-3'>{/* <MasterCheckBox /> */}</div>
 
-          {formik?.errors?.isSuperUser && formik?.touched?.isSuperUser ? (
-            <MasterErrorText message={formik?.errors?.isSuperUser} />
-          ) : null}
-        </div>
-
-        <div className="col-md-12 mt-3 text-left">
+        <div className='col-md-12 mt-3 text-left'>
           <FormikSaveButton formik={formik} />
           <FormikResetButton
-            className="ml-2"
+            className='ml-2'
             formik={formik}
             formikData={setUpdateFormData}
           />
         </div>
-      </div>
+      </div >
     </>
   );
 };

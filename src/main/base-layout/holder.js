@@ -16,7 +16,7 @@ function Holder() {
   return (
     <>
       <Switch>
-        <Route path="/configuration-management/basic/business-unit">
+        <Route path='/configuration-management/basic/business-unit'>
           <BusinessUnit />
         </Route>
         <Route path="/configuration-management/basic/user">
@@ -25,16 +25,16 @@ function Holder() {
         <Route path="/configuration-management/item-management/item-category">
           <ItemCategory />
         </Route>
-        <Route path="/configuration-management/item-management/item-subcategory">
+        <Route path='/configuration-management/item-management/item-subcategory'>
           <ItemSubCategory />
         </Route>
-        <Route path="/configuration-management/item-management/item-profile">
+        <Route path='/configuration-management/item-management/item-profile'>
           <ItemProfile />
         </Route>
-        <Route path="/procurement-management/configuration/supplier">
+        <Route path='/procurement-management/configuration/supplier'>
           <Supplier />
         </Route>
-        <Route path="/sales-management/configuration/customer">
+        <Route path='/sales-management/configuration/customer'>
           <Customer />
         </Route>
         <Route path="/configuration-management/item-management/uom">
